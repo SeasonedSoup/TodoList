@@ -1,0 +1,3 @@
+Create To-Do items and what properties they should have
+
+To-Do list should have projects 
