@@ -1,1 +1,3 @@
-console.log("HELLO, ODINITE");
+import { showToDoItem } from "./domManip";
+
+showToDoItem();
