@@ -6,9 +6,17 @@ class Project {
         this.toDoItems = []
     }
 
-    addtoDoToProject = (title, description, dueDate, priority) => {
+    addtoDoInProject = (title, description, dueDate, priority) => {
     const toDoItem = new ToDoItem(title, description, dueDate, priority)
     this.toDoItems.push(toDoItem)
+    }
+
+    removeToDoInProject = (index) => {
+        this.toDoItems.splice(index, 1)
+    }
+
+    showToDoInProject = () => {
+        return this.toDoItems
     }
 }
 
