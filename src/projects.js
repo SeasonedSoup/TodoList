@@ -1,12 +1,12 @@
 import { ToDoItem } from "./ToDoClass"
 
-class Project {
+export class Project {
     constructor(name) {
         this.name = name
         this.toDoItems = []
     }
 
-    addtoDoInProject = (title, description, dueDate, priority) => {
+    addToDoInProject = (title, description, dueDate, priority) => {
     const toDoItem = new ToDoItem(title, description, dueDate, priority)
     this.toDoItems.push(toDoItem)
     }
@@ -18,10 +18,14 @@ class Project {
     showToDoInProject = () => {
         return this.toDoItems
     }
+
+    returnName = () => {
+        return this.name
+    }
 }
 
 //initial idea a class that stores the projects and manage which project should a to do list go, creating new projects etc.
-function ProjectManager() {
+export function ProjectManager() {
     const projects = []
 
     const getProjects = () => projects
@@ -38,5 +42,3 @@ function ProjectManager() {
 
     return {createProject, getProjects}
 }
-
-const dog = ProjectManager();

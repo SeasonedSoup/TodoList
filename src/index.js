@@ -1,3 +1,4 @@
-import { showToDoItem } from "./domManip";
+import { showProjects} from "./domManip";
 
-showToDoItem();
+
+showProjects();

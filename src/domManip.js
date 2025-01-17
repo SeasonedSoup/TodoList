@@ -1,12 +1,34 @@
 //show projects and to dos in the website
 
-import { ToDoItem } from "./ToDoClass";
+import { Project } from "./projects";
+import { ProjectManager } from "./projects";
 
-export const showToDoItem = () => {
-    const toDoItem = new ToDoItem("Feed Dog", "I need feed dog", "tommorow", "medium")
-    const listDiv = document.querySelector('.todo-list')
-    const h1 = document.createElement('h1')
-    h1.textContent = toDoItem.title
-    listDiv.appendChild(h1)
-}  
+export const showProjects = () => {
+    const projectManager = ProjectManager();
+    //test
+    projectManager.createProject('Project 1');
+    projectManager.createProject('Project 2');
+
+    console.log(projectManager.getProjects());
+
+    const projects = projectManager.getProjects();
+
+    const projectDiv = document.querySelector('.projects-container')
+    //clear
+    projectDiv.textContent = ''
+
+    projects.forEach((project) =>  {
+
+        const projectElement = document.createElement('div')
+        projectElement.classList.add('project')
+
+        const projectTitle = document.createElement('h2')
+        projectTitle.textContent = project.returnName();
+
+        projectElement.appendChild(projectTitle);
+        projectDiv.appendChild(projectElement)
+    });
+}
+
+
 
