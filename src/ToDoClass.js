@@ -14,7 +14,9 @@ export class ToDoItem{
     }
     //hmm how do i toggle priority
     togglePriority = () => {
-
+        const validPriorities = ['low', 'medium', 'high']
+        let index = validPriorities.indexOf(this.priority)
+        this.priority = validPriorities[(index + 1) % validPriorities.length]
     }
 
 
