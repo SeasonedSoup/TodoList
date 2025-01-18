@@ -6,16 +6,11 @@ import { ProjectManager } from "./projects";
 export const showProjects = () => {
     const projectManager = ProjectManager();
     //test
-    projectManager.createProject('Project 1');
-    projectManager.createProject('Project 2');
-
-    console.log(projectManager.getProjects());
-
     const projects = projectManager.getProjects();
 
     const projectDiv = document.querySelector('.projects-container')
     //clear
-    projectDiv.textContent = ''
+    projectDiv.innerHTML = ''
 
     projects.forEach((project) =>  {
 
@@ -28,6 +23,19 @@ export const showProjects = () => {
         projectElement.appendChild(projectTitle);
         projectDiv.appendChild(projectElement)
     });
+}
+
+export const showToDos = (project) => {
+
+    if (!(project instanceof Project)) {
+        throw new Error('noob')
+    }
+    
+    toDosDiv = document.querySelector('.todos-container');
+
+    toDosDiv.innerHTML = '';
+    //display todos
+    const toDos = project.showToDoInProject();
 }
 
 

@@ -14,7 +14,7 @@ export class Project {
     removeToDoInProject = (index) => {
         this.toDoItems.splice(index, 1)
     }
-
+    //show the todos in the project
     showToDoInProject = () => {
         return this.toDoItems
     }
