@@ -36,6 +36,8 @@ export const showToDos = (project) => {
     toDosDiv.innerHTML = '';
     //display todos
     const toDos = project.showToDoInProject();
+    //to be continued index will be like an id identifier
+    toDos.forEach((toDo, index))
 }
 
 
