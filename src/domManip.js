@@ -31,13 +31,27 @@ export const showToDos = (project) => {
         throw new Error('noob')
     }
     
-    toDosDiv = document.querySelector('.todos-container');
+    const toDosDiv = document.querySelector('.todos-container');
 
     toDosDiv.innerHTML = '';
     //display todos
     const toDos = project.showToDoInProject();
     //to be continued index will be like an id identifier
-    toDos.forEach((toDo, index))
+    //for each todo create a div that will contain certain details only atleast title and due date in the future
+    toDos.forEach((toDo, index) => {
+        const toDoDiv = document.createElement('div')
+        toDoDiv.classList.add('to-do-details')
+        //indexing has not yet been made for the project class when creating a todo i think
+        toDoDiv.dataset.index = index
+
+        const title = document.createElement(h3)
+        title.textContent = toDo.title
+
+        toDoDiv.appendChild(title);
+
+        toDosDiv.appendChild(toDoDiv);
+
+    })       
 }
 
 
