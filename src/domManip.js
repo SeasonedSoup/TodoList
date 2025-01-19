@@ -3,9 +3,14 @@
 import { Project } from "./projects";
 import { ProjectManager } from "./projects";
 
+
 export const showProjects = () => {
     const projectManager = ProjectManager();
     //test
+    projectManager.createProject('Dog Related Stuff')
+    dog-related-stuff.addToDoInProject('Feed Dog', 'Yes', 'Now', 'low');
+    showToDos(dog-related-project);
+    
     const projects = projectManager.getProjects();
 
     const projectDiv = document.querySelector('.projects-container')
@@ -38,11 +43,10 @@ export const showToDos = (project) => {
     const toDos = project.showToDoInProject();
     //to be continued index will be like an id identifier
     //for each todo create a div that will contain certain details only atleast title and due date in the future
-    toDos.forEach((toDo, index) => {
+    toDos.forEach((toDo) => {
         const toDoDiv = document.createElement('div')
         toDoDiv.classList.add('to-do-details')
         //indexing has not yet been made for the project class when creating a todo i think
-        toDoDiv.dataset.index = index
 
         const title = document.createElement(h3)
         title.textContent = toDo.title

@@ -31,7 +31,8 @@ export function ProjectManager() {
     const getProjects = () => projects
     
     const createProject = (name) => {
-        const project = new Project(name)
+        const cleanName = name.trim().replace(/\s+/g, '-').toLowerCase(); //help from ai
+        const project = new Project(cleanName)
         projects.push(project)
     }
     const defaultProject = () => {
