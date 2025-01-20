@@ -7,9 +7,7 @@ import { ProjectManager } from "./projects";
 export const showProjects = () => {
     const projectManager = ProjectManager();
     //test not working
-    projectManager.createProject('Dog Related Stuff')
-    dog-related-stuff.addToDoInProject('Feed Dog', 'Yes', 'Now', 'low');
-    showToDos(dog-related-project);
+
     
     const projects = projectManager.getProjects();
 
@@ -48,7 +46,7 @@ export const showToDos = (project) => {
         toDoDiv.classList.add('to-do-details')
         //indexing has not yet been made for the project class when creating a todo i think
 
-        const title = document.createElement(h3)
+        const title = document.createElement('h3')
         title.textContent = toDo.title
 
         toDoDiv.appendChild(title);

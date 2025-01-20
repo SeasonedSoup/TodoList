@@ -2,7 +2,7 @@ import { ToDoItem } from "./ToDoClass"
 
 export class Project {
     constructor(name) {
-        this.name = name
+        this.name = name.trim().replace(/\s+/g, '-').toLowerCase()
         this.toDoItems = []
     }
 
@@ -23,9 +23,11 @@ export class Project {
         return this.name
     }
 }
-
+//makes sure theres only one projectManager
+let instance;
 //initial idea a class that stores the projects and manage which project should a to do list go, creating new projects etc.
 export function ProjectManager() {
+    if (instance) return instance;
     const projects = []
 
     const getProjects = () => projects
@@ -39,7 +41,13 @@ export function ProjectManager() {
         createProject('Default Project')
     }
 
+    const getProjectByName = (name) => {
+        const cleanName = name.trim().replace(/\s+/g, '-').toLowerCase();
+        return projects.find(project => project.returnName() === cleanName);
+    }
+
     defaultProject();
 
-    return {createProject, getProjects}
+    instance = {createProject, getProjects, getProjectByName}
+    return instance
 }
