@@ -8,36 +8,40 @@
 <body>
     <div class="content">
         <div class="form">
-            <form action="" id="create-to-do">
-                <label for="project">Project: </label>
-                <select name="project" id="project">
-                    <option value="Default-Project">Default Project</option>
-                    <option value="Create Project">Create New Project</option>
-                </select>
-                <label for="title">Title: </label>
-                <input type="text" id="Title">
+            <button class="add-todo"></button>
+            <div id="add-todo-form" style="display: none;">
+                <form action="" id="add-todo">
+                    <label for="project">Project: </label>
+                    <select name="project" id="project">
+                        <option value="Default-Project">Default Project</option>
+                        <option value="Create Project">Create New Project</option>
+                    </select>
+                    <label for="title">Title: </label>
+                    <input type="text" id="Title">
                 
-                <label for="dueDate">Due Date:</label>
-                <input type="date" id="dueDate">
+                    <label for="dueDate">Due Date:</label>
+                    <input type="date" id="dueDate">
                 
-                <label for="priority"></label>
-                <select name="priority" id="priority">Priority: 
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
+                    <label for="priority"></label>
+                    <select name="priority" id="priority">Priority: 
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
                 
-                <label for="notes">Notes</label>
-               <input type="text" id="notes">
-                <label for="checklist">This will have a checklist</label>
-                <!-- storage for added to dos -->
-                <ul class="lists-of-todos"></ul>
+                    <label for="notes">Notes</label>
+                    <input type="text" id="notes">
+                    <label for="checklist">This will have a checklist</label>
+                    <!-- storage for added to do checklists -->
+                    <ul class="lists-of-todos"></ul>
 
-                <input type="text" id="insert-checklist" name="checklist" placeholder="Add this to checklist">
-                <button class="insert-checklist">Add Item to checklist</button>
-                <button type="submit">Submit To-Do</button>
-                <button type="Reset">Reset To-Do</button>
-            </form>
+                    <input type="text" id="insert-checklist" name="insert-checklist" placeholder="Add this to checklist">
+                    <button class="insert-checklist">Add Item to checklist</button>
+                    <br>
+                    <button type="submit">Submit To-Do</button>
+                    <button type="Reset">Reset To-Do</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
