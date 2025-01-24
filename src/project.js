@@ -23,11 +23,9 @@ export class Project {
         return this.name
     }
 }
-//makes sure theres only one projectManager
-let instance;
+
 //initial idea a class that stores the projects and manage which project should a to do list go, creating new projects etc.
 export function ProjectManager() {
-    if (instance) return instance;
     const projects = []
 
     const getProjects = () => projects
@@ -47,7 +45,4 @@ export function ProjectManager() {
     }
 
     defaultProject();
-
-    instance = {createProject, getProjects, getProjectByName}
-    return instance
 }
