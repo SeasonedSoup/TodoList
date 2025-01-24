@@ -16,6 +16,7 @@ class ToDoItem {
 
     // ideas
     // toggleChecklist
+    //createandappendchecklsits?
 }
 
 export default ToDoItem;
