@@ -1,4 +1,4 @@
-export class ToDoItem{
+class ToDoItem {
     constructor(title, description, dueDate, priority = 'low', checklist = []) {
         const validPriorities = ['low', 'medium', 'high']
 
@@ -17,3 +17,5 @@ export class ToDoItem{
     // ideas
     // toggleChecklist
 }
+
+export default ToDoItem;
