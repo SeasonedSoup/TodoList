@@ -1,5 +1,5 @@
-class ToDoItem {
-    constructor(title, description, dueDate, priority = 'low', checklist = []) {
+class CreateToDoItem {
+    constructor(title, description, dueDate, priority = 'low') {
         const validPriorities = ['low', 'medium', 'high']
 
         this.title = title;
@@ -7,7 +7,6 @@ class ToDoItem {
         this.dueDate = dueDate;
         this.priority = validPriorities.includes(priority.toLowerCase()) ? priority.toLowerCase() : 'low'; //checks if the prio para is included as a valid priority
         this.complete = false;
-        this.checklist = checklist;
     }
 
     toggleComplete = () => {
@@ -19,4 +18,4 @@ class ToDoItem {
     //createandappendchecklsits?
 }
 
-export default ToDoItem;
+export default CreateToDoItem;
