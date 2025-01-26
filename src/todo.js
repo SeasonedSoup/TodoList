@@ -1,22 +1,24 @@
-export default CreateToDoItem;
+import {ProjectFunc} from "./project";
 
-import ProjectManager from "./project";
+export const ToDoFunc = () => {
 
-class CreateToDoItem {
-    constructor(title, description, dueDate, priority = 'low') {
-        const validPriorities = ['low', 'medium', 'high']
+    const instanceOfProjects = ProjectFunc();
 
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = validPriorities.includes(priority.toLowerCase()) ? priority.toLowerCase() : 'low'; //checks if the prio para is included as a valid priority
-        this.complete = false;
+    toDoArr = [];
+
+    const createToDo = (title, description, dueDate, priority) => {
+        return {title, description, dueDate, priority};
     }
-    returnDetails = () => {
-        return {this.title, this}
+
+    const insertToDoToProject = (projectPosition, title, description, dueDate, priority) => {
+        const addedToDo = createToDo(title, description, dueDate, priority);
+
+        instanceOfProjects.getProjectArr()[projectPosition].toDoList.push(addedToDo)
     }
+
+    return {
+        createToDo,
+        insertToDoToProject
+    };
 }
 
-// ideas
-    // toggleChecklist
-    //createandappendchecklsits?
