@@ -15,6 +15,14 @@ export const ToDoFunc = () => {
 
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.push(addedToDo)
     }
+    //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
+
+    const updateToDo = (projectPosition, toDoPosition, title, description, dueDate, priority) => {
+        instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1, {projectPosition, toDoPosition, title, description, dueDate, priority});
+    }
+    const removeToDo = (projectPosition, toDoPosition) => {
+        instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
+    }
 
     return {
         createToDo,
