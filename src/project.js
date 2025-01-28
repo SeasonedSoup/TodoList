@@ -12,6 +12,7 @@ export const ProjectFunc = () => {
 
     const updateProject = (projectPosition, name, desc, toDoList) => {
         projectArr.splice(projectPosition, 1, {name, desc, toDoList})
+        
     }
 
     const deleteProject = (projectPosition) => {
@@ -24,6 +25,8 @@ export const ProjectFunc = () => {
     return {
         createProject,
         addProjectToProjectArr,
-        getProjectArr
+        getProjectArr,
+        updateProject,
+        deleteProject
     };
 }

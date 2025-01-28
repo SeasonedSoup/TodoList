@@ -26,7 +26,9 @@ export const ToDoFunc = () => {
 
     return {
         createToDo,
-        insertToDoToProject
+        insertToDoToProject,
+        updateToDo,
+        removeToDo
     };
 }
 
