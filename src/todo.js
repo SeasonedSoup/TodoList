@@ -24,11 +24,21 @@ export const ToDoFunc = () => {
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
     }
 
+    const selectToDo = (projectPosition) => {
+        try {
+            return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
+        }
+        catch (err) {
+            console.log("It seems I am not able to select this to do 'trying again'");
+        }
+    }
+
     return {
         createToDo,
         insertToDoToProject,
         updateToDo,
-        removeToDo
+        removeToDo,
+        selectToDo
     };
 }
 
