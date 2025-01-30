@@ -5,8 +5,8 @@ export const ProjectFunc = () => {
         return {name, desc, toDoList};
     }
     
-    const addProjectToProjectArr = (name = 'Default Project', desc, toDoList = []) => {
-        const addedProject = createProject(name, desc, toDoList) 
+    const addProjectToProjectArr = (name = 'Default Project', desc = 'Welcome to your first project!', toDoList = []) => {
+        const addedProject = createProject(name, desc, toDoList);
         projectArr.push(addedProject);
     }
 
@@ -18,8 +18,21 @@ export const ProjectFunc = () => {
     const deleteProject = (projectPosition) => {
         projectArr.splice(projectPosition, 1)
     }
+
+    const saveProjectLocally = () => {
+        localStorage.clear();
+        localStorage.setItem('Project', JSON.stringify(getProjectArr()));
+    }
+
+    const restoreProjectLocally = () => {
+        savedData = localStorage.getItem('Project');
+        projectArr = savedData ? JSON.parse(savedData) : addProjectToProjectArr();
+    }
     
-    const getProjectArr = (projectPosition) => projectArr;
+    const getProjectArr = () => projectArr;
+
+    getProjectArr();
+    restoreProjectLocally();
 
     
     return {
@@ -27,6 +40,8 @@ export const ProjectFunc = () => {
         addProjectToProjectArr,
         getProjectArr,
         updateProject,
-        deleteProject
+        deleteProject,
+        saveProjectLocally,
+        restoreProjectLocally
     };
 }
