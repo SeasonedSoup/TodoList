@@ -1,8 +1,8 @@
 export const ProjectFunc = () => {
-    const projectArr = [];
+    let projectArr = [];
                                                             //this is an array we push on todo.js once we add a to do on a project
     const createProject = (name = 'Default Project', desc, toDoList) => {
-        return {name, desc, toDoList};
+        return {name, desc, toDoList}; //object
     }
     
     const addProjectToProjectArr = (name = 'Default Project', desc = 'Welcome to your first project!', toDoList = []) => {
@@ -25,13 +25,12 @@ export const ProjectFunc = () => {
     }
 
     const restoreProjectLocally = () => {
-        savedData = localStorage.getItem('Project');
-        projectArr = savedData ? JSON.parse(savedData) : addProjectToProjectArr();
+        const savedData = localStorage.getItem('Project');
+        projectArr = savedData ? JSON.parse(savedData) : [];
     }
     
     const getProjectArr = () => projectArr;
 
-    getProjectArr();
     restoreProjectLocally();
 
     
