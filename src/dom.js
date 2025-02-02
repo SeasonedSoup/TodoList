@@ -17,7 +17,6 @@ export const ProjectDisplayFunc = () => {
     instanceOfProjects.addProjectToProjectArr("Project 0.1")
 
     const projectContainer = document.querySelector('.container');
-    projectContainer.textContent = "";
     
     const projects = instanceOfProjects.getProjectArr();
 
@@ -33,10 +32,18 @@ export const ProjectDisplayFunc = () => {
         projectContainer.appendChild(positionDiv);
     })
     
-    
-    //const h1 = document.createElement('h1');
+    //could be used to return data and give it to a controller?? to be noted
+   const returnProjectDatas = () => {
 
+     const projects = instanceOfProjects.getProjectArr();
     
-    
-
+        projects.forEach((project, index) => {
+            let name = project.name;
+            let desc = project.desc;
+            let toDoList = project.todos
+            let noOfTodos = toDoList.length();
+            let positionProject = index;
+            return {name, desc, toDoList, noOfTodos, positionProject};
+        })
+    }
 }
