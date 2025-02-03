@@ -33,9 +33,9 @@ export const ProjectDisplayFunc = () => {
     })
     
     //could be used to return data and give it to a controller?? to be noted
-   const returnProjectDatas = () => {
+    const returnProjectDatas = () => {
 
-     const projects = instanceOfProjects.getProjectArr();
+        const projects = instanceOfProjects.getProjectArr();
     
         projects.forEach((project, index) => {
             let name = project.name;
@@ -46,10 +46,32 @@ export const ProjectDisplayFunc = () => {
             return {name, desc, toDoList, noOfTodos, positionProject};
         })
     }
+    
+    const ProjectController = ({name, desc, toDoList, noOfTodos, positionProject}) => {
+
+    }
+
+    return { 
+        returnProjectDatas
+        };
 }
 
  //next idea is show todos on each project maybe add a button or make the project text itself a button not sure how id do that but to be noted
 //add a button or maybe default that shows display on a different container but it has to follow the proper projects toDoList
-const toDoDisplayFunc = () => {
+const toDoDisplayFunc = (projectPosition) => {
     
+    const instanceOfProjects = ProjectFunc();
+    const instanceOfTodos = ToDoFunc();
+
+    const toDoContainer = document.querySelector('.toDoContainer');
+    toDoContainer.textContent = '';
+
+    const title = document.querySelector('.title');
+    title.textContent = '';
+    
+    
+    //instanceOfTodos.
+
+    //ok so to display the todo the todo will be on a todoarray on todo.js the selectToDoFunction will play a part here
+
 }

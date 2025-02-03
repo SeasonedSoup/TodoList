@@ -23,7 +23,7 @@ export const ToDoFunc = () => {
     const removeToDo = (projectPosition, toDoPosition) => {
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
     }
-
+    //select specific to do list based on projectPosition
     const selectToDo = (projectPosition) => {
         try {
             return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
