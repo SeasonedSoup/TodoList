@@ -28,6 +28,9 @@ export const ProjectDisplayFunc = () => {
         let positionDiv = document.createElement('div');
         positionDiv.textContent = `Position ${index}`;
 
+        console.log(projectDiv);
+        console.log(positionDiv);
+
         projectContainer.appendChild(projectDiv);
         projectContainer.appendChild(positionDiv);
     })
@@ -37,7 +40,7 @@ export const ProjectDisplayFunc = () => {
 
         const projects = instanceOfProjects.getProjectArr();
     
-        projects.forEach((project, index) => {
+        projects.map((project, index) => {
             let name = project.name;
             let desc = project.desc;
             let toDoList = project.todos
@@ -58,20 +61,48 @@ export const ProjectDisplayFunc = () => {
 
  //next idea is show todos on each project maybe add a button or make the project text itself a button not sure how id do that but to be noted
 //add a button or maybe default that shows display on a different container but it has to follow the proper projects toDoList
-const toDoDisplayFunc = (projectPosition) => {
+export const toDoDisplayFunc = (projectPosition) => {
     
-    const instanceOfProjects = ProjectFunc();
     const instanceOfTodos = ToDoFunc();
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
+    //dummy data for todos
 
-    const title = document.querySelector('.title');
-    title.textContent = '';
+    instanceOfTodos.insertToDoToProject(0, 'Create To Do List App', 'Practice your js skillz', 'now', 'low')
+
+
+   /* const title = document.querySelector('.title');
+    title.textContent = ''; */
+    instanceOfTodos.selectToDo(projectPosition).forEach((toDo, index) => {
+        let toDoDiv = document.createElement('div');
+        toDoDiv.textContent = toDo.title;
+
+        let positionDiv = document.createElement('div');
+        positionDiv.textContent = index;
+        console.log(toDoDiv);
+        console.log(positionDiv);
+        
+        toDoContainer.appendChild(toDoDiv);
+        toDoContainer.appendChild(positionDiv);
+    })
+
     
     
-    //instanceOfTodos.
+    const returnToDoDatas = () => {
+        instanceOfTodos.selectToDo(projectPosition).map((toDo, index) => {
+            let title = toDo.title
+            let description = toDo.description
+            let dueDate = toDo.dueDate
+            let priority = toDo.priority
+            let positionToDo = index;
+
+            return {title, description, dueDate, priority, positionToDo};
+        })
+    }
 
     //ok so to display the todo the todo will be on a todoarray on todo.js the selectToDoFunction will play a part here
 
+
+    //to do controller
 }
