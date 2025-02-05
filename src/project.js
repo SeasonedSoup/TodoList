@@ -1,7 +1,7 @@
 export const ProjectFunc = () => {
     let projectArr = [];
                                                             //this is an array we push on todo.js once we add a to do on a project
-    const createProject = (name = 'Default Project', desc, toDoList) => {
+    const createProject = (name = 'Default Project', desc, toDoList = []) => {
         return {name, desc, toDoList}; //object
     }
     

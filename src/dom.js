@@ -61,31 +61,24 @@ export const ProjectDisplayFunc = () => {
 
  //next idea is show todos on each project maybe add a button or make the project text itself a button not sure how id do that but to be noted
 //add a button or maybe default that shows display on a different container but it has to follow the proper projects toDoList
+const instanceOfTodos = ToDoFunc();
+console.log(instanceOfTodos);  
+//test
+
 export const toDoDisplayFunc = (projectPosition) => {
-    
-    const instanceOfTodos = ToDoFunc();
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
+    
     //dummy data for todos
 
     instanceOfTodos.insertToDoToProject(0, 'Create To Do List App', 'Practice your js skillz', 'now', 'low')
+    console.log(instanceOfTodos.selectToDo(0));
 
 
    /* const title = document.querySelector('.title');
     title.textContent = ''; */
-    instanceOfTodos.selectToDo(projectPosition).forEach((toDo, index) => {
-        let toDoDiv = document.createElement('div');
-        toDoDiv.textContent = toDo.title;
-
-        let positionDiv = document.createElement('div');
-        positionDiv.textContent = index;
-        console.log(toDoDiv);
-        console.log(positionDiv);
-        
-        toDoContainer.appendChild(toDoDiv);
-        toDoContainer.appendChild(positionDiv);
-    })
+    console.table(instanceOfTodos.selectToDo(positionProject));
 
     
     
