@@ -2,11 +2,9 @@
 // constructor(title, description, dueDate, priority = 'low', checklist = []
 //const todo = new CreateToDoItem('Clean Dog', 'must be cleaned', 'now', 'low');
 //const project = createProject()
-import { ProjectDisplayFunc } from "./dom"
-import { toDoDisplayFunc } from "./dom";
+import { ProjectDisplayFunc } from "./display"
 console.log("helloWorld!")
 
-document.addEventListener('DOMContentLoaded', () => {
-    ProjectDisplayFunc();
-    toDoDisplayFunc(0);
-})
+
+ProjectDisplayFunc();
+   

@@ -9,6 +9,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
     
+    
     //dummy data for todos
 
     instanceOfTodos.insertToDoToProject(projectPosition, 'Create To Do List App', 'Practice your js skillz', 'now', 'low')

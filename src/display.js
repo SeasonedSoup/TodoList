@@ -8,14 +8,33 @@ import { ToDoFunc } from "./todo";
 export const ProjectDisplayFunc = () => {  
 
     const instanceOfProjects = ProjectFunc();
+    
+    const container = document.querySelector(".container");
+    container.textContent = '';
+    const title = document.querySelector('.title');
+    title.textContent = '';
+
+    //Assign a name to the title
+    const paragraphTitle = document.createElement('p');
+    paragraphTitle.textContent = 'Projects';
+
+    title.appendChild(paragraphTitle);
+
+    //Button that creates a new project
+    const newProjectBtn = document.createElement("button");
+    newProjectBtn.classList = "newProjectBtn";
+    newProjectBtn.textContent = "New";
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList = "buttonContainer";
+
+    buttonContainer.appendChild(newProjectBtn);
+
+    container.appendChild(buttonContainer);
 
     console.log("instanceOfProjects:", instanceOfProjects);
     const instanceOfTodos = ToDoFunc();
-    //dummy data
-    instanceOfProjects.addProjectToProjectArr("Project 1", "Coding related stuff", []);
-    instanceOfProjects.addProjectToProjectArr("Project 2");
-    instanceOfProjects.addProjectToProjectArr("Project 0.1")
-
+    
     const projectContainer = document.querySelector('.container');
     
     const projects = instanceOfProjects.getProjectArr();
