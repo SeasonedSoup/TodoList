@@ -8,15 +8,18 @@ export const ProjectFunc = () => {
     const addProjectToProjectArr = (name = 'Default Project', desc = 'Welcome to your first project!', toDoList = []) => {
         const addedProject = createProject(name, desc, toDoList);
         projectArr.push(addedProject);
+        saveProjectLocally();
     }
 
     const updateProject = (projectPosition, name, desc, toDoList) => {
         projectArr.splice(projectPosition, 1, {name, desc, toDoList})
+        saveProjectLocally();
         
     }
 
     const deleteProject = (projectPosition) => {
         projectArr.splice(projectPosition, 1)
+        saveProjectLocally();
     }
 
     const saveProjectLocally = () => {

@@ -12,17 +12,22 @@ export const ToDoFunc = () => {
         const addedToDo = createToDo(title, description, dueDate, priority);
 
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.push(addedToDo)
+        instanceOfProjects.saveProjectLocally()
     }
     //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
 
     const updateToDo = (projectPosition, toDoPosition, title, description, dueDate, priority) => {
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1, {projectPosition, toDoPosition, title, description, dueDate, priority});
+        instanceOfProjects.saveProjectLocally();
     }
     const removeToDo = (projectPosition, toDoPosition) => {
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
+        instanceOfProjects.saveProjectLocally();
     }
     //select specific to do list based on projectPosition
     const selectToDo = (projectPosition) => {
+        //remember the project array
+        instanceOfProjects.restoreProjectLocally();
         try {
             return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
         }
@@ -32,7 +37,6 @@ export const ToDoFunc = () => {
     }
 
     return {
-        createToDo,
         insertToDoToProject,
         updateToDo,
         removeToDo,
