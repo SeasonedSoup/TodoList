@@ -8,51 +8,44 @@ import { ToDoFunc } from "./todo";
 export const ProjectDisplayFunc = () => {  
 
     const instanceOfProjects = ProjectFunc();
-    
-    const container = document.querySelector(".container");
+    //use
+    const container = document.querySelector('.container');
     container.textContent = '';
     const title = document.querySelector('.title');
     title.textContent = '';
-
-    //Assign a name to the title
+   
+    //just title
     const paragraphTitle = document.createElement('p');
     paragraphTitle.textContent = 'Projects';
 
     title.appendChild(paragraphTitle);
-
-    //Button that creates a new project
+    //button for creating projects
     const newProjectBtn = document.createElement("button");
-    newProjectBtn.classList = "newProjectBtn";
-    newProjectBtn.textContent = "New";
+    newProjectBtn.classList = 'newProjectBtn';
+    newProjectBtn.textContent = 'New';
 
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList = "buttonContainer";
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList = 'buttonContainer';
 
     buttonContainer.appendChild(newProjectBtn);
 
     container.appendChild(buttonContainer);
 
+    //div storage for projects 
+
+    const storage = document.createElement('div')
+    storage.classList.add('storage');
+    storage.textContent = 'STORE PROJECTS'
+    container.appendChild(storage);
+
+    const projectModal = document.createElement('dialog');
+    projectModal.id = 'projectModal';
+    container.appendChild(projectModal);
+
+
+
     console.log("instanceOfProjects:", instanceOfProjects);
     const instanceOfTodos = ToDoFunc();
-    
-    const projectContainer = document.querySelector('.container');
-    
-    const projects = instanceOfProjects.getProjectArr();
-
-    projects.forEach((project, index) => {
-        //element
-        let projectDiv = document.createElement('div');
-        projectDiv.textContent =  project.name;
-        //testing if this is a counter index.
-        let positionDiv = document.createElement('div');
-        positionDiv.textContent = `Position ${index}`;
-
-        console.log(projectDiv);
-        console.log(positionDiv);
-
-        projectContainer.appendChild(projectDiv);
-        projectContainer.appendChild(positionDiv);
-    })
     
     //could be used to return data and give it to a controller?? to be noted
     const returnProjectDatas = () => {
