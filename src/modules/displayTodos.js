@@ -6,18 +6,25 @@ console.log(instanceOfTodos);
 
 export const toDoDisplayFunc = (projectPosition) => {
 
+    const createAndAppendElement = (typeOfElement, className, IdName, textDom) => {
+        const newElement = document.createElement(typeOfElement);
+        if(className) newElement.classList.add(className);
+        if(IdName) newElement.id = IdName;
+        if (textDom) newElement.textContent = textDom;
+    }
+
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
-    
-    
-    //dummy data for todos
 
-    instanceOfTodos.insertToDoToProject(projectPosition, 'Create To Do List App', 'Practice your js skillz', 'now', 'low')
-    console.log(instanceOfTodos.selectToDo(projectPosition));
+    const toDoTitle = document.querySelector('.toDoTitle');
+    toDoTitle.textContent = '';
+
+    const paragraphTitle = document.createElement('p');
+    paragraphTitle.textContent = 'To-Dos'
+
+    toDoTitle.appendChild(paragraphTitle);
 
 
-   /* const title = document.querySelector('.title');
-    title.textContent = ''; */
     console.table(instanceOfTodos.selectToDo(positionProject));
 
     

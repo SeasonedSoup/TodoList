@@ -102,7 +102,11 @@ export const ProjectDisplayFunc = () => {
         deleteProjectBtn.classList.add('deleteProjectBtn');
         deleteProjectBtn.textContent = 'Delete';
 
-    
+        //to be noted add addEventListeners to each button in the future
+    }
+
+    const ProjectModal = (name, desc, positionProject) => {
+        
     }
 
     return { 
