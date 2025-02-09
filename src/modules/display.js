@@ -79,11 +79,30 @@ export const ProjectDisplayFunc = () => {
         const toDoLists = document.createElement('div');
         toDoLists.classList.add("toDoLists")
         toDoLists.textContent = `Current Todos Available: ${noOfTodos}`;
-
+        
+        const optionButtons = document.createElement('div');
+        optionButtons.classList.add('optionButtons')
+        
         projectInfo.appendChild(nameProject);
         projectInfo.appendChild(descProject);
         projectInfo.appendChild(toDoLists);
-        //const optionButtons = document.createElement('div');
+        projectInfo.appendChild(optionButtons);
+
+        //project option buttons
+
+        const viewProjectBtn = document.createElement('button');
+        viewProjectBtn.classList.add('viewProjectBtn');
+        viewProjectBtn.textContent = 'View';
+        
+        const updateProjectBtn = document.createElement('button');
+        updateProjectBtn.classList.add('updateProjectBtn');
+        updateProjectBtn.textContent = 'Update';
+
+        const deleteProjectBtn = document.createElement('button');
+        deleteProjectBtn.classList.add('deleteProjectBtn');
+        deleteProjectBtn.textContent = 'Delete';
+
+    
     }
 
     return { 
