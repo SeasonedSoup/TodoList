@@ -5,7 +5,7 @@ console.log(instanceOfTodos);
 //test
 
 export const toDoDisplayFunc = (projectPosition) => {
-
+    //shortcut
     const createAndAppendElement = (typeOfElement, className, IdName, textDom) => {
         const newElement = document.createElement(typeOfElement);
         if(className) newElement.classList.add(className);
@@ -31,18 +31,20 @@ export const toDoDisplayFunc = (projectPosition) => {
     
     const returnToDoDatas = () => {
         instanceOfTodos.selectToDo(projectPosition).map((toDo, index) => {
-            let title = toDo.title
-            let description = toDo.description
-            let dueDate = toDo.dueDate
-            let priority = toDo.priority
+            let title = toDo.title;
+            let description = toDo.description;
+            let dueDate = toDo.dueDate;
+            let priority = toDo.priority;
             let positionToDo = index;
 
-            return {title, description, dueDate, priority, positionToDo};
+            toDoController(title, description, dueDate, priority, positionToDo);
         })
     }
 
     //ok so to display the todo the todo will be on a todoarray on todo.js the selectToDoFunction will play a part here
+    const toDoController = (name, desc, dueDate, priority, positionToDo) => {
 
+    }
 
     //to do controller
 }
