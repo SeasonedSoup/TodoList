@@ -50,6 +50,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     
     const returnToDoDatas = () => {
         instanceOfTodos.selectToDo(projectPosition).map((toDo, index) => {
+            cards.textContent = '';
             let title = toDo.title;
             let description = toDo.description;
             let dueDate = toDo.dueDate;
@@ -64,6 +65,25 @@ export const toDoDisplayFunc = (projectPosition) => {
     const toDoController = (name, desc, dueDate, priority, positionToDo) => {
         const toDoCard = document.createElement('div');
         toDoCard.classList.add('toDoCard');
+        cards.appendChild(toDoCard)
+
+        const toDoInfo = createAndAppendElement('h3', 'toDoInfo', positionToDo, '');
+        toDoCard.appendChild(toDoInfo);
+
+        const nameToDoCard = createAndAppendElement('p', 'nameToDoCard', '', name);
+        
+        const descToDoCard = createAndAppendElement('p', 'descToDoCard', '', desc);
+
+        const dueDateCard = createAndAppendElement('p', 'dueDateCard', '', `Due until ${dueDate}`);
+
+        const priorityCard = createAndAppendElement('p', 'priorityCard', `priority-${priority}`, `Priority level: ${priority}`);
+
+        toDoInfo.appendChild(nameToDoCard);
+        toDoInfo.appendChild(descToDoCard);
+        toDoInfo.appendChild(dueDateCard);
+        toDoInfo.appendChild(priorityCard);
+
+        const optionButtons = createAndAppendElement('div', 'optionButtons', '', '')
 
     }
 

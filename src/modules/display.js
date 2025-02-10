@@ -28,14 +28,12 @@ export const ProjectDisplayFunc = () => {
     buttonContainer.classList = 'buttonContainer';
 
     buttonContainer.appendChild(newProjectBtn);
-
     container.appendChild(buttonContainer);
 
     //div cards for projects 
 
-    const cards = document.createElement('div')
+    const cards = document.createElement('div');
     cards.classList.add('cards');
-    cards.textContent = 'STORE PROJECTS'
     container.appendChild(cards);
 
     const projectModal = document.createElement('dialog');
@@ -46,6 +44,7 @@ export const ProjectDisplayFunc = () => {
     const instanceOfTodos = ToDoFunc();
     
     const returnProjectDatas = () => {
+        cards.textContent = '';
         const projects = instanceOfProjects.getProjectArr();
         //noted for each project data create cards using project controller
         projects.map((project, index) => {
