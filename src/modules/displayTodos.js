@@ -22,6 +22,25 @@ export const toDoDisplayFunc = (projectPosition) => {
     const paragraphTitle = document.createElement('p');
     paragraphTitle.textContent = 'To-Dos'
 
+    const newToDoBtn = document.createElement('button');
+    newToDoBtn.classList.add('newToDoBtn');
+    newToDoBtn.textContent = 'New';
+
+    const returnToProjectCardsBtn = document.createElement('button');
+    returnToProjectCardsBtn.classList.add('returnToProjectCardsBtn');
+    returnToProjectCardsBtn.textContent = '<< Return';
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('buttonContainer');
+    
+    buttonContainer.appendChild(newToDoBtn);
+    buttonContainer.appendChild(returnToProjectCardsBtn);
+
+    const cards = document.createElement('div');
+    cards.classList.add('cards');
+    toDoContainer.appendChild(cards);
+
+
     toDoTitle.appendChild(paragraphTitle);
 
 
@@ -43,6 +62,8 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     //ok so to display the todo the todo will be on a todoarray on todo.js the selectToDoFunction will play a part here
     const toDoController = (name, desc, dueDate, priority, positionToDo) => {
+        const toDoCard = document.createElement('div');
+        toDoCard.classList.add('toDoCard');
 
     }
 
