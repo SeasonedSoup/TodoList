@@ -1,8 +1,7 @@
-//next idea is show todos on each project maybe add a button or make the project text itself a button not sure how id do that but to be noted
-//add a button or maybe default that shows display on a different container but it has to follow the proper projects toDoList
+
 const instanceOfTodos = ToDoFunc();
 console.log(instanceOfTodos);  
-//test
+
 
 export const toDoDisplayFunc = (projectPosition) => {
     //shortcut
@@ -83,7 +82,24 @@ export const toDoDisplayFunc = (projectPosition) => {
         toDoInfo.appendChild(dueDateCard);
         toDoInfo.appendChild(priorityCard);
 
-        const optionButtons = createAndAppendElement('div', 'optionButtons', '', '')
+        const toDoOptions = createAndAppendElement('div', 'toDoOptions', '', '');
+
+        const updateBtn = createAndAppendElement('button', 'updateBtn', '', 'Update');
+        toDoOptions.appendChild(updateBtn);
+        const deleteBtn = createAndAppendElement('button', 'deleteBtn', '', 'Delete');
+        toDoOptions.appendChild(deleteBtn);
+
+        updateBtn.addEventListener('click', () => {
+          
+        })
+
+        deleteBtn.addEventListener('click', () => {
+            instanceOfTodos.removeToDo(projectPosition, positionToDo);
+            //CALL UPDATE
+            returnToDoDatas();
+        })
+
+
 
     }
 

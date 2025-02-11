@@ -67,15 +67,15 @@ export const ProjectDisplayFunc = () => {
         const projectInfo = document.createElement('div');
         projectInfo.classList.add("projectInfo");
 
-        const nameProject = document.createElement('div');
+        const nameProject = document.createElement('h3');
         nameProject.classList.add('nameProject');
         nameProject.textContent = name
 
-        const descProject = document.createElement('div');
+        const descProject = document.createElement('p');
         descProject.classList.add('descProject');
         descProject.textContent = desc
 
-        const toDoLists = document.createElement('div');
+        const toDoLists = document.createElement('p');
         toDoLists.classList.add("toDoLists")
         toDoLists.textContent = `Current Todos Available: ${noOfTodos}`;
         
