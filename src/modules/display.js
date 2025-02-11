@@ -3,17 +3,18 @@ import { ToDoFunc } from "./todo";
 
 
 //testing data will be named Default Project
-
+const instanceOfProjects = ProjectFunc();
 
 export const ProjectDisplayFunc = () => {  
-
-    const instanceOfProjects = ProjectFunc();
     
     //test
+    if (instanceOfProjects.getProjectArr().length === 0) {
     instanceOfProjects.addProjectToProjectArr('Code Javascript', 'Im Cool')
     instanceOfProjects.addProjectToProjectArr('Crying Session', 'Im Sad')
     instanceOfProjects.addProjectToProjectArr('Play RoadBlox', 'iloveroblox')
+    }
     const projects = instanceOfProjects.getProjectArr();
+    console.log(instanceOfProjects.getProjectArr()); 
     //use
     const container = document.querySelector('.container');
     container.textContent = '';

@@ -1,138 +1,31 @@
+import { ToDoFunc } from './todo';
+import { ProjectFunc } from './project';
 
-const instanceOfTodos = ToDoFunc();
-const instanceOfProjects = 
-console.log(instanceOfTodos);  
-
-
+export const bugCheck = () => {
+    const instanceOfTodos = ToDoFunc();
+    console.log("Todos instance:", instanceOfTodos);
+    
+    const instanceOfProjectsFromTodo = ProjectFunc();
+    console.log(instanceOfProjectsFromTodo.getProjectArr());
+}
 export const toDoDisplayFunc = (projectPosition) => {
-    //shortcut
-    const createAndAppendElement = (typeOfElement, className, IdName, textDom) => {
-        const newElement = document.createElement(typeOfElement);
-        if(className) newElement.classList.add(className);
-        if(IdName) newElement.id = IdName;
-        if (textDom) newElement.textContent = textDom;
-    }
+    const instanceOfTodos = ToDoFunc();
+    console.log("Todos instance:", instanceOfTodos);
+    
+
+
+    const instanceOfProjectsFromTodo = ProjectFunc();
+    console.log(instanceOfProjectsFromTodo.getProjectArr());
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
-    
-    const projectIndex = 0
 
-    instanceOfTodos.insertToDoToProject(projectIndex, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");
-    instanceOfTodos.insertToDoToProject(projectIndex, "Study JavaScript", "Review closures and promises", "Next Week", "Medium");
-    instanceOfTodos.insertToDoToProject(projectIndex, "Workout", "Leg day at the gym", "Today", "Low");
+    instanceOfTodos.insertToDoToProject(projectPosition, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");
+    instanceOfTodos.insertToDoToProject(projectPosition, "Study JavaScript", "Review closures and promises", "Next Week", "Medium");
+    instanceOfTodos.insertToDoToProject(projectPosition, "Workout", "Leg day at the gym", "Today", "Low");
 
-    const displayToDoTitles = (projectIndex) => {
-        toDoContainer.textContent = ''; // Clear previous todos
-    
-        if (projectIndex === null) {
-            toDoContainer.innerHTML = "<p>No project selected.</p>";
-            return;
-        }
-    
-        const todos = instanceOfTodos.selectToDo(projectIndex); // Get todos
-    
-        if (!todos || todos.length === 0) {
-            toDoContainer.innerHTML = "<p>No todos yet!</p>"; // If no todos, show message
-            return;
-        }
-
-        todos.forEach(todo => {
-            const toDoTitle = document.createElement('h2')
-            toDoTitle.textContent = `📌 ${todo.title}`
-            toDoContainer.appendChild(toDoTitle);
-        });
+    if (projectPosition === null || projectPosition === undefined) {
+        toDoContainer.innerHTML = "<p>No project selected.</p>";
+        return;
     }
-    
-    displayToDoTitles(projectIndex);
-
-    const toDoTitle = document.querySelector('.toDoTitle');
-    toDoTitle.textContent = '';
-
-    const paragraphTitle = document.createElement('p');
-    paragraphTitle.textContent = 'To-Dos'
-
-    const newToDoBtn = document.createElement('button');
-    newToDoBtn.classList.add('newToDoBtn');
-    newToDoBtn.textContent = 'New';
-
-    const returnToProjectCardsBtn = document.createElement('button');
-    returnToProjectCardsBtn.classList.add('returnToProjectCardsBtn');
-    returnToProjectCardsBtn.textContent = '<< Return';
-
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('buttonContainer');
-    
-    buttonContainer.appendChild(newToDoBtn);
-    buttonContainer.appendChild(returnToProjectCardsBtn);
-
-    const cards = document.createElement('div');
-    cards.classList.add('cards');
-    toDoContainer.appendChild(cards);
-
-
-    toDoTitle.appendChild(paragraphTitle);
-
-
-    console.table(instanceOfTodos.selectToDo(positionProject));
-
-    
-    
-    const returnToDoDatas = () => {
-        instanceOfTodos.selectToDo(projectPosition).map((toDo, index) => {
-            cards.textContent = '';
-            let title = toDo.title;
-            let description = toDo.description;
-            let dueDate = toDo.dueDate;
-            let priority = toDo.priority;
-            let positionToDo = index;
-
-            toDoController(title, description, dueDate, priority, positionToDo);
-        })
-    }
-
-    //ok so to display the todo the todo will be on a todoarray on todo.js the selectToDoFunction will play a part here
-    const toDoController = (name, desc, dueDate, priority, positionToDo) => {
-        const toDoCard = document.createElement('div');
-        toDoCard.classList.add('toDoCard');
-        cards.appendChild(toDoCard)
-
-        const toDoInfo = createAndAppendElement('h3', 'toDoInfo', positionToDo, '');
-        toDoCard.appendChild(toDoInfo);
-
-        const nameToDoCard = createAndAppendElement('p', 'nameToDoCard', '', name);
-        
-        const descToDoCard = createAndAppendElement('p', 'descToDoCard', '', desc);
-
-        const dueDateCard = createAndAppendElement('p', 'dueDateCard', '', `Due until ${dueDate}`);
-
-        const priorityCard = createAndAppendElement('p', 'priorityCard', `priority-${priority}`, `Priority level: ${priority}`);
-
-        toDoInfo.appendChild(nameToDoCard);
-        toDoInfo.appendChild(descToDoCard);
-        toDoInfo.appendChild(dueDateCard);
-        toDoInfo.appendChild(priorityCard);
-
-        const toDoOptions = createAndAppendElement('div', 'toDoOptions', '', '');
-
-        const updateBtn = createAndAppendElement('button', 'updateBtn', '', 'Update');
-        toDoOptions.appendChild(updateBtn);
-        const deleteBtn = createAndAppendElement('button', 'deleteBtn', '', 'Delete');
-        toDoOptions.appendChild(deleteBtn);
-
-        updateBtn.addEventListener('click', () => {
-          
-        })
-
-        deleteBtn.addEventListener('click', () => {
-            instanceOfTodos.removeToDo(projectPosition, positionToDo);
-            //CALL UPDATE
-            returnToDoDatas();
-        })
-
-
-
-    }
-
-    //to do controller
 }
