@@ -1,5 +1,6 @@
 
 const instanceOfTodos = ToDoFunc();
+const instanceOfProjects = 
 console.log(instanceOfTodos);  
 
 
@@ -14,6 +15,36 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
+    
+    const projectIndex = 0
+
+    instanceOfTodos.insertToDoToProject(projectIndex, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");
+    instanceOfTodos.insertToDoToProject(projectIndex, "Study JavaScript", "Review closures and promises", "Next Week", "Medium");
+    instanceOfTodos.insertToDoToProject(projectIndex, "Workout", "Leg day at the gym", "Today", "Low");
+
+    const displayToDoTitles = (projectIndex) => {
+        toDoContainer.textContent = ''; // Clear previous todos
+    
+        if (projectIndex === null) {
+            toDoContainer.innerHTML = "<p>No project selected.</p>";
+            return;
+        }
+    
+        const todos = instanceOfTodos.selectToDo(projectIndex); // Get todos
+    
+        if (!todos || todos.length === 0) {
+            toDoContainer.innerHTML = "<p>No todos yet!</p>"; // If no todos, show message
+            return;
+        }
+
+        todos.forEach(todo => {
+            const toDoTitle = document.createElement('h2')
+            toDoTitle.textContent = `📌 ${todo.title}`
+            toDoContainer.appendChild(toDoTitle);
+        });
+    }
+    
+    displayToDoTitles(projectIndex);
 
     const toDoTitle = document.querySelector('.toDoTitle');
     toDoTitle.textContent = '';

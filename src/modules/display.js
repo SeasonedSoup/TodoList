@@ -8,9 +8,22 @@ import { ToDoFunc } from "./todo";
 export const ProjectDisplayFunc = () => {  
 
     const instanceOfProjects = ProjectFunc();
+    
+    //test
+    instanceOfProjects.addProjectToProjectArr('Code Javascript', 'Im Cool')
+    instanceOfProjects.addProjectToProjectArr('Crying Session', 'Im Sad')
+    instanceOfProjects.addProjectToProjectArr('Play RoadBlox', 'iloveroblox')
+    const projects = instanceOfProjects.getProjectArr();
     //use
     const container = document.querySelector('.container');
     container.textContent = '';
+
+    projects.forEach((project, projectIndex) => {
+        const projectTitle = document.createElement('h1')
+        projectTitle.textContent = `${projectIndex}: ${project.name}`
+
+        container.appendChild(projectTitle);
+    });
     const title = document.querySelector('.title');
     title.textContent = '';
    
@@ -47,7 +60,7 @@ export const ProjectDisplayFunc = () => {
         cards.textContent = '';
         const projects = instanceOfProjects.getProjectArr();
         //noted for each project data create cards using project controller
-        projects.map((project, index) => {
+        projects.forEach((project, index) => {
             let name = project.name;
             let desc = project.desc;
             let toDoList = project.todos
@@ -100,6 +113,7 @@ export const ProjectDisplayFunc = () => {
         const deleteProjectBtn = document.createElement('button');
         deleteProjectBtn.classList.add('deleteProjectBtn');
         deleteProjectBtn.textContent = 'Delete';
+        deleteProjectBtn.dataset.index = positionProject;
 
         //to be noted add addEventListeners to each button in the future
     }

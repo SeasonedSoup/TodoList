@@ -12,7 +12,7 @@ export const ToDoFunc = () => {
         const addedToDo = createToDo(title, description, dueDate, priority);
 
         instanceOfProjects.getProjectArr()[projectPosition].toDoList.push(addedToDo)
-        instanceOfProjects.saveProjectLocally()
+        instanceOfProjects.saveProjectLocally();
     }
     //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
 
