@@ -25,6 +25,9 @@ export const toDoDisplayFunc = (projectPosition) => {
     }
 
     const todos = instanceOfTodos.selectToDo(projectPosition);
+    const project = instanceOfProjectsFromTodo.getProjectArr()[projectPosition];
+    console.log('HI Project:', project); // Debugging line
+    const name = project.name ;
 
     if(!todos || todos.length === 0) {
         instanceOfTodos.insertToDoToProject(projectPosition, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");
@@ -33,7 +36,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     };
     
     const index = document.createElement('h1');
-    index.textContent = `Project ${projectPosition}`;
+    index.textContent = `Project ${projectPosition}: ${name}`;
     toDoContainer.appendChild(index);
     todos.forEach((todo) => {
         const toDoTitle = document.createElement('h2');

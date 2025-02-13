@@ -10,6 +10,6 @@ console.log("helloWorld!")
 
 ProjectDisplayFunc();
 bugCheck();
-toDoDisplayFunc(1);
+toDoDisplayFunc(0);
 
 
