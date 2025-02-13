@@ -9,9 +9,10 @@ export const ProjectDisplayFunc = () => {
     
     //test
     if (instanceOfProjects.getProjectArr().length === 0) {
-    instanceOfProjects.addProjectToProjectArr('Code Javascript', 'Im Cool')
-    instanceOfProjects.addProjectToProjectArr('Crying Session', 'Im Sad')
-    instanceOfProjects.addProjectToProjectArr('Play RoadBlox', 'iloveroblox')
+        instanceOfProjects.addProjectToProjectArr('Code Javascript', 'Im Cool')
+        instanceOfProjects.addProjectToProjectArr('Crying Session', 'Im Sad')
+        instanceOfProjects.addProjectToProjectArr('Play RoadBlox', 'iloveroblox')
+        instanceOfProjects.addProjectToProjectArr('Feed Cat', 'cat is hungry');
     }
     const projects = instanceOfProjects.getProjectArr();
     console.log(instanceOfProjects.getProjectArr()); 
