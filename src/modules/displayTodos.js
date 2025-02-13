@@ -31,6 +31,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         instanceOfTodos.insertToDoToProject(projectPosition, "Study JavaScript", "Review closures and promises", "Next Week", "Medium");
         instanceOfTodos.insertToDoToProject(projectPosition, "Workout", "Leg day at the gym", "Today", "Low");
     };
+    
     const index = document.createElement('h1');
     index.textContent = `Project ${projectPosition}`;
     toDoContainer.appendChild(index);
