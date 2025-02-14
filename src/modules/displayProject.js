@@ -24,7 +24,7 @@ export const ProjectDisplayFunc = () => {
     const paragraphTitle = document.createElement('h1');
     paragraphTitle.textContent = 'Projects';
 
-    title.appendChild(paragraphTitle);
+    title.appendChild(paragraphTitle)
 
     projects.forEach((project, projectIndex) => {
         const projectTitle = document.createElement('h1')
@@ -32,6 +32,18 @@ export const ProjectDisplayFunc = () => {
 
         container.appendChild(projectTitle);
     });
+
+    const createProjectHandler = () => {
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add('buttonDiv');
+
+        const createProjectButton = document.createElement('button');
+        createProjectButton.textContent = 'Create Project';
+        buttonDiv.appendChild(createProjectButton);
+        container.appendChild(buttonDiv);
+    };
+
+    createProjectHandler();
 
 
 }
