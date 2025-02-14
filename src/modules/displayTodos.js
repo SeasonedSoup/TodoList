@@ -17,8 +17,12 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
-    
 
+    const toDoContainerTitle = document.querySelector('.toDoTitle');
+    const paragraphTitle = document.createElement('h1');
+    paragraphTitle.textContent = 'To Dos';
+    toDoContainerTitle.appendChild(paragraphTitle);
+    
     if (projectPosition === null || projectPosition === undefined) {
         toDoContainer.innerHTML = "<p>No project selected.</p>";
         return;
@@ -27,7 +31,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     const todos = instanceOfTodos.selectToDo(projectPosition);
     const project = instanceOfProjectsFromTodo.getProjectArr()[projectPosition];
     console.log('HI Project:', project); // Debugging line
-    const name = project.name ;
+    const name = project.name;
 
     if(!todos || todos.length === 0) {
         instanceOfTodos.insertToDoToProject(projectPosition, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");

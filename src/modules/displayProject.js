@@ -20,12 +20,20 @@ export const ProjectDisplayFunc = () => {
     const container = document.querySelector('.container');
     container.textContent = '';
 
+    const title = document.querySelector('.title');
+    const paragraphTitle = document.createElement('h1');
+    paragraphTitle.textContent = 'Projects';
+
+    title.appendChild(paragraphTitle);
+
     projects.forEach((project, projectIndex) => {
         const projectTitle = document.createElement('h1')
         projectTitle.textContent = `${projectIndex}: ${project.name}`
 
         container.appendChild(projectTitle);
     });
+
+
 }
 
  
