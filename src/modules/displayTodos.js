@@ -47,4 +47,31 @@ export const toDoDisplayFunc = (projectPosition) => {
         toDoTitle.textContent = todo.title;
         toDoContainer.appendChild(toDoTitle);
     });
+
+    const createToDoHandler = () => {
+        const buttonDiv = document.createElement('div');
+        buttonDiv.classList.add('buttonDiv');
+
+        const createToDoButton = document.createElement('button');
+        createToDoButton.textContent = 'Create To Do';
+        createToDoButton.addEventListener('click', () => {
+            formModal(projectPosition);
+        });
+        buttonDiv.appendChild(createToDoButton);
+        toDoContainer.appendChild(buttonDiv);
+    }
+
+    const formModal = (projectPosition) => {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+
+        const form = document.createElement('form');
+        form.classList.add('form');
+
+        const nameInput = document.createElement('input')
+        nameInput.setAttribute('type', 'text');
+        
+        const descInput = document.createElement('input')
+        descInput.setAttribute('type', 'text');
+    }
 }

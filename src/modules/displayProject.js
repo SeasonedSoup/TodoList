@@ -39,11 +39,15 @@ export const ProjectDisplayFunc = () => {
 
         const createProjectButton = document.createElement('button');
         createProjectButton.textContent = 'Create Project';
+        createProjectButton.addEventListener('click', () => {
+            formModal();
+        });
         buttonDiv.appendChild(createProjectButton);
         container.appendChild(buttonDiv);
     };
 
     createProjectHandler();
+
 
 
 }
