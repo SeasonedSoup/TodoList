@@ -47,37 +47,38 @@ export const ProjectDisplayFunc = () => {
     };
 
     const projectFormModal = () => {
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-
-        const form = document.createElement('form');
+        const existingForm = document.querySelector('.projectForm')
+        const formContainer = document.querySelector('.form')
+        if (existingForm) {
+            console.log("There is currently a form pls fill it up before making another one");
+            return;
+        }
+        const form = document.createElement('form')
         form.classList.add('projectForm');
+    
+        const inputs = [
+            { label: 'Project Name: ', type: 'text', name: 'projectName', id: 'projectName'},
+            { label: 'Project Description: ', type: 'text', name: 'projectDesc', id: 'projectDesc' },
+        ];
 
-        const nameLabel = document.createElement('label');
-        nameLabel.textContent = 'Title: ';
-        nameLabel.setAttribute('for', 'username-input');
+        inputs.forEach((inputData) => {
+            const label = document.createElement('label');
+            label.textContent = inputData.label;
+            label.setAttribute('for', inputData.id);
 
-        const nameInput = document.createElement('input');
-        nameInput.setAttribute('type', 'text');
-        nameInput.setAttribute('name', 'username');
-        nameInput.setAttribute('id', 'username-input');
-        nameInput.setAttribute('placeholder', 'Enter Your Name');
+            const input = document.createElement('input');
+            input.setAttribute('type', inputData.type);
+            input.setAttribute('id', inputData.id);
+            input.setAttribute('name', inputData.name);
 
-        const descLabel = document.createElement('label');
-        descLabel.textContent = 'Description: ';
-        descLabel.setAttribute('for', 'projectDesc');       
+            input.required = true;
 
-        const descInput = document.createElement('input');
-        descInput.type = 'text';
-        descInput.name = 'projectDesc';
-        descInput.id = 'projectDesc';
-        form.appendChild(nameLabel)
-        form.appendChild(nameInput)
-        form.appendChild(descLabel);
-        form.appendChild(descInput)
+            form.appendChild(label);
+            form.appendChild(input);
+            form.appendChild(document.createElement('br'));
 
-        modal.appendChild(form);
-        container.appendChild(modal);
+            formContainer.appendChild(form)
+        })
     }
 
     createProjectHandler();
