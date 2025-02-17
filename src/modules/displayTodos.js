@@ -73,5 +73,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         
         const descInput = document.createElement('input')
         descInput.setAttribute('type', 'text');
+
+        
     }
 }
