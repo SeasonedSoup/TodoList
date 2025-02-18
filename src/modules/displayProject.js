@@ -1,6 +1,5 @@
-import { ProjectFunc } from "./project";
-import { ToDoFunc } from "./todo";
 
+import { ProjectFunc } from "./project";
 
 //testing data will be named Default Project
 const instanceOfProjects = ProjectFunc();
@@ -53,6 +52,8 @@ export const ProjectDisplayFunc = () => {
             console.log("There is currently a form pls fill it up before making another one");
             return;
         }
+        //modal div
+        //const modal =
         const form = document.createElement('form')
         form.classList.add('projectForm');
     
@@ -79,6 +80,26 @@ export const ProjectDisplayFunc = () => {
 
             formContainer.appendChild(form)
         })
+
+        //button for submitting data to be used for AddProjectToProjectArr() and closing the modal
+        const submitButton = document.createElement('button');
+        submitButton.tyoe = 'submit';
+        submitButton.textContent = 'Create Project';
+        form.appendChild(submitButton);
+
+        //closebutton
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const submittedName = document.querySelector('#projectName').value
+            const submittedDesc = document.querySelector('#projectDesc').value
+            instanceOfProjects.addProjectToProjectArr(submittedName, submittedDesc);
+            form.reset();
+            //function that called to show and append all projects for the new project made to show in the dom
+            //showProjects();
+        });
+
     }
 
     createProjectHandler();
