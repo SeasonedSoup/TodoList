@@ -117,7 +117,6 @@ export const ProjectDisplayFunc = () => {
         const addEventListenersToYoProjects = () => {
 
         }
-
     }
 
     createProjectHandler();

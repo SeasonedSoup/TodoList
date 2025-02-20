@@ -66,23 +66,57 @@ export const toDoDisplayFunc = (projectPosition) => {
     }
 
     const formModal = (projectPosition) => {
-        const form = document.createElement('form');
-        form.classList.add('form');
+        const existingForm = document.querySelector('.toDoForm');
 
-        const nameInput = document.createElement('input');
-        nameInput.setAttribute('type', 'text');
-        
-        const descInput = document.createElement('input');
-        descInput.setAttribute('type', 'text');
+        if (existingForm) {
+            return;
+        }
+    
+        const toDoForm = document.createElement('form');
+        toDoForm.classList.add('toDoForm');
+
+        const inputs = [
+            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'toDoName' },
+            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'toDoName'}, 
+        ];
+
+        inputs.forEach((inputData) => {
+            const label = document.createElement('label');
+            label.textContent = inputData.label;
+            label.setAttribute('for', inputData.id)
+
+            const input = document.createElement('input');
+            input.type = inputData.type;
+            input.name = inputData.name;
+            input.id = inputData.id;
+
+            input.required = true;
+
+            form.appendChild(label)
+            form.appendChild(input)
+            form.appendChild(document.createElement('br'));
+        })
 
         const submitButton  = document.createElement('button');
         submitButton.setAttribute('type', 'submit');
+        submitButton.textContent = 'Create ToDo';
         
         const closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
+        closeButton.textContent = 'Close';
 
         //addeventlisteners
+        closeButton.addEventListener('click', () => {
+            form.remove();
+        })
+
+        form.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+
+        })
 
         //const dueDateInput = document.createElement()
     }
+    createToDoHandler();
 }
