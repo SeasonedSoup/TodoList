@@ -1,5 +1,6 @@
 
 import { ProjectFunc } from "./project";
+import { toDoDisplayFunc } from "./displayTodos";
 
 //testing data will be named Default Project
 const instanceOfProjects = ProjectFunc();
@@ -20,15 +21,20 @@ export const ProjectDisplayFunc = () => {
     container.textContent = '';
 
     const title = document.querySelector('.title');
+    const paraTitle = document.querySelector('.paraTitle')
+    if (!paraTitle) {
     const paragraphTitle = document.createElement('h1');
+    paragraphTitle.classList.add('paraTitle');
     paragraphTitle.textContent = 'Projects';
-
     title.appendChild(paragraphTitle)
+    }
 
     projects.forEach((project, projectIndex) => {
         const projectTitle = document.createElement('h1')
-        projectTitle.textContent = `${projectIndex}: ${project.name}`
-
+        projectTitle.textContent = `${projectIndex + 1}: ${project.name} ${project.desc}`
+        projectTitle.addEventListener('click', () => {
+            toDoDisplayFunc(projectIndex);
+        })
         container.appendChild(projectTitle);
     });
 
@@ -107,6 +113,10 @@ export const ProjectDisplayFunc = () => {
             //function that called to show and append all projects for the new project made to show in the dom
             //showProjects();
         });
+        //hell yea
+        const addEventListenersToYoProjects = () => {
+
+        }
 
     }
 

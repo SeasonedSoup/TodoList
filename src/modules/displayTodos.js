@@ -19,9 +19,13 @@ export const toDoDisplayFunc = (projectPosition) => {
     toDoContainer.textContent = '';
 
     const toDoContainerTitle = document.querySelector('.toDoTitle');
+    const paraTitleCheck = document.querySelector('.paraTitle');
+    if (!paraTitleCheck) {
     const paragraphTitle = document.createElement('h1');
     paragraphTitle.textContent = 'To Dos';
+    paragraphTitle.classList.add('paraTitle');
     toDoContainerTitle.appendChild(paragraphTitle);
+    }
     
     if (projectPosition === null || projectPosition === undefined) {
         toDoContainer.innerHTML = "<p>No project selected.</p>";
@@ -40,7 +44,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     };
     
     const index = document.createElement('h1');
-    index.textContent = `Project ${projectPosition}: ${name}`;
+    index.textContent = `Project ${projectPosition + 1}: ${name}`;
     toDoContainer.appendChild(index);
     todos.forEach((todo) => {
         const toDoTitle = document.createElement('h2');
@@ -62,18 +66,23 @@ export const toDoDisplayFunc = (projectPosition) => {
     }
 
     const formModal = (projectPosition) => {
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-
         const form = document.createElement('form');
         form.classList.add('form');
 
-        const nameInput = document.createElement('input')
+        const nameInput = document.createElement('input');
         nameInput.setAttribute('type', 'text');
         
-        const descInput = document.createElement('input')
+        const descInput = document.createElement('input');
         descInput.setAttribute('type', 'text');
 
+        const submitButton  = document.createElement('button');
+        submitButton.setAttribute('type', 'submit');
         
+        const closeButton = document.createElement('button');
+        closeButton.setAttribute('type', 'button');
+
+        //addeventlisteners
+
+        //const dueDateInput = document.createElement()
     }
 }
