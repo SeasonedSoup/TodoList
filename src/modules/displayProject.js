@@ -84,7 +84,6 @@ export const ProjectDisplayFunc = () => {
             form.appendChild(input);
             form.appendChild(document.createElement('br'));
 
-            formContainer.appendChild(form)
         })
 
         //button for submitting data to be used for AddProjectToProjectArr() and closing the modal
@@ -101,6 +100,8 @@ export const ProjectDisplayFunc = () => {
         closeButton.addEventListener('click', () => {
             form.remove()
         })
+
+        formContainer.appendChild(form)
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();

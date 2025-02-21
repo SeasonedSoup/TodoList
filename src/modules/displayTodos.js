@@ -66,6 +66,8 @@ export const toDoDisplayFunc = (projectPosition) => {
     }
 
     const formModal = (projectPosition) => {
+
+        const toDoFormContainer = document.querySelector('.toDoFormContainer')
         const existingForm = document.querySelector('.toDoForm');
 
         if (existingForm) {
@@ -92,28 +94,36 @@ export const toDoDisplayFunc = (projectPosition) => {
 
             input.required = true;
 
-            form.appendChild(label)
-            form.appendChild(input)
-            form.appendChild(document.createElement('br'));
+            toDoForm.appendChild(label)
+            toDoForm.appendChild(input)
+            toDoForm.appendChild(document.createElement('br'));
+
+
+            
         })
 
         const submitButton  = document.createElement('button');
         submitButton.setAttribute('type', 'submit');
         submitButton.textContent = 'Create ToDo';
+        toDoForm.appendChild(submitButton);
         
         const closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
         closeButton.textContent = 'Close';
+        toDoForm.appendChild(closeButton);
 
+        toDoFormContainer.appendChild(toDoForm);
         //addeventlisteners
         closeButton.addEventListener('click', () => {
-            form.remove();
+            toDoForm.remove();
         })
 
-        form.addEventListener('click', (e) => {
+        toDoForm.addEventListener('click', (e) => {
             e.preventDefault();
             
-
+            const toDoName = document.querySelector('#toDoName');
+            const toDoDescription = document.querySelector('#toDoDescription');
+            instanceOfTodos.insertToDoToProject(toDoName,toDoDescription);
         })
 
         //const dueDateInput = document.createElement()
