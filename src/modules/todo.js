@@ -31,6 +31,7 @@ export const ToDoFunc = () => {
         instanceOfProjects.saveProjectLocally();
     }
     const removeToDo = (projectPosition, toDoPosition) => {
+        const projects = instanceOfProjects.getProjectArr();
         if (!projects[projectPosition] || !projects[projectPosition].toDoList[toDoPosition]) {
             console.error("Invalid project or ToDo position.");
             return;

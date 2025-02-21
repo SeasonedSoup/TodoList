@@ -19,11 +19,11 @@ export const toDoDisplayFunc = (projectPosition) => {
     toDoContainer.textContent = '';
 
     const toDoContainerTitle = document.querySelector('.toDoTitle');
-    const paraTitleCheck = document.querySelector('.paraTitle');
+    const paraTitleCheck = document.querySelector('.paragraphTitle');
     if (!paraTitleCheck) {
     const paragraphTitle = document.createElement('h1');
     paragraphTitle.textContent = 'To Dos';
-    paragraphTitle.classList.add('paraTitle');
+    paragraphTitle.classList.add('paragraphTitle');
     toDoContainerTitle.appendChild(paragraphTitle);
     }
     
@@ -37,19 +37,32 @@ export const toDoDisplayFunc = (projectPosition) => {
     console.log('HI Project:', project); // Debugging line
     const name = project.name;
 
-    if(!todos || todos.length === 0) {
-        instanceOfTodos.insertToDoToProject(projectPosition, "Buy Groceries", "Milk, Eggs, Bread", "Tomorrow", "High");
-        instanceOfTodos.insertToDoToProject(projectPosition, "Study JavaScript", "Review closures and promises", "Next Week", "Medium");
-        instanceOfTodos.insertToDoToProject(projectPosition, "Workout", "Leg day at the gym", "Today", "Low");
-    };
-    
     const index = document.createElement('h1');
     index.textContent = `Project ${projectPosition + 1}: ${name}`;
     toDoContainer.appendChild(index);
-    todos.forEach((todo) => {
-        const toDoTitle = document.createElement('h2');
-        toDoTitle.textContent = todo.title;
-        toDoContainer.appendChild(toDoTitle);
+    
+    
+       
+    //==
+    todos.forEach((todo, index) => {
+        const toDoItem = document.createElement('div');
+        toDoItem.classList.add('toDoItem');
+
+        const toDoIndexAndTitle = document.createElement('h2');
+        toDoIndexAndTitle.textContent = `${index + 1}. ${todo.title}`;
+        
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X'
+
+        removeButton.addEventListener('click', () => { 
+            instanceOfTodos.removeToDo(projectPosition, index);
+            toDoDisplayFunc(projectPosition);
+        });
+
+        toDoItem.appendChild(toDoIndexAndTitle);
+        toDoItem.appendChild(removeButton);
+
+        toDoContainer.appendChild(toDoItem);
     });
 
     const createToDoHandler = () => {
@@ -123,11 +136,16 @@ export const toDoDisplayFunc = (projectPosition) => {
             const toDoDescription = document.querySelector('#toDoDescription').value;
             instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription);
             toDoDisplayFunc(projectPosition);
-            
+
             toDoForm.remove();
         })
-
-        //const dueDateInput = document.createElement()
+        //this will have edit pencil logo for each todo or maybe like a dropdown to see its details
+        const editTodos = () => {
+            const editButton = document.createElement('button');
+            editButton.addEventListener('click',  () => {
+                
+            });
+        };
     }
     createToDoHandler();
 }
