@@ -21,10 +21,10 @@ export const toDoDisplayFunc = (projectPosition) => {
     const toDoContainerTitle = document.querySelector('.toDoTitle');
     const paraTitleCheck = document.querySelector('.paragraphTitle');
     if (!paraTitleCheck) {
-    const paragraphTitle = document.createElement('h1');
-    paragraphTitle.textContent = 'To Dos';
-    paragraphTitle.classList.add('paragraphTitle');
-    toDoContainerTitle.appendChild(paragraphTitle);
+        const paragraphTitle = document.createElement('h1');
+        paragraphTitle.textContent = 'To Dos';
+        paragraphTitle.classList.add('paragraphTitle');
+        toDoContainerTitle.appendChild(paragraphTitle);
     }
     
     if (projectPosition === null || projectPosition === undefined) {
@@ -91,7 +91,11 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     const formModal = () => {
 
-        const toDoFormContainer = document.querySelector('.toDoFormContainer')
+        const toDoFormContainer = document.querySelector('.toDoFormContainer');
+        if (!toDoFormContainer) {
+            console.error('toDoFormContainer not found');
+            return;
+        }
         const existingForm = document.querySelector('.toDoForm');
 
         if (existingForm) {
@@ -154,25 +158,25 @@ export const toDoDisplayFunc = (projectPosition) => {
         //this will have edit pencil logo for each todo or maybe like a dropdown to see its details
     const editFormModal = (index) => {
 
-        const toDoFormContainer = document.querySelector('.toDoFormContainer')
-        const existingEditForm = document.querySelector('.editToDoForm');
+        const toDoFormContainer = document.querySelector('.toDoFormContainer');
 
+        const existingEditForm = document.querySelector('.editToDoForm');
         if (existingEditForm) {
             return;
         }
         
-        const toDoForm = document.createElement('form');
-        toDoForm.classList.add('editToDoForm');
+        const editToDoForm = document.createElement('form');
+        editToDoForm.classList.add('editToDoForm');
     
         const inputs = [
-            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'toDoName' },
-            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'toDoDescription'}, 
+            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'editToDoName' },
+            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'editToDoDescription'}, 
         ];
     
         inputs.forEach((inputData) => {
             const label = document.createElement('label');
             label.textContent = inputData.label;
-            label.setAttribute('for', inputData.id)
+            label.setAttribute('for', inputData.id);
     
             const input = document.createElement('input');
             input.type = inputData.type;
@@ -181,37 +185,36 @@ export const toDoDisplayFunc = (projectPosition) => {
     
             input.required = true;
     
-            toDoForm.appendChild(label)
-            toDoForm.appendChild(input)
-            toDoForm.appendChild(document.createElement('br'));     
-        })
+            editToDoForm.appendChild(label);
+            editToDoForm.appendChild(input);
+            editToDoForm.appendChild(document.createElement('br'));     
+        });
     
         const submitButton = document.createElement('button');
         submitButton.setAttribute('type', 'submit');
         submitButton.textContent = 'Edit ToDo';
-        toDoForm.appendChild(submitButton);
+        editToDoForm.appendChild(submitButton);
             
         const closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
         closeButton.textContent = 'Close';
-        toDoForm.appendChild(closeButton);
+        editToDoForm.appendChild(closeButton);
     
-        toDoFormContainer.appendChild(toDoForm);
-            //addeventlisteners
+        toDoFormContainer.appendChild(editToDoForm);
         closeButton.addEventListener('click', () => {
-            toDoForm.remove();
-        })
+            editToDoForm.remove();
+        });
     
-        toDoForm.addEventListener('submit', (e) => {
+        editToDoForm.addEventListener('submit', (e) => {
             e.preventDefault();
                 
-            const toDoName = document.querySelector('#toDoName').value;
-            const toDoDescription = document.querySelector('#toDoDescription').value;
+            const toDoName = document.querySelector('#editToDoName').value;
+            const toDoDescription = document.querySelector('#editToDoDescription').value;
             instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
             toDoDisplayFunc(projectPosition);
     
-            toDoForm.remove();
-        })
+            editToDoForm.remove();
+        });
     }
     createToDoHandler();
 }
