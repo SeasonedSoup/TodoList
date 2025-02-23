@@ -23,11 +23,12 @@ export const ToDoFunc = () => {
     //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
 
     const updateToDo = (projectPosition, toDoPosition, title, description, dueDate, priority) => {
+        const projects = instanceOfProjects.getProjectArr();
         if (!projects[projectPosition] || !projects[projectPosition].toDoList[toDoPosition]) {
             console.error("Invalid project or ToDo position.");
             return;
         }
-        instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1, { title, description, dueDate, priority});
+        projects[projectPosition].toDoList.splice(toDoPosition, 1, { title, description, dueDate, priority});
         instanceOfProjects.saveProjectLocally();
     }
     const removeToDo = (projectPosition, toDoPosition) => {

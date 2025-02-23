@@ -66,7 +66,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         });
 
         editButton.addEventListener('click',  () => {
-            editFormModal();
+            editFormModal(index);
         });
 
         toDoItem.appendChild(toDoIndexAndTitle);
@@ -152,17 +152,17 @@ export const toDoDisplayFunc = (projectPosition) => {
         })
     }
         //this will have edit pencil logo for each todo or maybe like a dropdown to see its details
-    const editFormModal = () => {
+    const editFormModal = (index) => {
 
         const toDoFormContainer = document.querySelector('.toDoFormContainer')
-        const existingForm = document.querySelector('.toDoForm');
+        const existingEditForm = document.querySelector('.editToDoForm');
 
-        if (existingForm) {
+        if (existingEditForm) {
             return;
         }
         
         const toDoForm = document.createElement('form');
-        toDoForm.classList.add('toDoForm');
+        toDoForm.classList.add('editToDoForm');
     
         const inputs = [
             {label: 'ToDo Name:', type:'text', name:'toDoName', id:'toDoName' },
@@ -188,7 +188,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     
         const submitButton = document.createElement('button');
         submitButton.setAttribute('type', 'submit');
-        submitButton.textContent = 'Create ToDo';
+        submitButton.textContent = 'Edit ToDo';
         toDoForm.appendChild(submitButton);
             
         const closeButton = document.createElement('button');
@@ -207,7 +207,7 @@ export const toDoDisplayFunc = (projectPosition) => {
                 
             const toDoName = document.querySelector('#toDoName').value;
             const toDoDescription = document.querySelector('#toDoDescription').value;
-            instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription);
+            instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
             toDoDisplayFunc(projectPosition);
     
             toDoForm.remove();
