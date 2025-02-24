@@ -108,6 +108,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         const inputs = [
             {label: 'ToDo Name:', type:'text', name:'toDoName', id:'toDoName' },
             {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'toDoDescription'}, 
+            {label: 'Due Date: ', type:'date', name: 'toDoDueDate', id: 'toDoDueDate'},
         ];
 
         inputs.forEach((inputData) => {
@@ -125,8 +126,30 @@ export const toDoDisplayFunc = (projectPosition) => {
             toDoForm.appendChild(label)
             toDoForm.appendChild(input)
             toDoForm.appendChild(document.createElement('br'));
-            
         })
+        //High, Medium, Low
+        const priorityLabel = document.createElement('label');
+        priorityLabel.textContent = 'Priority: '
+        priorityLabel.setAttribute('for', 'toDoPriority');
+
+        const priorityInput = document.createElement('select');
+        priorityInput.name = 'toDoOptions';
+        priorityInput.id = 'toDoOptions';
+
+        const options = ['High', 'Medium', 'Low'];
+
+        options.forEach(option => {
+            const priorityOption = document.createElement('option');
+            priorityOption.textContent = option;
+            priorityOption.value = option.toLowerCase();
+
+            priorityInput.appendChild(priorityOption);
+        });
+
+        toDoForm.appendChild(priorityLabel);
+        toDoForm.appendChild(priorityInput);
+
+
 
         const submitButton = document.createElement('button');
         submitButton.setAttribute('type', 'submit');
