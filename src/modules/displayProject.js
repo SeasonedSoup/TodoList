@@ -7,42 +7,19 @@ const instanceOfProjects = ProjectFunc();
 
 export const ProjectDisplayFunc = () => {  
     
-    //test
-    if (instanceOfProjects.getProjectArr().length === 0) {
-        instanceOfProjects.addProjectToProjectArr('Code Javascript', 'Im Cool')
-        instanceOfProjects.addProjectToProjectArr('Crying Session', 'Im Sad')
-        instanceOfProjects.addProjectToProjectArr('Play RoadBlox', 'iloveroblox')
-        instanceOfProjects.addProjectToProjectArr('Feed Cat', 'cat is hungry');
-    }
+   
     const projects = instanceOfProjects.getProjectArr();
-    console.log(instanceOfProjects.getProjectArr()); 
+    console.log("Projects: " + instanceOfProjects.getProjectArr()); 
     //use
     const container = document.querySelector('.container');
     container.textContent = '';
-
-    const title = document.querySelector('.title');
-    const paraTitle = document.querySelector('.paraTitle')
-    if (!paraTitle) {
-    const paragraphTitle = document.createElement('h1');
-    paragraphTitle.classList.add('paraTitle');
-    paragraphTitle.textContent = 'Projects';
-    title.appendChild(paragraphTitle)
-    }
-
-    projects.forEach((project, projectIndex) => {
-        const projectTitle = document.createElement('h1')
-        projectTitle.textContent = `${projectIndex + 1}: ${project.name} ${project.desc}`
-        projectTitle.addEventListener('click', () => {
-            toDoDisplayFunc(projectIndex);
-        })
-        container.appendChild(projectTitle);
-    });
 
     const createProjectHandler = () => {
         const buttonDiv = document.createElement('div');
         buttonDiv.classList.add('buttonDiv');
 
         const createProjectButton = document.createElement('button');
+        createProjectButton.classList.add('button')
         createProjectButton.textContent = 'Create Project';
         createProjectButton.addEventListener('click', () => {
             projectFormModal();
@@ -50,6 +27,38 @@ export const ProjectDisplayFunc = () => {
         buttonDiv.appendChild(createProjectButton);
         container.appendChild(buttonDiv);
     };
+
+    const title = document.querySelector('.title');
+    title.classList.add('title')
+
+    const paragraphTitle = document.createElement('h1');
+    const oneTitleOnly = document.querySelector('.paraTitle');
+
+    if(!oneTitleOnly) {
+    paragraphTitle.classList.add('paraTitle');
+    paragraphTitle.textContent = 'Projects';
+    title.appendChild(paragraphTitle);
+    }
+
+    createProjectHandler();
+
+
+    projects.forEach((project, projectIndex) => {
+        const projectTitle = document.createElement('h1')
+        projectTitle.textContent = `${projectIndex + 1}: ${project.name} ${project.desc}`
+        projectTitle.addEventListener('click', () => {
+            toDoDisplayFunc(projectIndex);
+        })
+        //base idea probably need a controller way different function than this that will get the project array display the projects like a dropdown then selecting them will delete
+        const renameButton = document.createElement('button');
+        renameButton.textContent = 'Rename'
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        container.appendChild(renameButton);
+        container.appendChild(deleteButton);
+        container.appendChild(projectTitle);
+    });
+
 
     const projectFormModal = () => {
         const existingForm = document.querySelector('.projectForm')
@@ -119,11 +128,6 @@ export const ProjectDisplayFunc = () => {
 
         }
     }
-
-    createProjectHandler();
-
-
-
 }
 
  

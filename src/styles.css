@@ -8,5 +8,24 @@ body {
     background-color: mediumspringgreen;
 }
 
+.title {
+    margin: 80px;
+}
+
+.paraTitle {
+    font-weight: lighter;
+    font-size: 3rem;
+}
+
+.buttonDiv {
+    margin: 40px;
+}
+
+.button {
+    border-radius: 5px;
+    border: none;
+    padding: 20px;
+}
+
 
 
