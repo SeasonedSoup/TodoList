@@ -50,17 +50,26 @@ export const toDoDisplayFunc = (projectPosition) => {
 
         const toDoIndexAndTitle = document.createElement('h2');
         toDoIndexAndTitle.textContent = `${index + 1}. ${todo.title}`;
+
+        const toDoDescription = document.createElement('h2');
+        toDoDescription.textContent = `${todo.description}`;
+
+        const toDoDueDate = document.createElement('h2');
+        toDoDueDate.textContent = `${todo.dueDate}`;
         
+        const toDoPriority = document.createElement('h2');
+        toDoPriority.textContent = `${todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)}`;
+
         const removeButton = document.createElement('button');
-        removeButton.textContent = 'X'
+        removeButton.textContent = 'X';
 
        
         const editButton = document.createElement('button');
-        editButton.textContent = 'Edit'
+        editButton.textContent = 'Edit';
 
 
         removeButton.addEventListener('click', () => { 
-            //probabaly call form first before doing this where ask if sure or not
+            //probabaly call A specific form first before doing this where ask if sure or not
             instanceOfTodos.removeToDo(projectPosition, index);
             toDoDisplayFunc(projectPosition);
         });
@@ -70,6 +79,9 @@ export const toDoDisplayFunc = (projectPosition) => {
         });
 
         toDoItem.appendChild(toDoIndexAndTitle);
+        toDoItem.appendChild(toDoDescription);
+        toDoItem.appendChild(toDoDueDate);
+        toDoItem.appendChild(toDoPriority);
         toDoItem.appendChild(removeButton);
         toDoItem.appendChild(editButton);
 
@@ -172,7 +184,10 @@ export const toDoDisplayFunc = (projectPosition) => {
             
             const toDoName = document.querySelector('#toDoName').value;
             const toDoDescription = document.querySelector('#toDoDescription').value;
-            instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription);
+            const toDoDueDate = document.querySelector('#toDoDueDate').value;
+            const toDoPriority = document.querySelector('#toDoOptions').value;
+
+            instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription,toDoDueDate,toDoPriority);
             toDoDisplayFunc(projectPosition);
 
             toDoForm.remove();
