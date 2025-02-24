@@ -248,6 +248,7 @@ export const toDoDisplayFunc = (projectPosition) => {
                 
             const toDoName = document.querySelector('#editToDoName').value;
             const toDoDescription = document.querySelector('#editToDoDescription').value;
+            //other values as well in the future to be noted
             instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
             toDoDisplayFunc(projectPosition);
     
