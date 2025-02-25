@@ -8,3 +8,23 @@ uhh check previous projects that you frogot since its been months build onto tha
 plan B:
 keep getting lost lmao go figure things out
 you should believe!!!
+
+progress in order:
+
+Finished Create Project Button utilizing addprojectotprojectarr
+Finished Create To Do button creating todos using the todo factory method
+Finished Selecting Projects and showing the todos based on it
+Finished Remove Project and Todos Functionality
+
+TODO:
+High: When these are done it can now be submitted
+Improve Styles and make it look like a website app todolist
+use date-fns functions 
+improve the todo functionality and display
+
+these between medium and low can be implemented on free time for the cs50 PROJECT pass basically qol updates
+Low
+possibly a checklist function for todos
+setting that can delete all finished todos
+
+Reflection:
