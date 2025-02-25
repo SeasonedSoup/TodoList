@@ -28,6 +28,38 @@ export const ProjectDisplayFunc = () => {
         container.appendChild(buttonDiv);
     };
 
+    const removeProjectHandler = () => {
+        const buttonDiv = document.createElement('div');
+
+        const removeProjectDropdown = document.createElement('button');
+        removeProjectDropdown.textContent = 'COG';
+        
+        const dropdown = document.createElement('select');
+        dropdown.classList.add('dropdown');
+        dropdown.style.display = 'none';
+
+        removeProjectDropdown.addEventListener('click', () => {
+            dropdown.innerHTML = '';
+            const projects = instanceOfProjects.getProjectArr();
+
+            projects.forEach((project, projectIndex) => {
+                const option = document.createElement('option');
+                option.value = projectIndex;
+                option.textContent = project.name;
+                dropdown.appendChild(option);
+            });
+            dropdown.style.display = 'block';
+        });
+
+        dropdown.addEventListener('change', (e) => {
+            const projectIndex = e.target.value;
+        });
+
+        buttonDiv.appendChild(removeProjectDropdown);
+        buttonDiv.append(dropdown);
+        container.appendChild(buttonDiv);
+    };
+
     const title = document.querySelector('.title');
     title.classList.add('title')
 
@@ -41,6 +73,7 @@ export const ProjectDisplayFunc = () => {
     }
 
     createProjectHandler();
+    removeProjectHandler();
 
 
     projects.forEach((project, projectIndex) => {
@@ -50,12 +83,6 @@ export const ProjectDisplayFunc = () => {
             toDoDisplayFunc(projectIndex);
         })
         //base idea probably need a controller way different function than this that will get the project array display the projects like a dropdown then selecting them will delete
-        const renameButton = document.createElement('button');
-        renameButton.textContent = 'Rename'
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        container.appendChild(renameButton);
-        container.appendChild(deleteButton);
         container.appendChild(projectTitle);
     });
 
