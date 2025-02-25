@@ -9,6 +9,7 @@ export const ProjectDisplayFunc = () => {
     
    
     const projects = instanceOfProjects.getProjectArr();
+   
     console.log("Projects: " + instanceOfProjects.getProjectArr()); 
     //use
     const container = document.querySelector('.container');
@@ -29,18 +30,21 @@ export const ProjectDisplayFunc = () => {
     };
 
     const removeProjectHandler = () => {
+
         const buttonDiv = document.createElement('div');
 
         const removeProjectDropdown = document.createElement('button');
         removeProjectDropdown.textContent = 'COG';
         
         const dropdown = document.createElement('select');
-        dropdown.classList.add('dropdown');
-        dropdown.style.display = 'none';
-
-        removeProjectDropdown.addEventListener('click', () => {
+        dropdown.classList.add('dropdown', 'hidden');
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete Project'
+        
+        const populateDropdown = () => {
             dropdown.innerHTML = '';
-            const projects = instanceOfProjects.getProjectArr();
+        
 
             projects.forEach((project, projectIndex) => {
                 const option = document.createElement('option');
@@ -48,15 +52,28 @@ export const ProjectDisplayFunc = () => {
                 option.textContent = project.name;
                 dropdown.appendChild(option);
             });
-            dropdown.style.display = 'block';
+        
+        }
+    
+        
+        removeProjectDropdown.addEventListener('click', () => {
+                populateDropdown();
         });
 
-        dropdown.addEventListener('change', (e) => {
-            const projectIndex = e.target.value;
-        });
+        deleteButton.addEventListener('click', () => {
+             const selectedIndex = dropdown.value;
+             if (selectedIndex !== '' && projects.length !== 1) {
+                instanceOfProjects.deleteProject(selectedIndex);
+                populateDropdown();
+                ProjectDisplayFunc();
+             }  else {
+                console.log("CANT DELETE");
+             }
+        })
 
         buttonDiv.appendChild(removeProjectDropdown);
         buttonDiv.append(dropdown);
+        buttonDiv.appendChild(deleteButton);
         container.appendChild(buttonDiv);
     };
 
