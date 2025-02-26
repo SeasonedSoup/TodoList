@@ -9,7 +9,7 @@ body {
 }
 
 .title {
-    margin: 80px;
+    margin: 40px;
 }
 
 .paraTitle {
@@ -18,7 +18,7 @@ body {
 }
 
 .buttonDiv {
-    margin: 80px;
+    margin: 40px;
 }
 
 .button {
@@ -27,5 +27,10 @@ body {
     padding: 20px;
 }
 
+.main-container {
+    background-color: white;
+    display: grid;
+    /* to be noted will now start the structure just have no idea yet how to implement the grid i forgot in a correct way*/
+}
 
 

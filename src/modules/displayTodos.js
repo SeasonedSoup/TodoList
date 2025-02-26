@@ -1,19 +1,9 @@
 import { ToDoFunc } from './todo';
 import { ProjectFunc } from './project';
 
-export const bugCheck = () => {
-    const instanceOfTodos = ToDoFunc();
-    console.log("Todos instance:", instanceOfTodos);
-    
-    const instanceOfProjectsFromTodo = ProjectFunc();
-    console.log(instanceOfProjectsFromTodo.getProjectArr());
-}
 export const toDoDisplayFunc = (projectPosition) => {
     const instanceOfTodos = ToDoFunc();
-    console.log("Todos instance:", instanceOfTodos);
-
     const instanceOfProjectsFromTodo = ProjectFunc();
-    console.log(instanceOfProjectsFromTodo.getProjectArr());
 
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
@@ -36,10 +26,6 @@ export const toDoDisplayFunc = (projectPosition) => {
     const project = instanceOfProjectsFromTodo.getProjectArr()[projectPosition];
     console.log('HI Project:', project); // Debugging line
     const name = project.name;
-
-    const index = document.createElement('h1');
-    index.textContent = `Project ${projectPosition + 1}: ${name}`;
-    toDoContainer.appendChild(index);
     
     
        

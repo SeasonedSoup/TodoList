@@ -10,11 +10,20 @@ export const ProjectDisplayFunc = () => {
    
     const projects = instanceOfProjects.getProjectArr();
    
-    console.log("Projects: " + instanceOfProjects.getProjectArr()); 
-    //use
-    const container = document.querySelector('.container');
-    container.textContent = '';
+    const projectsidebar = document.querySelector('.project-sidebar');
+    projectsidebar.textContent = '';
 
+    const title = document.querySelector('.title');
+    title.classList.add('title')
+
+    const paragraphTitle = document.createElement('h1');
+    const oneTitleOnly = document.querySelector('.paraTitle');
+
+    if(!oneTitleOnly) {
+    paragraphTitle.classList.add('paraTitle');
+    paragraphTitle.textContent = 'Projects';
+    title.appendChild(paragraphTitle);
+    }
     const createProjectHandler = () => {
         const buttonDiv = document.createElement('div');
         buttonDiv.classList.add('buttonDiv');
@@ -26,7 +35,7 @@ export const ProjectDisplayFunc = () => {
             projectFormModal();
         });
         buttonDiv.appendChild(createProjectButton);
-        container.appendChild(buttonDiv);
+        projectsidebar.appendChild(buttonDiv);
     };
 
     const removeProjectHandler = () => {
@@ -74,20 +83,8 @@ export const ProjectDisplayFunc = () => {
         buttonDiv.appendChild(removeProjectDropdown);
         buttonDiv.append(dropdown);
         buttonDiv.appendChild(deleteButton);
-        container.appendChild(buttonDiv);
+        projectsidebar.appendChild(buttonDiv);
     };
-
-    const title = document.querySelector('.title');
-    title.classList.add('title')
-
-    const paragraphTitle = document.createElement('h1');
-    const oneTitleOnly = document.querySelector('.paraTitle');
-
-    if(!oneTitleOnly) {
-    paragraphTitle.classList.add('paraTitle');
-    paragraphTitle.textContent = 'Projects';
-    title.appendChild(paragraphTitle);
-    }
 
     createProjectHandler();
     removeProjectHandler();
@@ -95,18 +92,17 @@ export const ProjectDisplayFunc = () => {
 
     projects.forEach((project, projectIndex) => {
         const projectTitle = document.createElement('h1')
-        projectTitle.textContent = `${projectIndex + 1}: ${project.name} ${project.desc}`
+        projectTitle.textContent = `${projectIndex + 1}: ${project.name}`
         projectTitle.addEventListener('click', () => {
             toDoDisplayFunc(projectIndex);
-        })
-        //base idea probably need a controller way different function than this that will get the project array display the projects like a dropdown then selecting them will delete
-        container.appendChild(projectTitle);
+        });
+        projectsidebar.appendChild(projectTitle);
     });
 
 
     const projectFormModal = () => {
         const existingForm = document.querySelector('.projectForm')
-        const formContainer = document.querySelector('.form')
+        const formprojectsidebar = document.querySelector('.form')
         if (existingForm) {
             console.log("There is currently a form pls fill it up before making another one");
             return;
@@ -154,7 +150,7 @@ export const ProjectDisplayFunc = () => {
             form.remove()
         })
 
-        formContainer.appendChild(form)
+        formprojectsidebar.appendChild(form)
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -167,10 +163,6 @@ export const ProjectDisplayFunc = () => {
             //function that called to show and append all projects for the new project made to show in the dom
             //showProjects();
         });
-        //hell yea
-        const addEventListenersToYoProjects = () => {
-
-        }
     }
 }
 
