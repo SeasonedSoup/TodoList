@@ -117,7 +117,6 @@ export const ProjectDisplayFunc = () => {
     
         const inputs = [
             { label: 'Project Name: ', type: 'text', name: 'projectName', id: 'projectName'},
-            { label: 'Project Description: ', type: 'text', name: 'projectDesc', id: 'projectDesc' },
         ];
 
         inputs.forEach((inputData) => {
@@ -135,16 +134,13 @@ export const ProjectDisplayFunc = () => {
             form.appendChild(label);
             form.appendChild(input);
             form.appendChild(document.createElement('br'));
-
         })
 
-        //button for submitting data to be used for AddProjectToProjectArr() and closing the modal
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
         submitButton.textContent = 'Create Project';
         form.appendChild(submitButton);
 
-        //closebutton
         const closeButton = document.createElement('button');
         closeButton.type = 'button';
         closeButton.textContent = 'Close';
@@ -160,8 +156,7 @@ export const ProjectDisplayFunc = () => {
             e.preventDefault();
 
             const submittedName = document.querySelector('#projectName').value
-            const submittedDesc = document.querySelector('#projectDesc').value
-            instanceOfProjects.addProjectToProjectArr(submittedName, submittedDesc);
+            instanceOfProjects.addProjectToProjectArr(submittedName);
             form.remove();
             ProjectDisplayFunc();
             //function that called to show and append all projects for the new project made to show in the dom
