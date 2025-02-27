@@ -13,8 +13,7 @@ export const ProjectDisplayFunc = () => {
     const projectsidebar = document.querySelector('.project-sidebar');
     projectsidebar.textContent = '';
 
-    const title = document.querySelector('.title');
-    title.classList.add('title')
+    const title = document.querySelector('.project-title');
 
     const paragraphTitle = document.createElement('h1');
     const oneTitleOnly = document.querySelector('.paraTitle');
@@ -30,7 +29,7 @@ export const ProjectDisplayFunc = () => {
 
         const createProjectButton = document.createElement('button');
         createProjectButton.classList.add('button')
-        createProjectButton.textContent = 'Create Project';
+        createProjectButton.textContent = 'Create Project +';
         createProjectButton.addEventListener('click', () => {
             projectFormModal();
         });
@@ -89,10 +88,10 @@ export const ProjectDisplayFunc = () => {
     createProjectHandler();
     removeProjectHandler();
 
-
+    
     projects.forEach((project, projectIndex) => {
         const projectTitle = document.createElement('h1')
-        projectTitle.textContent = `${projectIndex + 1}: ${project.name}`
+        projectTitle.textContent = `${project.name}`
         projectTitle.addEventListener('click', () => {
             toDoDisplayFunc(projectIndex);
         });
@@ -107,9 +106,13 @@ export const ProjectDisplayFunc = () => {
             console.log("There is currently a form pls fill it up before making another one");
             return;
         }
-        //modal div
-        //const modal =
-        const form = document.createElement('form')
+       
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+
+        document.body.appendChild(modal);
+
+        const form = document.createElement('form');
         form.classList.add('projectForm');
     
         const inputs = [
@@ -151,6 +154,7 @@ export const ProjectDisplayFunc = () => {
         })
 
         formprojectsidebar.appendChild(form)
+        modal.appendChild(formprojectsidebar);
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
