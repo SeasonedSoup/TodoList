@@ -28,3 +28,73 @@ possibly a checklist function for todos
 setting that can delete all finished todos
 
 Reflection:
+
+
+---
+-old
+-
+-
+
+old code can be used just moved here
+
+ const editFormModal = (index) => {
+
+        const toDoFormContainer = document.querySelector('.toDoFormContainer');
+
+        const existingEditForm = document.querySelector('.editToDoForm');
+        if (existingEditForm) {
+            return;
+        }
+        
+        const editToDoForm = document.createElement('form');
+        editToDoForm.classList.add('editToDoForm');
+    
+        const inputs = [
+            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'editToDoName' },
+            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'editToDoDescription'}, 
+        ];
+    
+        inputs.forEach((inputData) => {
+            const label = document.createElement('label');
+            label.textContent = inputData.label;
+            label.setAttribute('for', inputData.id);
+    
+            const input = document.createElement('input');
+            input.type = inputData.type;
+            input.name = inputData.name;
+            input.id = inputData.id;
+    
+            input.required = true;
+    
+            editToDoForm.appendChild(label);
+            editToDoForm.appendChild(input);
+            editToDoForm.appendChild(document.createElement('br'));     
+        });
+    
+        const submitButton = document.createElement('button');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.textContent = 'Edit ToDo';
+        editToDoForm.appendChild(submitButton);
+            
+        const closeButton = document.createElement('button');
+        closeButton.setAttribute('type', 'button');
+        closeButton.textContent = 'Close';
+        editToDoForm.appendChild(closeButton);
+    
+        toDoFormContainer.appendChild(editToDoForm);
+        closeButton.addEventListener('click', () => {
+            editToDoForm.remove();
+        });
+    
+        editToDoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+                
+            const toDoName = document.querySelector('#editToDoName').value;
+            const toDoDescription = document.querySelector('#editToDoDescription').value;
+            //other values as well in the future to be noted
+            instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
+            toDoDisplayFunc(projectPosition);
+    
+            editToDoForm.remove();
+        });
+    }

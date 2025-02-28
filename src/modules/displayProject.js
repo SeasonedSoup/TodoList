@@ -13,7 +13,10 @@ export const ProjectDisplayFunc = () => {
     const projectsidebar = document.querySelector('.project-sidebar');
     projectsidebar.textContent = '';
 
-    const title = document.querySelector('.project-title');
+    const textTitle = document.querySelector('.text-title');
+    textTitle.textContent = '';
+    const buttons = document.querySelector('.buttons')
+    buttons.textContent = '';
 
     const paragraphTitle = document.createElement('h1');
     const oneTitleOnly = document.querySelector('.paraTitle');
@@ -21,7 +24,7 @@ export const ProjectDisplayFunc = () => {
     if(!oneTitleOnly) {
     paragraphTitle.classList.add('paraTitle');
     paragraphTitle.textContent = 'Projects';
-    title.appendChild(paragraphTitle);
+    textTitle.appendChild(paragraphTitle);
     }
     const createProjectHandler = () => {
         const buttonDiv = document.createElement('div');
@@ -29,12 +32,12 @@ export const ProjectDisplayFunc = () => {
 
         const createProjectButton = document.createElement('button');
         createProjectButton.classList.add('button')
-        createProjectButton.textContent = 'Create Project +';
+        createProjectButton.textContent = 'Add Project';
         createProjectButton.addEventListener('click', () => {
             projectFormModal();
         });
         buttonDiv.appendChild(createProjectButton);
-        projectsidebar.appendChild(buttonDiv);
+        buttons.appendChild(buttonDiv);
     };
 
     const removeProjectHandler = () => {
@@ -82,7 +85,7 @@ export const ProjectDisplayFunc = () => {
         buttonDiv.appendChild(removeProjectDropdown);
         buttonDiv.append(dropdown);
         buttonDiv.appendChild(deleteButton);
-        projectsidebar.appendChild(buttonDiv);
+        buttons.appendChild(buttonDiv);
     };
 
     createProjectHandler();

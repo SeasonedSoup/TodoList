@@ -7,10 +7,7 @@
 body {
     height: 100vh;
 }
-.LOGO {
-    margin: 20px;
-    color: white;
-}
+
 .title {
     margin: 40px;
 }
@@ -42,10 +39,22 @@ body {
 
 .project-title {
     grid-row: 1 / 2;
-    grid-column: 1 / 3;
+    grid-column: 1 / 2;
 
-    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
 
+.main-title {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#TODOIT {
+    font-size: 50px;
 }
 
 .project-sidebar {
@@ -53,8 +62,6 @@ body {
     grid-column: 1 / 2;
     
     background-color: white;
-    margin: 20px;
-    border-radius: 20px;
     box-shadow: 20px 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
 }
 
@@ -62,11 +69,16 @@ body {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
     background-color: white;
-    margin: 5rem;
-    border-radius: 20px;
     box-shadow: 20px 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
 }
 
+.square {
+    background-color: darkcyan;
+    height: 80px;
+    width: 80px;
+    border-radius: 12px;
+    border: 2px solid black;
+}
 
 .modal {
     position: absolute;
