@@ -43,7 +43,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         const toDoDueDate = document.createElement('h2');
         toDoDueDate.textContent = `${todo.dueDate}`;
 
-        toDoItem.appendChild(toDoSquare)
+        toDoItem.appendChild(toDoSquare);
         toDoItem.appendChild(toDoIndexAndTitle);
         toDoItem.appendChild(toDoDueDate);
 

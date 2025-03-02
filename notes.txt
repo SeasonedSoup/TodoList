@@ -27,6 +27,9 @@ Low
 possibly a checklist function for todos
 setting that can delete all finished todos
 
+ideas:
+ipad click app switch tab dynamically display more details on todo
+
 Reflection:
 
 
