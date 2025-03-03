@@ -93,8 +93,9 @@ export const ProjectDisplayFunc = () => {
 
     
     projects.forEach((project, projectIndex) => {
-        const projectTitle = document.createElement('h1')
-        projectTitle.textContent = `${project.name}`
+        const projectTitle = document.createElement('h1');
+        projectTitle.textContent = `${project.name}`;
+        projectTitle.classList.add('projectTitles');
         projectTitle.addEventListener('click', () => {
             toDoDisplayFunc(projectIndex);
         });

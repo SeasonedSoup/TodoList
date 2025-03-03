@@ -63,6 +63,16 @@ body {
     
     background-color: white;
     box-shadow: 20px 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+    height: 600px;
+    width: 300px;
+    border-radius: 12px;
+    margin: 20px;
+}
+
+.projectTitles {
+    font-size: 30px;
+    margin: 5px;
+    font-weight: lighter;
 }
 
 .content {
@@ -70,6 +80,8 @@ body {
     grid-column: 2 / 3;
     background-color: white;
     box-shadow: 20px 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+    margin-right: 40px;
+    margin-bottom: 40px;
 }
 
 .square {
@@ -92,6 +104,11 @@ body {
     border: 2px solid black;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toDoContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 
