@@ -26,6 +26,19 @@ export const ProjectDisplayFunc = () => {
     paragraphTitle.textContent = 'Projects';
     textTitle.appendChild(paragraphTitle);
     }
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay')
+    
+    const modal = document.createElement('div');
+    overlay.appendChild(modal);
+    modal.classList.add('modal');
+
+    const modal_inner = document.createElement('div');
+    modal_inner.classList.add('inner-modal');
+
+    modal.appendChild(modal_inner);
+    document.body.appendChild(overlay);   
+
     const createProjectHandler = () => {
         const buttonDiv = document.createElement('div');
         buttonDiv.classList.add('buttonDiv');
@@ -98,23 +111,21 @@ export const ProjectDisplayFunc = () => {
         projectTitle.classList.add('projectTitles');
         projectTitle.addEventListener('click', () => {
             toDoDisplayFunc(projectIndex);
+            toDoDisplayFunc(projectIndex).swapToDoName();
         });
         projectsidebar.appendChild(projectTitle);
     });
 
 
     const projectFormModal = () => {
+        modal.classList.add('open');
+        overlay.classList.add('open');
         const existingForm = document.querySelector('.projectForm')
         const formprojectsidebar = document.querySelector('.form')
         if (existingForm) {
             console.log("There is currently a form pls fill it up before making another one");
             return;
         }
-       
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-
-        document.body.appendChild(modal);
 
         const form = document.createElement('form');
         form.classList.add('projectForm');
@@ -150,11 +161,13 @@ export const ProjectDisplayFunc = () => {
         closeButton.textContent = 'Close';
         form.appendChild(closeButton);
         closeButton.addEventListener('click', () => {
-            form.remove()
+            form.remove();
+            modal.classList.remove('open');
+            overlay.classList.remove('open');
         })
 
         formprojectsidebar.appendChild(form)
-        modal.appendChild(formprojectsidebar);
+        modal_inner.appendChild(formprojectsidebar);
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -162,6 +175,8 @@ export const ProjectDisplayFunc = () => {
             const submittedName = document.querySelector('#projectName').value
             instanceOfProjects.addProjectToProjectArr(submittedName);
             form.remove();
+            modal.classList.remove('open');
+            overlay.classList.remove('open');
             ProjectDisplayFunc();
             //function that called to show and append all projects for the new project made to show in the dom
             //showProjects();

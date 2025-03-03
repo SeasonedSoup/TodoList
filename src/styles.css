@@ -91,21 +91,52 @@ body {
     border-radius: 12px;
     border: 2px solid black;
 }
-
 .modal {
-    position: absolute;
-    top: 20%;
+    position: fixed;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 200px;
-    background-color: red;
-    border-radius: 12px;
-    border: 2px solid black;
-    z-index: 1000;
+    width: 300px;
+    height: 500px;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+    background-color: white;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.modal.open {
+    z-index: 9999;
+    opacity: 1;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.overlay.open {
+    opacity: 1;
+    z-index: 9998;
+}
+
+.titleDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .toDoContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

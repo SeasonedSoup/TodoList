@@ -5,42 +5,50 @@ export const toDoDisplayFunc = (projectPosition) => {
     const instanceOfTodos = ToDoFunc();
     const instanceOfProjectsFromTodo = ProjectFunc();
 
+
+    const swapToDoName = () => {
+        paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+    }
+
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
 
     const toDoContainerTitle = document.querySelector('.toDoTitle');
     const paraTitleCheck = document.querySelector('.paragraphTitle');
+    
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('titleDiv');
+    
+    
     if (!paraTitleCheck) {
         const paragraphTitle = document.createElement('h1');
-        paragraphTitle.textContent = 'To Dos';
+        paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
         paragraphTitle.classList.add('paragraphTitle');
-        toDoContainerTitle.appendChild(paragraphTitle);
+
+        titleDiv.appendChild(paragraphTitle);
+        toDoContainerTitle.appendChild(titleDiv);
     }
+
     
-    if (projectPosition === null || projectPosition === undefined) {
-        toDoContainer.innerHTML = "<p>No project selected.</p>";
-        return;
-    }
+    const createToDoHandler = () => {
+        const checkToDoButton = document.querySelector('.createToDoButton');
+            if(!checkToDoButton) {
+                const createToDoButton = document.createElement('button');
+                createToDoButton.textContent = 'Add To-Do +';
+                createToDoButton.classList.add('createToDoButton');
+                createToDoButton.addEventListener('click', () => {
+                    formModal();
+                });
+                titleDiv.appendChild(createToDoButton);
+                toDoContainerTitle.appendChild(titleDiv);
+            }
+        }
+    createToDoHandler();
 
     const todos = instanceOfTodos.selectToDo(projectPosition);
     const project = instanceOfProjectsFromTodo.getProjectArr()[projectPosition];
     console.log('HI Project:', project); // Debugging line
-   
-    const createToDoHandler = () => {
-        const buttonDiv = document.createElement('div');
-        buttonDiv.classList.add('buttonDiv');
 
-        const createToDoButton = document.createElement('button');
-        createToDoButton.textContent = 'Add To-Do +';
-        createToDoButton.addEventListener('click', () => {
-            formModal();
-        });
-        buttonDiv.appendChild(createToDoButton);
-        toDoContainer.appendChild(buttonDiv);
-    }
-
-    createToDoHandler();
-       
     //==
     todos.forEach((todo, index) => {
         const toDoItem = document.createElement('div');
@@ -152,67 +160,6 @@ export const toDoDisplayFunc = (projectPosition) => {
             toDoForm.remove();
         })
     }
-    const editFormModal = (index) => {
-
-        const toDoFormContainer = document.querySelector('.toDoFormContainer');
-
-        const existingEditForm = document.querySelector('.editToDoForm');
-        if (existingEditForm) {
-            return;
-        }
-        
-        const editToDoForm = document.createElement('form');
-        editToDoForm.classList.add('editToDoForm');
-    
-        const inputs = [
-            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'editToDoName' },
-            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'editToDoDescription'}, 
-        ];
-    
-        inputs.forEach((inputData) => {
-            const label = document.createElement('label');
-            label.textContent = inputData.label;
-            label.setAttribute('for', inputData.id);
-    
-            const input = document.createElement('input');
-            input.type = inputData.type;
-            input.name = inputData.name;
-            input.id = inputData.id;
-    
-            input.required = true;
-    
-            editToDoForm.appendChild(label);
-            editToDoForm.appendChild(input);
-            editToDoForm.appendChild(document.createElement('br'));     
-        });
-    
-        const submitButton = document.createElement('button');
-        submitButton.setAttribute('type', 'submit');
-        submitButton.textContent = 'Edit ToDo';
-        editToDoForm.appendChild(submitButton);
-            
-        const closeButton = document.createElement('button');
-        closeButton.setAttribute('type', 'button');
-        closeButton.textContent = 'Close';
-        editToDoForm.appendChild(closeButton);
-    
-        toDoFormContainer.appendChild(editToDoForm);
-        closeButton.addEventListener('click', () => {
-            editToDoForm.remove();
-        });
-    
-        editToDoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-                
-            const toDoName = document.querySelector('#editToDoName').value;
-            const toDoDescription = document.querySelector('#editToDoDescription').value;
-            //other values as well in the future to be noted
-            instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
-            toDoDisplayFunc(projectPosition);
-    
-            editToDoForm.remove();
-        });
-    }
-
+    return { swapToDoName };
         //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
 }
