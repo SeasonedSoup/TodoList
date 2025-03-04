@@ -9,7 +9,6 @@ export const toDoDisplayFunc = (projectPosition) => {
     const swapToDoName = () => {
         paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
     }
-
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
 
@@ -57,7 +56,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         const toDoSquare = document.createElement('div');
         toDoSquare.classList.add('square')
         toDoSquare.addEventListener('click', () => {
-            editFormModal(index);
+            seeToDoDetails(todo);
         })
 
         const toDoIndexAndTitle = document.createElement('h2');
@@ -160,6 +159,49 @@ export const toDoDisplayFunc = (projectPosition) => {
             toDoForm.remove();
         })
     }
+
+    const seeToDoDetails = (todo) => {
+        toDoContainer.textContent = '';
+        toDoContainer.classList.remove('toDoContainer');
+
+        const toDoDetailsDiv= document.createElement('div');
+        toDoDetailsDiv.classList.add('toDoDetailsDiv');
+
+        const toDoIndexAndTitle = document.createElement('h2');
+        toDoIndexAndTitle.textContent = `Title: ${todo.title}`;
+
+        const toDoDesc = document.createElement('h2');
+        toDoDesc.textContent = `Description: ${todo.description}`;
+
+        const toDoDueDate = document.createElement('h2');
+        toDoDueDate.textContent = `Due Date: ${todo.dueDate}`;
+
+        const toDoPriority = document.createElement('h2');
+        toDoPriority.textContent = `Priority: ${todo.priority}`;
+
+        toDoDetailsDiv.appendChild(toDoIndexAndTitle);
+        toDoDetailsDiv.appendChild(toDoDesc);
+        toDoDetailsDiv.appendChild(toDoDueDate);
+        toDoDetailsDiv.appendChild(toDoPriority);
+
+        const returnButton = document.createElement('button');
+        returnButton.textContent = '< Return';
+        returnButton.classList.add('returnButton');
+
+        returnButton.addEventListener('click', () => {
+            toDoContainer.classList.add('toDoContainer');
+            toDoDisplayFunc(projectPosition);
+        })
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit To-Do';
+
+        toDoDetailsDiv.appendChild(returnButton);
+        toDoDetailsDiv.appendChild(editButton);
+
+        toDoContainer.appendChild(toDoDetailsDiv);
+    }
+    
+
     return { swapToDoName };
         //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
 }
