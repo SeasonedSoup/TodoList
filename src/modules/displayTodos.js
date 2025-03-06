@@ -27,23 +27,37 @@ export const toDoDisplayFunc = (projectPosition) => {
     } else {
         paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
     }
-
     
-    const createToDoHandler = (projectPosition) => {
+    const getProjectPosition = () => projectPosition;
+
+
+    const createToDoHandler = (getProjectPosition) => {
         const checkToDoButton = document.querySelector('.createToDoButton');
-            if(!checkToDoButton) {
-                const createToDoButton = document.createElement('button');
-                createToDoButton.textContent = 'Add To-Do +';
-                createToDoButton.classList.add('createToDoButton');
-                createToDoButton.addEventListener('click', () => {
-                    console.log("🔘 Button Clicked, projectPosition:", projectPosition);
-                    formModal(projectPosition);
-                });
-                titleDiv.appendChild(createToDoButton);
-                toDoContainerTitle.appendChild(titleDiv);
-            }
+    
+        if (checkToDoButton) {
+            checkToDoButton.remove();
         }
-    createToDoHandler();
+
+
+            const createToDoButton = document.createElement('button');
+            createToDoButton.textContent = 'Add To-Do +';
+            createToDoButton.classList.add('createToDoButton');
+    
+            // ✅ Fetch the latest project position when the button is clicked
+            createToDoButton.addEventListener('click', () => {
+                const latestProjectPosition = getProjectPosition();
+                console.log("🔘 Button Clicked, projectPosition:", latestProjectPosition);
+                formModal(latestProjectPosition);
+            });
+    
+            titleDiv.appendChild(createToDoButton);
+            toDoContainerTitle.appendChild(titleDiv);
+        
+    };
+    
+    // ✅ Pass a function that always gets the latest project position
+    createToDoHandler(getProjectPosition);
+    
 
     const todos = instanceOfTodos.selectToDo(projectPosition);
 
