@@ -5,10 +5,9 @@ export const toDoDisplayFunc = (projectPosition) => {
     const instanceOfTodos = ToDoFunc();
     const instanceOfProjectsFromTodo = ProjectFunc();
 
+    console.log("Displaying ToDos for Project Position:", projectPosition);
 
-    const swapToDoName = () => {
-        paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
-    }
+
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
 
@@ -18,7 +17,6 @@ export const toDoDisplayFunc = (projectPosition) => {
     const titleDiv = document.createElement('div');
     titleDiv.classList.add('titleDiv');
     
-    
     if (!paraTitleCheck) {
         const paragraphTitle = document.createElement('h1');
         paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
@@ -26,17 +24,20 @@ export const toDoDisplayFunc = (projectPosition) => {
 
         titleDiv.appendChild(paragraphTitle);
         toDoContainerTitle.appendChild(titleDiv);
+    } else {
+        paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
     }
 
     
-    const createToDoHandler = () => {
+    const createToDoHandler = (projectPosition) => {
         const checkToDoButton = document.querySelector('.createToDoButton');
             if(!checkToDoButton) {
                 const createToDoButton = document.createElement('button');
                 createToDoButton.textContent = 'Add To-Do +';
                 createToDoButton.classList.add('createToDoButton');
                 createToDoButton.addEventListener('click', () => {
-                    formModal();
+                    console.log("🔘 Button Clicked, projectPosition:", projectPosition);
+                    formModal(projectPosition);
                 });
                 titleDiv.appendChild(createToDoButton);
                 toDoContainerTitle.appendChild(titleDiv);
@@ -45,18 +46,16 @@ export const toDoDisplayFunc = (projectPosition) => {
     createToDoHandler();
 
     const todos = instanceOfTodos.selectToDo(projectPosition);
-    const project = instanceOfProjectsFromTodo.getProjectArr()[projectPosition];
-    console.log('HI Project:', project); // Debugging line
 
-    //==
     todos.forEach((todo, index) => {
+
         const toDoItem = document.createElement('div');
         toDoItem.classList.add('toDoItem');
 
         const toDoSquare = document.createElement('div');
         toDoSquare.classList.add('square')
         toDoSquare.addEventListener('click', () => {
-            seeToDoDetails(todo);
+            seeToDoDetails(todo, index + 1);
         })
 
         const toDoIndexAndTitle = document.createElement('h2');
@@ -72,7 +71,10 @@ export const toDoDisplayFunc = (projectPosition) => {
         toDoContainer.appendChild(toDoItem);
     });
 
-    const formModal = () => {
+    const formModal = (projectPosition) => {
+
+        console.log("📝 Opening Form for Project Position:", projectPosition);
+
 
         const toDoFormContainer = document.querySelector('.toDoFormContainer');
         const existingForm = document.querySelector('.toDoForm');
@@ -112,8 +114,8 @@ export const toDoDisplayFunc = (projectPosition) => {
         priorityLabel.setAttribute('for', 'toDoPriority');
 
         const priorityInput = document.createElement('select');
-        priorityInput.name = 'toDoOptions';
-        priorityInput.id = 'toDoOptions';
+        priorityInput.name = 'toDoPriority';
+        priorityInput.id = 'toDoPriority';
 
         const options = ['High', 'Medium', 'Low'];
 
@@ -147,11 +149,13 @@ export const toDoDisplayFunc = (projectPosition) => {
 
         toDoForm.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            console.log("📩 Submitting ToDo for Project Position:", projectPosition);
             
             const toDoName = document.querySelector('#toDoName').value;
             const toDoDescription = document.querySelector('#toDoDescription').value;
             const toDoDueDate = document.querySelector('#toDoDueDate').value;
-            const toDoPriority = document.querySelector('#toDoOptions').value;
+            const toDoPriority = document.querySelector('#toDoPriority').value;
 
             instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription,toDoDueDate,toDoPriority);
             toDoDisplayFunc(projectPosition);
@@ -160,15 +164,14 @@ export const toDoDisplayFunc = (projectPosition) => {
         })
     }
 
-    const seeToDoDetails = (todo) => {
+    const seeToDoDetails = (todo, toDoIndex) => {
         toDoContainer.textContent = '';
-        toDoContainer.classList.remove('toDoContainer');
 
         const toDoDetailsDiv= document.createElement('div');
         toDoDetailsDiv.classList.add('toDoDetailsDiv');
 
         const toDoIndexAndTitle = document.createElement('h2');
-        toDoIndexAndTitle.textContent = `Title: ${todo.title}`;
+        toDoIndexAndTitle.textContent = `Title: #${toDoIndex} ${todo.title}`;
 
         const toDoDesc = document.createElement('h2');
         toDoDesc.textContent = `Description: ${todo.description}`;
@@ -184,24 +187,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         toDoDetailsDiv.appendChild(toDoDueDate);
         toDoDetailsDiv.appendChild(toDoPriority);
 
-        const returnButton = document.createElement('button');
-        returnButton.textContent = '< Return';
-        returnButton.classList.add('returnButton');
-
-        returnButton.addEventListener('click', () => {
-            toDoContainer.classList.add('toDoContainer');
-            toDoDisplayFunc(projectPosition);
-        })
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit To-Do';
-
-        toDoDetailsDiv.appendChild(returnButton);
-        toDoDetailsDiv.appendChild(editButton);
-
         toDoContainer.appendChild(toDoDetailsDiv);
     }
-    
-
-    return { swapToDoName };
         //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
 }

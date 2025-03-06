@@ -19,6 +19,7 @@ export const ToDoFunc = () => {
         }
         
         projects[projectPosition].toDoList.push(addedToDo)
+        console.log(projects[projectPosition]);
         instanceOfProjects.saveProjectLocally();
     }
     //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
