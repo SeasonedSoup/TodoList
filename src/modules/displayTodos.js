@@ -5,28 +5,35 @@ export const toDoDisplayFunc = (projectPosition) => {
     const instanceOfTodos = ToDoFunc();
     const instanceOfProjectsFromTodo = ProjectFunc();
 
-    console.log("Displaying ToDos for Project Position:", projectPosition);
-
-
     const toDoContainer = document.querySelector('.toDoContainer');
     toDoContainer.textContent = '';
 
     const toDoContainerTitle = document.querySelector('.toDoTitle');
     const paraTitleCheck = document.querySelector('.paragraphTitle');
     
-    const titleDiv = document.createElement('div');
-    titleDiv.classList.add('titleDiv');
     
     if (!paraTitleCheck) {
         const paragraphTitle = document.createElement('h1');
         paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
         paragraphTitle.classList.add('paragraphTitle');
 
-        titleDiv.appendChild(paragraphTitle);
-        toDoContainerTitle.appendChild(titleDiv);
+        toDoContainerTitle.appendChild(paragraphTitle);
     } else {
         paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
     }
+
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay')
+    
+    const modal = document.createElement('div');
+    overlay.appendChild(modal);
+    modal.classList.add('modal');
+
+    const modal_inner = document.createElement('div');
+    modal_inner.classList.add('inner-modal');
+
+    modal.appendChild(modal_inner);
+    document.body.appendChild(overlay);   
     
     const getProjectPosition = () => projectPosition;
 
@@ -43,21 +50,19 @@ export const toDoDisplayFunc = (projectPosition) => {
             createToDoButton.textContent = 'Add To-Do +';
             createToDoButton.classList.add('createToDoButton');
     
-            // ✅ Fetch the latest project position when the button is clicked
             createToDoButton.addEventListener('click', () => {
-                const latestProjectPosition = getProjectPosition();
-                console.log("🔘 Button Clicked, projectPosition:", latestProjectPosition);
-                formModal(latestProjectPosition);
+                const projectPosition = getProjectPosition();
+                formModal(projectPosition);
             });
     
-            titleDiv.appendChild(createToDoButton);
-            toDoContainerTitle.appendChild(titleDiv);
+            toDoContainerTitle.appendChild(createToDoButton);
         
     };
     
-    // ✅ Pass a function that always gets the latest project position
     createToDoHandler(getProjectPosition);
     
+const viewTodos = () => {
+    toDoContainer.textContent = '';
 
     const todos = instanceOfTodos.selectToDo(projectPosition);
 
@@ -69,7 +74,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         const toDoSquare = document.createElement('div');
         toDoSquare.classList.add('square')
         toDoSquare.addEventListener('click', () => {
-            seeToDoDetails(todo, index + 1);
+            seeToDoDetails(todo, index, getProjectPosition);
         })
 
         const toDoIndexAndTitle = document.createElement('h2');
@@ -84,12 +89,13 @@ export const toDoDisplayFunc = (projectPosition) => {
 
         toDoContainer.appendChild(toDoItem);
     });
+}
+
+viewTodos();
 
     const formModal = (projectPosition) => {
-
-        console.log("📝 Opening Form for Project Position:", projectPosition);
-
-
+        modal.classList.add('open');
+        overlay.classList.add('open');
         const toDoFormContainer = document.querySelector('.toDoFormContainer');
         const existingForm = document.querySelector('.toDoForm');
 
@@ -155,37 +161,42 @@ export const toDoDisplayFunc = (projectPosition) => {
         toDoForm.appendChild(closeButton);
 
         toDoFormContainer.appendChild(toDoForm);
+        modal_inner.appendChild(toDoFormContainer);
 
         //addeventlisteners
         closeButton.addEventListener('click', () => {
             toDoForm.remove();
+
+            modal.classList.remove('open');
+            overlay.classList.remove('open');
         })
 
         toDoForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            console.log("📩 Submitting ToDo for Project Position:", projectPosition);
-            
             const toDoName = document.querySelector('#toDoName').value;
             const toDoDescription = document.querySelector('#toDoDescription').value;
             const toDoDueDate = document.querySelector('#toDoDueDate').value;
             const toDoPriority = document.querySelector('#toDoPriority').value;
 
             instanceOfTodos.insertToDoToProject(projectPosition,toDoName,toDoDescription,toDoDueDate,toDoPriority);
-            toDoDisplayFunc(projectPosition);
-
+            toDoDisplayFunc(projectPosition); 
+            
             toDoForm.remove();
+          
+            modal.classList.remove('open');
+            overlay.classList.remove('open');
         })
     }
 
-    const seeToDoDetails = (todo, toDoIndex) => {
+    const seeToDoDetails = (todo, toDoIndex, getProjectPosition) => {
         toDoContainer.textContent = '';
 
         const toDoDetailsDiv= document.createElement('div');
         toDoDetailsDiv.classList.add('toDoDetailsDiv');
 
         const toDoIndexAndTitle = document.createElement('h2');
-        toDoIndexAndTitle.textContent = `Title: #${toDoIndex} ${todo.title}`;
+        toDoIndexAndTitle.textContent = `Title: #${toDoIndex + 1} ${todo.title}`;
 
         const toDoDesc = document.createElement('h2');
         toDoDesc.textContent = `Description: ${todo.description}`;
@@ -196,10 +207,20 @@ export const toDoDisplayFunc = (projectPosition) => {
         const toDoPriority = document.createElement('h2');
         toDoPriority.textContent = `Priority: ${todo.priority}`;
 
+        const finishToDo = document.createElement('button');
+        finishToDo.textContent = 'Finish It!';
+
+        finishToDo.addEventListener('click', () => {
+            instanceOfTodos.removeToDo(getProjectPosition(), toDoIndex);
+            console.log('removed' + instanceOfProjectsFromTodo.getToDoArr(getProjectPosition().name));
+            viewTodos();
+        })
+
         toDoDetailsDiv.appendChild(toDoIndexAndTitle);
         toDoDetailsDiv.appendChild(toDoDesc);
         toDoDetailsDiv.appendChild(toDoDueDate);
         toDoDetailsDiv.appendChild(toDoPriority);
+        toDoDetailsDiv.appendChild(finishToDo);
 
         toDoContainer.appendChild(toDoDetailsDiv);
     }

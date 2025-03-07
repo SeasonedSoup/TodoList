@@ -38,13 +38,20 @@ export const ProjectFunc = () => {
     }
     
     const getProjectArr = () => projectArr;
-    
+   
+    const getToDoArr = (projectPosition) => {
+        if (projectArr[projectPosition]) {
+            return projectArr[projectPosition].toDoList;
+        }
+        return [];
+    }
     restoreProjectLocally();
     
     return {
         createProject,
         addProjectToProjectArr,
         getProjectArr,
+        getToDoArr,
         updateProject,
         deleteProject,
         saveProjectLocally,

@@ -29,7 +29,7 @@ body {
 }
 
 .main-container {
-    background-color: #23c686;
+    background-color: black;
     height: 100%;
     display: grid;
     grid-template-rows: 1fr 4fr;
@@ -79,18 +79,13 @@ body {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
     background-color: white;
+    display: flex;
+    flex-direction: column;
     box-shadow: 20px 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
     margin-right: 40px;
     margin-bottom: 40px;
 }
 
-.square {
-    background-color: darkcyan;
-    height: 80px;
-    width: 80px;
-    border-radius: 12px;
-    border: 2px solid black;
-}
 .modal {
     position: fixed;
     top: 50%;
@@ -136,11 +131,32 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    margin-left: 4px;
     margin-bottom: 22px;
+}
+
+.createToDoButton {
+    border-radius: 15px;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    font-size: 1rem;
+    box-shadow: 0 5px 3px black;
+
 }
 .toDoContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: 20px;
 }
 
+.square {
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    border-radius: 12px;
+    border: 2px dashed black;
+}
 
