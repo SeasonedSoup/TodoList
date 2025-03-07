@@ -149,8 +149,12 @@ body {
 .toDoContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
     padding: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
+
 
 .square {
     background-color: white;
