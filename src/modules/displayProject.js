@@ -107,7 +107,6 @@ export const ProjectDisplayFunc = () => {
     projectTitle.textContent = `${project.name}`;
     projectTitle.classList.add("projectTitles");
     projectTitle.addEventListener("click", () => {
-      console.log("Clicked Project Position:", projectIndex);
       toDoDisplayFunc(projectIndex);
     });
     projectsidebar.appendChild(projectTitle);
