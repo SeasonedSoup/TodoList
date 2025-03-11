@@ -1,3 +1,4 @@
+import "./reset.css"
 import "./styles.css";
 import { ProjectDisplayFunc } from "./modules/displayProject";
 import { toDoDisplayFunc } from "./modules/displayTodos";
