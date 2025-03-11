@@ -1,5 +1,6 @@
 import { ProjectFunc } from "./project";
 import { toDoDisplayFunc } from "./displayTodos";
+import cogImg from "../logos/cog.svg";
 
 //testing data will be named Default Project
 const instanceOfProjects = ProjectFunc();
@@ -52,13 +53,13 @@ export const ProjectDisplayFunc = () => {
 
   const removeProjectHandler = () => {
 
-
-
-
     const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add('buttonDiv');
 
-            const removeProjectDropdown = document.createElement("button");
-    removeProjectDropdown.textContent = "COG";
+    const removeProjectDropdown = document.createElement("img");
+    removeProjectDropdown.src = cogImg;
+    removeProjectDropdown.alt = 'Cog';
+    removeProjectDropdown.classList.add('logos');
 
     const dropdown = document.createElement("select"); 
     dropdown.classList.add("dropdown", "hidden");
