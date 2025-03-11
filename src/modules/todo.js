@@ -4,7 +4,7 @@ export const ToDoFunc = () => {
   const instanceOfProjects = ProjectFunc();
 
   const createToDo = (title, description, dueDate, priority) => {
-    return { title, description, dueDate, priority };
+    return { title, description, dueDate: dueDate || "No Due Date", priority };
   };
 
   const insertToDoToProject = (
@@ -61,7 +61,8 @@ export const ToDoFunc = () => {
       console.error("Invalid project or ToDo position.");
       return;
     }
-    instanceOfProjects.getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
+    instanceOfProjects
+      .getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
     instanceOfProjects.saveProjectLocally();
   };
   //select specific to do list based on projectPosition

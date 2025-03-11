@@ -22,14 +22,11 @@ export const ProjectFunc = () => {
   };
 
   const saveProjectLocally = () => {
-    localStorage.setItem("Project", JSON.stringify(getProjectArr()));
+    localStorage.setItem("Projects", JSON.stringify(getProjectArr()));
   };
 
   const restoreProjectLocally = () => {
-    const savedData = localStorage.getItem("Project");
-    if (savedData && projectArr.length === 0) {
-      projectArr = JSON.parse(savedData);
-    }
+    projectArr = JSON.parse(localStorage.getItem("Projects")) || [];
   };
 
   const resetProjectLocally = () => {

@@ -94,7 +94,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     overlay.classList.add("open");
     const toDoFormContainer = document.querySelector(".toDoFormContainer");
     const existingForm = document.querySelector(".toDoForm");
-
+  
     if (existingForm) {
       return;
     }
@@ -138,6 +138,11 @@ export const toDoDisplayFunc = (projectPosition) => {
       input.value = inputData.value;
 
       input.required = true;
+
+      if (inputData.type == 'date') {
+        input.required = false;
+      }
+      
 
       toDoForm.appendChild(label);
       toDoForm.appendChild(input);
@@ -196,7 +201,7 @@ export const toDoDisplayFunc = (projectPosition) => {
       const toDoDescription = document.querySelector("#toDoDescription").value;
       const toDoDueDate = document.querySelector("#toDoDueDate").value;
       const toDoPriority = document.querySelector("#toDoPriority").value;
-
+      
       if (parseISO(toDoDueDate) < startOfToday()) {
         alert("Not A Valid Due Date it has already passed");
         return;
