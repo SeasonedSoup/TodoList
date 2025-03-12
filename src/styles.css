@@ -12,11 +12,6 @@ body {
   margin: 40px;
 }
 
-.paraTitle {
-  font-weight: lighter;
-  font-size: 3rem;
-}
-
 .button {
   border-radius: 5px;
   border: none;
@@ -38,6 +33,16 @@ body {
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-title {
+  margin-top: 20px;
+}
+.paraTitle {
+  font-weight: lighter;
+  font-size: 3rem;
 }
 
 .main-title {
@@ -92,7 +97,14 @@ body {
   grid-row: 2 / 3;
   grid-column: 1 / 2;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar {
   background-color: white;
+  border-left: 10px solid royalblue;
   box-shadow:
     20px 5px 10px rgba(154, 160, 185, 0.05),
     0 15px 40px rgba(166, 173, 201, 0.2);
@@ -100,6 +112,9 @@ body {
   width: 300px;
   border-radius: 12px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5;
 }
 
 .logos {
@@ -118,6 +133,7 @@ body {
   font-size: 30px;
   margin: 5px;
   font-weight: lighter;
+  border-bottom: 2px solid black;
 }
 
 .content {

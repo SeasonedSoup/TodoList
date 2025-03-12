@@ -8,8 +8,8 @@ const instanceOfProjects = ProjectFunc();
 export const ProjectDisplayFunc = () => {
   const projects = instanceOfProjects.getProjectArr();
 
-  const projectsidebar = document.querySelector(".project-sidebar");
-  projectsidebar.textContent = "";
+  const sidebar = document.querySelector(".sidebar");
+  sidebar.textContent = "";
 
   const textTitle = document.querySelector(".text-title");
   textTitle.textContent = "";
@@ -109,7 +109,7 @@ export const ProjectDisplayFunc = () => {
     projectTitle.addEventListener("click", () => {
       toDoDisplayFunc(projectIndex);
     });
-    projectsidebar.appendChild(projectTitle);
+    sidebar.appendChild(projectTitle);
   });
 
   const projectFormModal = () => {
@@ -182,6 +182,10 @@ export const ProjectDisplayFunc = () => {
       ProjectDisplayFunc();
       //function that called to show and append all projects for the new project made to show in the dom
       //showProjects();
+      //creates a query that makes sure if yes or no to delete the project if it contains todolists maybe
+      //const makeSureHandler = () => {
+
+      //}
     });
   };
 };
