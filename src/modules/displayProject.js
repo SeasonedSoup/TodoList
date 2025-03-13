@@ -59,7 +59,7 @@ export const ProjectDisplayFunc = () => {
     const removeProjectDropdown = document.createElement("img");
     removeProjectDropdown.src = cogImg;
     removeProjectDropdown.alt = 'Cog';
-    removeProjectDropdown.classList.add('logos');
+    removeProjectDropdown.classList.add('logos', 'cog');
 
     const dropdown = document.createElement("select"); 
     dropdown.classList.add("dropdown", "hidden");
