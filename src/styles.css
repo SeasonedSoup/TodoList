@@ -99,7 +99,6 @@ body {
 
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .sidebar {
@@ -108,13 +107,15 @@ body {
   box-shadow:
     20px 5px 10px rgba(154, 160, 185, 0.05),
     0 15px 40px rgba(166, 173, 201, 0.2);
-  height: 600px;
   width: 300px;
   border-radius: 12px;
-  margin: 20px;
   display: flex;
   flex-direction: column;
   gap: 5;
+  overflow:auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  
 }
 
 .logos {
@@ -124,9 +125,7 @@ body {
 }
 
 .buttonDiv {
-  display: flex;
-  align-items: center;
-  margin: 20px;
+
 }
 
 .projectTitles {
@@ -222,11 +221,11 @@ body {
 }
 
 .square {
-  background-color: white;
+  background-color: rgb(253, 86, 86);
   height: 80px;
   width: 80px;
   border-radius: 12px;
-  border: 2px dashed black;
+  border: 2px solid black;
 }
 
 

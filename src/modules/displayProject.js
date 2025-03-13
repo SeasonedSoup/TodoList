@@ -88,6 +88,7 @@ export const ProjectDisplayFunc = () => {
         instanceOfProjects.deleteProject(selectedIndex);
         populateDropdown();
         ProjectDisplayFunc();
+        toDoDisplayFunc(0);
       } else {
         console.log("CANT DELETE");
       }
@@ -184,7 +185,7 @@ export const ProjectDisplayFunc = () => {
       //showProjects();
       //creates a query that makes sure if yes or no to delete the project if it contains todolists maybe
       //const makeSureHandler = () => {
-
+        
       //}
     });
   };
