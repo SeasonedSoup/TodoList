@@ -53,51 +53,32 @@ export const ProjectDisplayFunc = () => {
 
   const removeProjectHandler = () => {
 
-    const buttonDiv = document.createElement("div");
-    buttonDiv.classList.add('buttonDiv');
+    const buttonDropDown = document.createElement("div");
+    buttonDropDown.classList.add('buttonDropdown');
 
     const removeProjectDropdown = document.createElement("img");
     removeProjectDropdown.src = cogImg;
     removeProjectDropdown.alt = 'Cog';
     removeProjectDropdown.classList.add('logos', 'cog');
 
-    const dropdown = document.createElement("select"); 
-    dropdown.classList.add("dropdown", "hidden");
+    const dropDownItems = document.createElement('div');
+      dropDownItems.classList.add('drpdwnitems')
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete Project";
+    const items = ['Delete Project'];
 
-    const populateDropdown = () => {
-      dropdown.innerHTML = "";
-
-      projects.forEach((project, projectIndex) => {
-        const option = document.createElement("option");
-        option.value = projectIndex;
-        option.textContent = project.name;
-        dropdown.appendChild(option);
-      });
-    };
-
-    removeProjectDropdown.addEventListener("click", () => {
-      populateDropdown();
+    items.forEach(item => {
+      const dropDownItem = document.createElement('p');
+      dropDownItem.classList.add('dropDownItem');
+      dropDownItem.textContent = item;
+      dropDownItems.appendChild(dropDownItem);
     });
+    removeProjectDropdown.addEventListener('mouseover', () => {
+      dropDownItems.classList.add('active')
+    })
 
-    deleteButton.addEventListener("click", () => {
-      const selectedIndex = dropdown.value;
-      if (selectedIndex !== "" && projects.length !== 1) {
-        instanceOfProjects.deleteProject(selectedIndex);
-        populateDropdown();
-        ProjectDisplayFunc();
-        toDoDisplayFunc(0);
-      } else {
-        console.log("CANT DELETE");
-      }
-    });
-
-    buttonDiv.appendChild(removeProjectDropdown);
-    buttonDiv.append(dropdown);
-    buttonDiv.appendChild(deleteButton);
-    buttons.appendChild(buttonDiv);
+    buttonDropDown.appendChild(removeProjectDropdown);
+    buttonDropDown.appendChild(dropDownItems);
+    buttons.appendChild(buttonDropDown);
   };
 
   createProjectHandler();

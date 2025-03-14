@@ -54,10 +54,39 @@ body {
   font-size: 3rem;
 }
 
+.buttonDropDown {
+  position: relative;
+}
 .cog {
-  left: 400px;
+  cursor: pointer;
+  position: relative;
+  left: 50px;
 }
 
+.cog:hover {
+  opacity: 0.8;
+}
+
+.drpdwnitems {
+  display: none;
+  background-color: red;
+  height: 200px;
+  width: 200px;
+  overflow: auto;
+  display: absolute;
+}
+
+.drpdwnitems.active {
+  display: block;
+}
+
+.dropDownItem {
+  display: block;
+    float: none;
+    text-decoration: none;
+    color: black;
+    padding: 12px 16px;
+}
 .main-title {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
@@ -135,10 +164,6 @@ body {
   width: 44px;
   height: 44px;
   cursor: pointer;
-}
-
-.buttonDiv {
-
 }
 
 .projectTitles {
