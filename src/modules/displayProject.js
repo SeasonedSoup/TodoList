@@ -62,20 +62,17 @@ export const ProjectDisplayFunc = () => {
     removeProjectDropdown.classList.add('logos', 'cog');
 
     const dropDownItems = document.createElement('div');
-      dropDownItems.classList.add('drpdwnitems')
+    dropDownItems.classList.add('drpdwnitems');
 
-    const items = ['Delete Project'];
-
-    items.forEach(item => {
-      const dropDownItem = document.createElement('p');
-      dropDownItem.classList.add('dropDownItem');
-      dropDownItem.textContent = item;
-      dropDownItems.appendChild(dropDownItem);
-    });
-    removeProjectDropdown.addEventListener('mouseover', () => {
-      dropDownItems.classList.add('active')
+    removeProjectDropdown.addEventListener('click', () => {
+      const dropDownToggle = document.querySelector('.drpdwnitems') 
+      dropDownToggle.classList.toggle('active')
     })
 
+    const deleteProjects = document.createElement('h1');
+    deleteProjects.textContent = "Delete Project";
+
+    dropDownItems.appendChild(deleteProjects);    
     buttonDropDown.appendChild(removeProjectDropdown);
     buttonDropDown.appendChild(dropDownItems);
     buttons.appendChild(buttonDropDown);
