@@ -72,7 +72,37 @@ export const ProjectDisplayFunc = () => {
     const deleteProjects = document.createElement('h1');
     deleteProjects.textContent = "Delete Project";
 
-    dropDownItems.appendChild(deleteProjects);    
+    deleteProjects.addEventListener('click', () => {
+      const dropDownToggle = document.querySelector('.secondDropdown');
+      dropDownToggle.classList.toggle('active')
+    })
+
+    const deleteProjectDropDown = document.createElement('div');
+    deleteProjectDropDown.classList.add('secondDropdown');
+
+    projects.forEach((project, projectIndex) => {
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${project.name}`;
+      projectTitle.classList.add("projectTitles");
+      projectTitle.addEventListener("click", () => {
+        if (projects.length !== 1 ) {
+          instanceOfProjects.deleteProject(projectIndex);
+          ProjectDisplayFunc();
+          toDoDisplayFunc(projectIndex - 1);
+        }
+      });
+      deleteProjectDropDown.appendChild(projectTitle);
+    })
+
+    deleteProjects.appendChild(deleteProjectDropDown);
+
+    const dropDownItem = [];
+    dropDownItem.push(deleteProjects);
+    
+    dropDownItem.forEach(item => {
+      dropDownItems.appendChild(item);
+    })
+       
     buttonDropDown.appendChild(removeProjectDropdown);
     buttonDropDown.appendChild(dropDownItems);
     buttons.appendChild(buttonDropDown);
