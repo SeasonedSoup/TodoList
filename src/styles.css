@@ -26,6 +26,7 @@ body {
   margin-top: 20px;
   padding: 12px;
   gap: 5px;
+  flex-grow: 2;
 }
 .main-container {
   background-color: ghostwhite;
@@ -74,8 +75,9 @@ body {
   overflow: auto;
   position: absolute;
   box-shadow: 0 8px 16px 0px rgba(0, 0, 0, .2);
-  opacity: 0.8;
+  opacity: 1;
   z-index: 10;
+  opacity: 0.8;
 }
 
 .drpdwnitems.active {
@@ -89,6 +91,26 @@ body {
   color: black;
   padding: 12px 16px;
 }
+.deleteProjects {
+  cursor: pointer;
+}
+.secondDropdown {
+  display: none;
+  background-color: whitesmoke;
+  z-index: 10;
+  opacity: 1;
+  opacity: 0.7;
+}
+
+.secondDropdown.active {
+  display: block;
+  transition: 0.2s;
+}
+
+.deleteableProjects {
+
+}
+
 .main-title {
   grid-row: 1 / 2;
   grid-column: 2 / 3;

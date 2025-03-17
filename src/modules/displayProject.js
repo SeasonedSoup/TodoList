@@ -71,6 +71,7 @@ export const ProjectDisplayFunc = () => {
 
     const deleteProjects = document.createElement('h1');
     deleteProjects.textContent = "Delete Project";
+    deleteProjects.classList = "deleteProjects"
 
     deleteProjects.addEventListener('click', () => {
       const dropDownToggle = document.querySelector('.secondDropdown');
@@ -82,13 +83,15 @@ export const ProjectDisplayFunc = () => {
 
     projects.forEach((project, projectIndex) => {
       const projectTitle = document.createElement("h1");
-      projectTitle.textContent = `${project.name}`;
-      projectTitle.classList.add("projectTitles");
+      projectTitle.textContent = `${project.name} \u00D7`;
+      projectTitle.classList.add("deleteableProjects");
       projectTitle.addEventListener("click", () => {
         if (projects.length !== 1 ) {
           instanceOfProjects.deleteProject(projectIndex);
           ProjectDisplayFunc();
           toDoDisplayFunc(projectIndex - 1);
+        } else {
+          alert("There is only One Project Left, keep it.")
         }
       });
       deleteProjectDropDown.appendChild(projectTitle);
