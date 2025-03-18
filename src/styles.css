@@ -107,9 +107,9 @@ body {
   transition: 0.2s;
 }
 
-.deleteableProjects {
+/* .deleteableProjects { }*/
 
-}
+
 
 .main-title {
   grid-row: 1 / 2;

@@ -141,7 +141,7 @@ export const ProjectDisplayFunc = () => {
 
     const inputs = [
       {
-        label: "Project Name: ",
+        label: "Project Name (up to 3-30 characters): ",
         type: "text",
         name: "projectName",
         id: "projectName",
@@ -159,6 +159,10 @@ export const ProjectDisplayFunc = () => {
       input.setAttribute("name", inputData.name);
 
       input.required = true;
+      input.autofocus = false;
+      input.minLength = 3;
+      input.maxLength = 30;
+      input.setAttribute("autocomplete", "off");
 
       form.appendChild(label);
       form.appendChild(input);
