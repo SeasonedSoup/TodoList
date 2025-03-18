@@ -282,6 +282,12 @@ body {
   font-weight: bolder;
 }
 
+.toDoItem {
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+}
+
 .square {
   background-color: rgb(253, 86, 86);
   height: 80px;
