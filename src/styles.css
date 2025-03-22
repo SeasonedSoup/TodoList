@@ -250,6 +250,18 @@ body {
   z-index: 9998;
 }
 
+input:invalid{
+  border: 2px solid red;
+}
+
+.error {
+  background-color: whitesmoke;
+  color: rgb(206, 38, 38);
+  max-width: 300px;
+  padding: 0;
+  display: block;
+}
+
 .titleDiv {
   display: flex;
   justify-content: center;

@@ -101,3 +101,13 @@ old code can be used just moved here
             editToDoForm.remove();
         });
     }
+
+
+future notes prob njot uysed 
+
+//function that called to show and append all projects for the new project made to show in the dom
+      //showProjects();
+      //creates a query that makes sure if yes or no to delete the project if it contains todolists maybe
+      //const makeSureHandler = () => {
+        
+      //}

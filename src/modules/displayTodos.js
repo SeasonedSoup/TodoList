@@ -139,7 +139,10 @@ export const toDoDisplayFunc = (projectPosition) => {
 
       input.required = true;
 
-      if (inputData.type == 'date') {
+      if (input.id === 'toDoName') {
+        input.maxLength = 50;
+      }
+      if (inputData.type === 'date') {
         input.required = false;
       }
       

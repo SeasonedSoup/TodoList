@@ -137,6 +137,7 @@ export const ProjectDisplayFunc = () => {
     }
 
     const form = document.createElement("form");
+    form.noValidate = true;
     form.classList.add("projectForm");
 
     const inputs = [
@@ -158,6 +159,19 @@ export const ProjectDisplayFunc = () => {
       input.setAttribute("id", inputData.id);
       input.setAttribute("name", inputData.name);
 
+      const span = document.createElement('span');
+      span.className = 'error';
+      span.ariaLive = 'polite';
+
+      input.addEventListener('input', () => {
+        if (input.validity.valid) {
+          span.textContent = "";
+          span.className = "error"; // Reset error state
+        } else {
+          showError(input);
+        }
+    })
+
       input.required = true;
       input.autofocus = false;
       input.minLength = 3;
@@ -166,6 +180,7 @@ export const ProjectDisplayFunc = () => {
 
       form.appendChild(label);
       form.appendChild(input);
+      form.appendChild(span);
       form.appendChild(document.createElement("br"));
     });
 
@@ -187,21 +202,32 @@ export const ProjectDisplayFunc = () => {
     formprojectsidebar.appendChild(form);
     modal_inner.appendChild(formprojectsidebar);
 
+    const name = document.querySelector("#projectName")
+    const nameError = document.querySelector('#projectName + span.error');
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      const submittedName = document.querySelector("#projectName").value;
+     
+      //validation checks
+      if (!name.validity.valid) {
+        showError(name);
+        alert('Invalid Name Submitted');
+        return;
+      }
+      const submittedName = name.value;
       instanceOfProjects.addProjectToProjectArr(submittedName);
       form.remove();
       modal.classList.remove("open");
       overlay.classList.remove("open");
       ProjectDisplayFunc();
-      //function that called to show and append all projects for the new project made to show in the dom
-      //showProjects();
-      //creates a query that makes sure if yes or no to delete the project if it contains todolists maybe
-      //const makeSureHandler = () => {
-        
-      //}
     });
+    
+    const showError = (name) => {
+      if (name.validity.valueMissing) {
+        nameError.textContent = 'No Title Inputted'
+      } else if (name.validity.tooShort) {
+        nameError.textContent = 'Title is Less than 3 Chars'
+      }
+    }
   };
 };
