@@ -104,7 +104,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     const inputs = [
       {
-        label: "ToDo Name:",
+        label: "(50 max Length) ToDo Name:",
         type: "text",
         name: "toDoName",
         id: "toDoName",
@@ -137,6 +137,20 @@ export const toDoDisplayFunc = (projectPosition) => {
       input.id = inputData.id;
       input.value = inputData.value;
 
+      const span = document.createElement('span');
+      span.className = 'error';
+      span.ariaLive = 'polite';
+
+      input.addEventListener('input', () => {
+        if (input.validity.valid) {
+          span.textContent = ''
+          span.className = 'error';
+        } else {
+          showError(input, span);
+        }
+      })
+
+
       input.required = true;
 
       if (input.id === 'toDoName') {
@@ -149,6 +163,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
       toDoForm.appendChild(label);
       toDoForm.appendChild(input);
+      toDoForm.appendChild(span);
       toDoForm.appendChild(document.createElement("br"));
     });
     //High, Medium, Low
@@ -235,7 +250,25 @@ export const toDoDisplayFunc = (projectPosition) => {
       modal.classList.remove("open");
       overlay.classList.remove("open");
     });
+    
+    const showError = (input, span) => {
+      switch (input.id) {
+        case 'toDoName':
+          if (input.validity.valueMissing) {
+            span.textContent = 'Name Value is Missing!';
+          }
+          break;
+        case 'toDoDescription':
+          if (input.validity.valueMissing) {
+            span.textContent = 'Desc Value is Missing!';
+          }
+          break;
+  
+      }
+    }
   };
+
+
 
   const seeToDoDetails = (todo, toDoIndex, getProjectPosition) => {
     toDoContainer.textContent = "";
@@ -274,12 +307,20 @@ export const toDoDisplayFunc = (projectPosition) => {
       formModal(getProjectPosition(), todo, toDoIndex);
     });
 
+    const goBack = document.createElement("button");
+    goBack.textContent = '>';
+
+    goBack.addEventListener('click', () => {
+      toDoDisplayFunc(projectPosition);
+    })
+
     toDoDetailsDiv.appendChild(toDoIndexAndTitle);
     toDoDetailsDiv.appendChild(toDoDesc);
     toDoDetailsDiv.appendChild(toDoDueDate);
     toDoDetailsDiv.appendChild(toDoPriority);
     toDoDetailsDiv.appendChild(finishToDo);
     toDoDetailsDiv.appendChild(editToDo);
+    toDoDetailsDiv.appendChild(goBack);
 
     toDoContainer.appendChild(toDoDetailsDiv);
   };
