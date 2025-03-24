@@ -215,12 +215,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 500px;
+  width: 500px;
+  height: 300px;
   opacity: 0;
   transition: all 0.3s ease-in-out;
   z-index: -1;
   background-color: white;
+  border: solid black 2px;
 
   display: flex;
   justify-content: center;
