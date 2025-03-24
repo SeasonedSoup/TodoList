@@ -141,24 +141,30 @@ export const toDoDisplayFunc = (projectPosition) => {
       span.className = 'error';
       span.ariaLive = 'polite';
 
-      input.addEventListener('input', () => {
-        if (input.validity.valid) {
-          span.textContent = ''
-          span.className = 'error';
-        } else {
-          showError(input, span);
-        }
+    
+      if (inputData.type !== 'date') {
+        input.required = true;
+        input.addEventListener('input', () => {
+          if (input.validity.valid) {
+            span.textContent = ''
+            span.className = 'error';
+          } else {
+            showError(input, span);
+          }
+       })
+     } else {
+        input.required = false;
+        input.addEventListener('change', () => {
+        showError(input, span);
       })
+     }
 
-
-      input.required = true;
+    
 
       if (input.id === 'toDoName') {
         input.maxLength = 50;
       }
-      if (inputData.type === 'date') {
-        input.required = false;
-      }
+      
       
 
       toDoForm.appendChild(label);
@@ -263,7 +269,13 @@ export const toDoDisplayFunc = (projectPosition) => {
             span.textContent = 'Desc Value is Missing!';
           }
           break;
-  
+        case 'toDoDueDate':
+          if (new Date(input.value) < startOfToday()) {
+            span.textContent = ("Not A Valid Due Date it has already passed");
+          } else {
+            span.textContent = '';
+          }
+          break;
       }
     }
   };
