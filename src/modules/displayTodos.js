@@ -101,6 +101,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     const toDoForm = document.createElement("form");
     toDoForm.classList.add("toDoForm");
+    toDoForm.noValidate = true;
 
     const inputs = [
       {
@@ -220,7 +221,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     toDoForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
+      
       const inputs = [
         {
           input: document.querySelector('#toDoName'),
@@ -232,7 +233,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         },
         {
           input: document.querySelector('#toDoDueDate'),
-          span: document.querySelector('#toDoDescription + span.error')
+          span: document.querySelector('#toDoDueDate + span.error')
         },
       ];
 
@@ -242,19 +243,23 @@ export const toDoDisplayFunc = (projectPosition) => {
       const toDoPriority = document.querySelector("#toDoPriority").value;
 
 
-      
-      inputs.forEach((input, span) => {
+      let isValid = true;
+      inputs.forEach(({ input, span }) => {
         if (!input.validity.valid) {
           showError(input, span);
-          alert('Cannot Submit An Invalid To Do Pls Try Again');
-          return;
+          isValid = false;
         }
       })
+      
       if (parseISO(toDoDueDate) < startOfToday()) {
         alert("Not A Valid Due Date it has already passed");
         return;
       }
 
+      if (!isValid) {
+        alert("This form isnt submitted not a valid todo");
+        return
+      }
       if (todo) {
         instanceOfTodos.updateToDo(
           projectPosition,
