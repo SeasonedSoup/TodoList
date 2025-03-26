@@ -31,77 +31,19 @@ ideas:
 ipad click app switch tab dynamically display more details on todo
 
 Reflection:
+After doing a bit of crazy stuff in utilizing classes i went crazy and just did factory functions instead lol. I decided that displayToDos would depend on DisplayProject kinda
+so when u click a certain project it will get that certain todos within that project index using the todo.js functions usually yea todos depend on project but i think theres some code in
+todo that project requires so its kind of like tightly coupled which is bad coding design but thats fine. IT also full of spaghetti code but its my spaghetti code i can navigate it but if i stopped working on it
+ill probably get lost lol. SO far just abit more polishing and design and i think its noiw good.
 
+How do i implement colors on squares:
+    bASED ON the priority we should dynamically allocate a class with its corresponding color so css the three colors maybe each with diffrent class for example
+    sqaure.red square.yellow square.green it should also probably be sorted from easiest to highest as well at some point.
 
 ---
 -old
 -
 -
-
-old code can be used just moved here
-
- const editFormModal = (index) => {
-
-        const toDoFormContainer = document.querySelector('.toDoFormContainer');
-
-        const existingEditForm = document.querySelector('.editToDoForm');
-        if (existingEditForm) {
-            return;
-        }
-        
-        const editToDoForm = document.createElement('form');
-        editToDoForm.classList.add('editToDoForm');
-    
-        const inputs = [
-            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'editToDoName' },
-            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'editToDoDescription'}, 
-        ];
-    
-        inputs.forEach((inputData) => {
-            const label = document.createElement('label');
-            label.textContent = inputData.label;
-            label.setAttribute('for', inputData.id);
-    
-            const input = document.createElement('input');
-            input.type = inputData.type;
-            input.name = inputData.name;
-            input.id = inputData.id;
-    
-            input.required = true;
-    
-            editToDoForm.appendChild(label);
-            editToDoForm.appendChild(input);
-            editToDoForm.appendChild(document.createElement('br'));     
-        });
-    
-        const submitButton = document.createElement('button');
-        submitButton.setAttribute('type', 'submit');
-        submitButton.textContent = 'Edit ToDo';
-        editToDoForm.appendChild(submitButton);
-            
-        const closeButton = document.createElement('button');
-        closeButton.setAttribute('type', 'button');
-        closeButton.textContent = 'Close';
-        editToDoForm.appendChild(closeButton);
-    
-        toDoFormContainer.appendChild(editToDoForm);
-        closeButton.addEventListener('click', () => {
-            editToDoForm.remove();
-        });
-    
-        editToDoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-                
-            const toDoName = document.querySelector('#editToDoName').value;
-            const toDoDescription = document.querySelector('#editToDoDescription').value;
-            //other values as well in the future to be noted
-            instanceOfTodos.updateToDo(projectPosition, index, toDoName, toDoDescription);
-            toDoDisplayFunc(projectPosition);
-    
-            editToDoForm.remove();
-        });
-    }
-
 
 future notes prob njot uysed 
 

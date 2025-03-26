@@ -309,4 +309,19 @@ input:invalid{
   border: 2px solid black;
 }
 
+.square.low {
+  background-color: rgb(94, 224, 77);
+  height: 80px;
+  width: 80px;
+  border-radius: 12px;
+  border: 2px solid black;
+}
+
+.square.medium {
+  background-color: rgb(228, 215, 43);
+  height: 80px;
+  width: 80px;
+  border-radius: 12px;
+  border: 2px solid black;
+}
 

@@ -60,8 +60,8 @@ export const toDoDisplayFunc = (projectPosition) => {
 
   const viewTodos = () => {
     toDoContainer.textContent = "";
-
-    const todos = instanceOfTodos.selectToDo(projectPosition);
+    const todos = instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
+  
 
     todos.forEach((todo, index) => {
       const toDoItem = document.createElement("div");
@@ -69,6 +69,12 @@ export const toDoDisplayFunc = (projectPosition) => {
 
       const toDoSquare = document.createElement("div");
       toDoSquare.classList.add("square");
+      if (todo.priority === "low") {
+        toDoSquare.classList.add('low');
+      } else if (todo.priority === 'medium') {
+        toDoSquare.classList.add('medium')
+      }
+      
       toDoSquare.addEventListener("click", () => {
         seeToDoDetails(todo, index, getProjectPosition);
       });
@@ -145,6 +151,8 @@ export const toDoDisplayFunc = (projectPosition) => {
     
       if (inputData.type !== 'date') {
         input.required = true;
+        input.autofocus = false;
+        input.setAttribute('autocomplete', 'off')
         input.addEventListener('input', () => {
           if (input.validity.valid) {
             span.textContent = ''

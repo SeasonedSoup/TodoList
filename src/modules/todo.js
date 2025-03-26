@@ -65,8 +65,7 @@ export const ToDoFunc = () => {
       .getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
     instanceOfProjects.saveProjectLocally();
   };
-  //select specific to do list based on projectPosition
-
+  
   const selectToDo = (projectPosition) => {
     try {
       return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
@@ -74,6 +73,7 @@ export const ToDoFunc = () => {
       console.log("It seems I am not able to select this to do 'trying again'");
     }
   };
+  
 
   return {
     insertToDoToProject,

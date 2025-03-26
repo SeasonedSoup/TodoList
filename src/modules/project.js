@@ -39,8 +39,20 @@ export const ProjectFunc = () => {
     if (projectArr[projectPosition]) {
       return projectArr[projectPosition].toDoList;
     }
-    return [];
   };
+
+  const sortToDoArr = (projectPosition) => {
+    //obj
+    const priorityOrder = {low: 1, medium:2, high:3}
+    let toDoLists = getToDoArr(projectPosition)
+    let reversed = false;
+    if (!reversed) {
+      toDoLists = toDoLists.sort((toDo1, toDo2) => priorityOrder[toDo1.priority] - priorityOrder[toDo2.priority])
+    } else {
+      toDoLists = toDoLists.sort((toDo1, toDo2) => priorityOrder[toDo2.priority] - priorityOrder[toDo1.priority])
+    } 
+    return toDoLists
+  }
   restoreProjectLocally();
 
   return {
@@ -48,6 +60,7 @@ export const ProjectFunc = () => {
     addProjectToProjectArr,
     getProjectArr,
     getToDoArr,
+    sortToDoArr,
     updateProject,
     deleteProject,
     saveProjectLocally,
