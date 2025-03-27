@@ -1,252 +1,393 @@
-import { ToDoFunc } from './todo';
-import { ProjectFunc } from './project';
-import { parseISO, startOfToday } from 'date-fns';
+import { ToDoFunc } from "./todo";
+import { ProjectFunc } from "./project";
+import { parseISO, startOfToday } from "date-fns";
 
 export const toDoDisplayFunc = (projectPosition) => {
-    const instanceOfTodos = ToDoFunc();
-    const instanceOfProjectsFromTodo = ProjectFunc();
+  const instanceOfTodos = ToDoFunc();
+  const instanceOfProjectsFromTodo = ProjectFunc();
+  const toDoContainer = document.querySelector(".toDoContainer");
+  toDoContainer.textContent = "";
 
-    const toDoContainer = document.querySelector('.toDoContainer');
-    toDoContainer.textContent = '';
+  const toDoContainerTitle = document.querySelector(".toDoTitle");
+  const paraTitleCheck = document.querySelector(".paragraphTitle");
 
-    const toDoContainerTitle = document.querySelector('.toDoTitle');
-    const paraTitleCheck = document.querySelector('.paragraphTitle');
-    
-    
-    if (!paraTitleCheck) {
-        const paragraphTitle = document.createElement('h1');
-        paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
-        paragraphTitle.classList.add('paragraphTitle');
+  if (!paraTitleCheck) {
+    const paragraphTitle = document.createElement("h1");
+    paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+    paragraphTitle.classList.add("paragraphTitle");
 
-        toDoContainerTitle.appendChild(paragraphTitle);
-    } else {
-        paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+    toDoContainerTitle.appendChild(paragraphTitle);
+  } else {
+    paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+  }
+
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+
+  const modal = document.createElement("div");
+  overlay.appendChild(modal);
+  modal.classList.add("modal");
+
+  const modal_inner = document.createElement("div");
+  modal_inner.classList.add("inner-modal");
+
+  modal.appendChild(modal_inner);
+  document.body.appendChild(overlay);
+
+  const getProjectPosition = () => projectPosition;
+
+  const createToDoHandler = (getProjectPosition) => {
+    const checkToDoButton = document.querySelector(".createToDoButton");
+
+    if (checkToDoButton) {
+      checkToDoButton.remove();
     }
 
-    const overlay = document.createElement('div');
-    overlay.classList.add('overlay')
-    
-    const modal = document.createElement('div');
-    overlay.appendChild(modal);
-    modal.classList.add('modal');
+    const createToDoButton = document.createElement("button");
+    createToDoButton.textContent = "Add To-Do +";
+    createToDoButton.classList.add("createToDoButton");
 
-    const modal_inner = document.createElement('div');
-    modal_inner.classList.add('inner-modal');
+    createToDoButton.addEventListener("click", () => {
+      const projectPosition = getProjectPosition();
+      formModal(projectPosition);
+    });
 
-    modal.appendChild(modal_inner);
-    document.body.appendChild(overlay);   
-    
-    const getProjectPosition = () => projectPosition;
+    toDoContainerTitle.appendChild(createToDoButton);
+  };
 
+  createToDoHandler(getProjectPosition);
+  const sortToDoHandler = () => {
+    const checkSortToDoButton = document.querySelector('.sortToDoButton');
 
-    const createToDoHandler = (getProjectPosition) => {
-        const checkToDoButton = document.querySelector('.createToDoButton');
+    if (checkSortToDoButton) {
+      checkSortToDoButton.remove();
+    }
+    const sortToDoButton = document.createElement('button');
+    sortToDoButton.textContent = "SORT SYMBOL";
+    sortToDoButton.classList.add('sortToDoButton');
     
-        if (checkToDoButton) {
-            checkToDoButton.remove();
-        }
+    sortToDoButton.addEventListener('click', () => {
+      instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
+      viewTodos(); // Call viewTodos to refresh the display with the sorted array
+    });
+    toDoContainerTitle.appendChild(sortToDoButton);
+  };
 
+  sortToDoHandler();
 
-            const createToDoButton = document.createElement('button');
-            createToDoButton.textContent = 'Add To-Do +';
-            createToDoButton.classList.add('createToDoButton');
-    
-            createToDoButton.addEventListener('click', () => {
-                const projectPosition = getProjectPosition();
-                formModal(projectPosition);
-            });
-    
-            toDoContainerTitle.appendChild(createToDoButton);
-        
-    };
-    
-    createToDoHandler(getProjectPosition);
-    
-const viewTodos = () => {
-    toDoContainer.textContent = '';
-
-    const todos = instanceOfTodos.selectToDo(projectPosition);
+  const viewTodos = () => {
+    toDoContainer.textContent = "";
+    const todos = instanceOfProjectsFromTodo.getToDoArr(projectPosition);
 
     todos.forEach((todo, index) => {
+      const toDoItem = document.createElement("div");
+      toDoItem.classList.add("toDoItem");
 
-        const toDoItem = document.createElement('div');
-        toDoItem.classList.add('toDoItem');
+      const toDoSquare = document.createElement("div");
+      toDoSquare.classList.add("square");
+      if (todo.priority === "low") {
+        toDoSquare.classList.add('low');
+      } else if (todo.priority === 'medium') {
+        toDoSquare.classList.add('medium');
+      }
+      
+      toDoSquare.addEventListener("click", () => {
+        seeToDoDetails(todo, index, getProjectPosition);
+      });
 
-        const toDoSquare = document.createElement('div');
-        toDoSquare.classList.add('square')
-        toDoSquare.addEventListener('click', () => {
-            seeToDoDetails(todo, index, getProjectPosition);
-        })
+      const toDoIndexAndTitle = document.createElement("h2");
+      toDoIndexAndTitle.textContent = `${todo.title}`;
 
-        const toDoIndexAndTitle = document.createElement('h2');
-        toDoIndexAndTitle.textContent = `${todo.title}`;
+      const toDoDueDate = document.createElement("h2");
+      toDoDueDate.textContent = `${todo.dueDate}`;
 
-        const toDoDueDate = document.createElement('h2');
-        toDoDueDate.textContent = `${todo.dueDate}`;
+      toDoItem.appendChild(toDoSquare);
+      toDoItem.appendChild(toDoIndexAndTitle);
+      toDoItem.appendChild(toDoDueDate);
 
-        toDoItem.appendChild(toDoSquare);
-        toDoItem.appendChild(toDoIndexAndTitle);
-        toDoItem.appendChild(toDoDueDate);
-
-        toDoContainer.appendChild(toDoItem);
+      toDoContainer.appendChild(toDoItem);
     });
-}
+  };
 
-viewTodos();
+  viewTodos();
 
-    const formModal = (projectPosition, todo = null, toDoIndex = null) => {
-        modal.classList.add('open');
-        overlay.classList.add('open');
-        const toDoFormContainer = document.querySelector('.toDoFormContainer');
-        const existingForm = document.querySelector('.toDoForm');
+  const formModal = (projectPosition, todo = null, toDoIndex = null) => {
+    modal.classList.add("open");
+    overlay.classList.add("open");
+    const toDoFormContainer = document.querySelector(".toDoFormContainer");
+    const existingForm = document.querySelector(".toDoForm");
+  
+    if (existingForm) {
+      return;
+    }
 
-        if (existingForm) {
-            return;
-        }
+    const toDoForm = document.createElement("form");
+    toDoForm.classList.add("toDoForm");
+    toDoForm.noValidate = true;
+
+    const inputs = [
+      {
+        label: "(50 max Length) ToDo Name:",
+        type: "text",
+        name: "toDoName",
+        id: "toDoName",
+        value: todo ? todo.title : "",
+      },
+      {
+        label: "ToDo Description:",
+        type: "text",
+        name: "toDoDescription",
+        id: "toDoDescription",
+        value: todo ? todo.description : "",
+      },
+      {
+        label: "Due Date: ",
+        type: "date",
+        name: "toDoDueDate",
+        id: "toDoDueDate",
+        value: todo ? todo.dueDate : "",
+      },
+    ];
+
+    inputs.forEach((inputData) => {
+      const label = document.createElement("label");
+      label.textContent = inputData.label;
+      label.setAttribute("for", inputData.id);
+
+      const input = document.createElement("input");
+      input.type = inputData.type;
+      input.name = inputData.name;
+      input.id = inputData.id;
+      input.value = inputData.value;
+
+      const span = document.createElement('span');
+      span.className = 'error';
+      span.ariaLive = 'polite';
+
     
-        const toDoForm = document.createElement('form');
-        toDoForm.classList.add('toDoForm');
+      if (inputData.type !== 'date') {
+        input.required = true;
+        input.autofocus = false;
+        input.setAttribute('autocomplete', 'off')
+        input.addEventListener('input', () => {
+          if (input.validity.valid) {
+            span.textContent = ''
+            span.className = 'error';
+          } else {
+            showError(input, span);
+          }
+       })
+     } else {
+        input.required = false;
+        input.addEventListener('change', () => {
+        showError(input, span);
+      })
+     }
 
-        const inputs = [
-            {label: 'ToDo Name:', type:'text', name:'toDoName', id:'toDoName', value: todo ? todo.title : '' },
-            {label: 'ToDo Description:', type:'text', name:'toDoDescription', id:'toDoDescription', value: todo ? todo.description : ''}, 
-            {label: 'Due Date: ', type:'date', name: 'toDoDueDate', id: 'toDoDueDate', value: todo ? todo.dueDate : ''},
-        ];
+    
 
-        inputs.forEach((inputData) => {
-            const label = document.createElement('label');
-            label.textContent = inputData.label;
-            label.setAttribute('for', inputData.id)
+      if (input.id === 'toDoName') {
+        input.maxLength = 50;
+      }
+      
+      
 
-            const input = document.createElement('input');
-            input.type = inputData.type;
-            input.name = inputData.name;
-            input.id = inputData.id;
-            input.value = inputData.value;
+      toDoForm.appendChild(label);
+      toDoForm.appendChild(input);
+      toDoForm.appendChild(span);
+      toDoForm.appendChild(document.createElement("br"));
+    });
+    //High, Medium, Low
+    const priorityLabel = document.createElement("label");
+    priorityLabel.textContent = "Priority: ";
+    priorityLabel.setAttribute("for", "toDoPriority");
 
-            input.required = true;
+    const priorityInput = document.createElement("select");
+    priorityInput.name = "toDoPriority";
+    priorityInput.id = "toDoPriority";
 
-            toDoForm.appendChild(label)
-            toDoForm.appendChild(input)
-            toDoForm.appendChild(document.createElement('br'));
-        })
-        //High, Medium, Low
-        const priorityLabel = document.createElement('label');
-        priorityLabel.textContent = 'Priority: '
-        priorityLabel.setAttribute('for', 'toDoPriority');
+    const options = ["High", "Medium", "Low"];
 
-        const priorityInput = document.createElement('select');
-        priorityInput.name = 'toDoPriority';
-        priorityInput.id = 'toDoPriority';
+    options.forEach((option) => {
+      const priorityOption = document.createElement("option");
+      priorityOption.textContent = option;
+      priorityOption.value = option.toLowerCase();
+      if (todo && todo.priority === option.toLowerCase()) {
+        priorityOption.selected = true;
+      }
 
-        const options = ['High', 'Medium', 'Low'];
+      priorityInput.appendChild(priorityOption);
+    });
 
-        options.forEach(option => {
-            const priorityOption = document.createElement('option');
-            priorityOption.textContent = option;
-            priorityOption.value = option.toLowerCase();
-            if (todo && todo.priority === option.toLowerCase()) {
-                priorityOption.selected = true;
-            }
+    toDoForm.appendChild(priorityLabel);
+    toDoForm.appendChild(priorityInput);
 
-            priorityInput.appendChild(priorityOption);
-        });
+    const submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.textContent = todo ? "Update ToDo" : "Create ToDo";
+    toDoForm.appendChild(submitButton);
 
-        toDoForm.appendChild(priorityLabel);
-        toDoForm.appendChild(priorityInput);
+    const closeButton = document.createElement("button");
+    closeButton.setAttribute("type", "button");
+    closeButton.textContent = "Close";
+    toDoForm.appendChild(closeButton);
 
-        const submitButton = document.createElement('button');
-        submitButton.setAttribute('type', 'submit');
-        submitButton.textContent = todo ? 'Update ToDo' : 'Create ToDo';
-        toDoForm.appendChild(submitButton);
-        
-        const closeButton = document.createElement('button');
-        closeButton.setAttribute('type', 'button');
-        closeButton.textContent = 'Close';
-        toDoForm.appendChild(closeButton);
+    toDoFormContainer.appendChild(toDoForm);
+    modal_inner.appendChild(toDoFormContainer);
 
-        toDoFormContainer.appendChild(toDoForm);
-        modal_inner.appendChild(toDoFormContainer);
+    //addeventlisteners
+    closeButton.addEventListener("click", () => {
+      toDoForm.remove();
 
-        //addeventlisteners
-        closeButton.addEventListener('click', () => {
-            toDoForm.remove();
+      modal.classList.remove("open");
+      overlay.classList.remove("open");
+    });
 
-            modal.classList.remove('open');
-            overlay.classList.remove('open');
-        })
+    toDoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const inputs = [
+        {
+          input: document.querySelector('#toDoName'),
+          span:  document.querySelector('#toDoName + span.error')
+        },
+        {
+          input: document.querySelector('#toDoDescription'),
+          span:  document.querySelector('#toDoDescription + span.error')
+        },
+        {
+          input: document.querySelector('#toDoDueDate'),
+          span: document.querySelector('#toDoDueDate + span.error')
+        },
+      ];
 
-        toDoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+      const toDoName = document.querySelector("#toDoName").value;
+      const toDoDescription = document.querySelector("#toDoDescription").value;
+      const toDoDueDate = document.querySelector("#toDoDueDate").value;
+      const toDoPriority = document.querySelector("#toDoPriority").value;
 
-            const toDoName = document.querySelector('#toDoName').value;
-            const toDoDescription = document.querySelector('#toDoDescription').value;
-            const toDoDueDate = document.querySelector('#toDoDueDate').value;
-            const toDoPriority = document.querySelector('#toDoPriority').value;
 
-            if (parseISO(toDoDueDate) < startOfToday()) {
-                alert("Not A Valid Due Date it has already passed");
-                return;
-            }
+      let isValid = true;
+      inputs.forEach(({ input, span }) => {
+        if (!input.validity.valid) {
+          showError(input, span);
+          isValid = false;
+        }
+      })
+      
+      if (parseISO(toDoDueDate) < startOfToday()) {
+        alert("Not A Valid Due Date it has already passed");
+        return;
+      }
 
-            if (todo) {
-                instanceOfTodos.updateToDo(projectPosition, toDoIndex, toDoName, toDoDescription, toDoDueDate, toDoPriority);
-            } else {
-                instanceOfTodos.insertToDoToProject(projectPosition, toDoName, toDoDescription, toDoDueDate, toDoPriority);
-            }
-            toDoDisplayFunc(projectPosition); 
-            
-            toDoForm.remove();
-          
-            modal.classList.remove('open');
-            overlay.classList.remove('open');
-        })
+      if (!isValid) {
+        alert("This form isnt submitted not a valid todo");
+        return
+      }
+      if (todo) {
+        instanceOfTodos.updateToDo(
+          projectPosition,
+          toDoIndex,
+          toDoName,
+          toDoDescription,
+          toDoDueDate,
+          toDoPriority,
+        );
+      } else {
+        instanceOfTodos.insertToDoToProject(
+          projectPosition,
+          toDoName,
+          toDoDescription,
+          toDoDueDate,
+          toDoPriority,
+        );
+      }
+      toDoDisplayFunc(projectPosition);
+
+      toDoForm.remove();
+
+      modal.classList.remove("open");
+      overlay.classList.remove("open");
+    });
+    
+    const showError = (input, span) => {
+      switch (input.id) {
+        case 'toDoName':
+          if (input.validity.valueMissing) {
+            span.textContent = 'Name Value is Missing!';
+          }
+          break;
+        case 'toDoDescription':
+          if (input.validity.valueMissing) {
+            span.textContent = 'Desc Value is Missing!';
+          }
+          break;
+        case 'toDoDueDate':
+          if (new Date(input.value) < startOfToday()) {
+            span.textContent = ("Not A Valid Due Date it has already passed");
+          } else {
+            span.textContent = '';
+          }
+          break;
+      }
     }
-
-    const seeToDoDetails = (todo, toDoIndex, getProjectPosition) => {
-        toDoContainer.textContent = '';
-
-        const toDoDetailsDiv= document.createElement('div');
-        toDoDetailsDiv.classList.add('toDoDetailsDiv');
-
-        const toDoIndexAndTitle = document.createElement('h2');
-        toDoIndexAndTitle.textContent = `Title: #${toDoIndex + 1} ${todo.title}`;
-
-        const toDoDesc = document.createElement('h2');
-        toDoDesc.textContent = `Description: ${todo.description}`;
-
-        const toDoDueDate = document.createElement('h2');
-        toDoDueDate.textContent = `Due Date: ${todo.dueDate}`;
-
-        const toDoPriority = document.createElement('h2');
-        toDoPriority.textContent = `Priority: ${todo.priority}`;
-
-        const finishToDo = document.createElement('button');
-        finishToDo.textContent = 'Finish It!';
-
-        finishToDo.addEventListener('click', () => {
-            instanceOfTodos.removeToDo(getProjectPosition(), toDoIndex);
-            console.log('removed' + instanceOfProjectsFromTodo.getToDoArr(getProjectPosition().name));
-            viewTodos();
-        })
-
-        const editToDo = document.createElement('button');
-        editToDo.textContent = 'Edit';
-
-        editToDo.addEventListener('click', () => {
-            formModal(getProjectPosition(), todo, toDoIndex);
-        })
+  };
 
 
 
-        toDoDetailsDiv.appendChild(toDoIndexAndTitle);
-        toDoDetailsDiv.appendChild(toDoDesc);
-        toDoDetailsDiv.appendChild(toDoDueDate);
-        toDoDetailsDiv.appendChild(toDoPriority);
-        toDoDetailsDiv.appendChild(finishToDo);
-        toDoDetailsDiv.appendChild(editToDo);
+  const seeToDoDetails = (todo, toDoIndex, getProjectPosition) => {
+    toDoContainer.textContent = "";
 
-        toDoContainer.appendChild(toDoDetailsDiv);
-    }
-        //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
-}
+    const toDoDetailsDiv = document.createElement("div");
+    toDoDetailsDiv.classList.add("toDoDetailsDiv");
+
+    const toDoIndexAndTitle = document.createElement("h2");
+    toDoIndexAndTitle.textContent = `Title: #${toDoIndex + 1} ${todo.title}`;
+
+    const toDoDesc = document.createElement("h2");
+    toDoDesc.textContent = `Description: ${todo.description}`;
+
+    const toDoDueDate = document.createElement("h2");
+    toDoDueDate.textContent = `Due Date: ${todo.dueDate}`;
+
+    const toDoPriority = document.createElement("h2");
+    toDoPriority.textContent = `Priority: ${todo.priority}`;
+
+    const finishToDo = document.createElement("button");
+    finishToDo.textContent = "Finish It!";
+
+    finishToDo.addEventListener("click", () => {
+      instanceOfTodos.removeToDo(getProjectPosition(), toDoIndex);
+      console.log(
+        "removed" +
+          instanceOfProjectsFromTodo.getToDoArr(getProjectPosition().name),
+      );
+      viewTodos();
+    });
+
+    const editToDo = document.createElement("button");
+    editToDo.textContent = "Edit";
+
+    editToDo.addEventListener("click", () => {
+      formModal(getProjectPosition(), todo, toDoIndex);
+    });
+
+    const goBack = document.createElement("button");
+    goBack.textContent = '>';
+
+    goBack.addEventListener('click', () => {
+      toDoDisplayFunc(projectPosition);
+    })
+
+    toDoDetailsDiv.appendChild(toDoIndexAndTitle);
+    toDoDetailsDiv.appendChild(toDoDesc);
+    toDoDetailsDiv.appendChild(toDoDueDate);
+    toDoDetailsDiv.appendChild(toDoPriority);
+    toDoDetailsDiv.appendChild(finishToDo);
+    toDoDetailsDiv.appendChild(editToDo);
+    toDoDetailsDiv.appendChild(goBack);
+
+    toDoContainer.appendChild(toDoDetailsDiv);
+  };
+  //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
+};
