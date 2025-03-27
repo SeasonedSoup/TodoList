@@ -1,6 +1,7 @@
 import { ToDoFunc } from "./todo";
 import { ProjectFunc } from "./project";
 import { parseISO, startOfToday } from "date-fns";
+import sortImg from "../logos/sort.svg";
 
 export const toDoDisplayFunc = (projectPosition) => {
   const instanceOfTodos = ToDoFunc();
@@ -20,7 +21,7 @@ export const toDoDisplayFunc = (projectPosition) => {
   } else {
     paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
   }
-
+  //problem these overlays and modals are repeating and repeating
   const overlay = document.createElement("div");
   overlay.classList.add("overlay");
 
@@ -57,20 +58,26 @@ export const toDoDisplayFunc = (projectPosition) => {
 
   createToDoHandler(getProjectPosition);
   const sortToDoHandler = () => {
-    const checkSortToDoButton = document.querySelector('.sortToDoButton');
-
+    const checkSortToDoButton = document.querySelector('.sortDiv');
     if (checkSortToDoButton) {
       checkSortToDoButton.remove();
     }
-    const sortToDoButton = document.createElement('button');
-    sortToDoButton.textContent = "SORT SYMBOL";
-    sortToDoButton.classList.add('sortToDoButton');
+    const sortDiv = document.createElement('div');
+    sortDiv.classList.add('sortDiv')
+    const sortPara = document.createElement('p');
+    sortPara.textContent = 'Sort';
+
+    const sortToDoButton = document.createElement('img');
+    sortToDoButton.src = sortImg;
+    sortToDoButton.classList.add('logos', 'sortToDoButton');
     
     sortToDoButton.addEventListener('click', () => {
       instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
       viewTodos(); // Call viewTodos to refresh the display with the sorted array
     });
-    toDoContainerTitle.appendChild(sortToDoButton);
+    sortDiv.appendChild(sortPara);
+    sortDiv.appendChild(sortToDoButton);
+    toDoContainerTitle.appendChild(sortDiv);
   };
 
   sortToDoHandler();
@@ -110,7 +117,7 @@ export const toDoDisplayFunc = (projectPosition) => {
   };
 
   viewTodos();
-
+  //form modal creates a modal with the queries  for form
   const formModal = (projectPosition, todo = null, toDoIndex = null) => {
     modal.classList.add("open");
     overlay.classList.add("open");
@@ -183,8 +190,6 @@ export const toDoDisplayFunc = (projectPosition) => {
         showError(input, span);
       })
      }
-
-    
 
       if (input.id === 'toDoName') {
         input.maxLength = 50;
@@ -332,9 +337,7 @@ export const toDoDisplayFunc = (projectPosition) => {
       }
     }
   };
-
-
-
+  //see the details when clicking the todo
   const seeToDoDetails = (todo, toDoIndex, getProjectPosition) => {
     toDoContainer.textContent = "";
 
@@ -358,11 +361,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     finishToDo.addEventListener("click", () => {
       instanceOfTodos.removeToDo(getProjectPosition(), toDoIndex);
-      console.log(
-        "removed" +
-          instanceOfProjectsFromTodo.getToDoArr(getProjectPosition().name),
-      );
-      viewTodos();
+      toDoDisplayFunc(projectPosition)
     });
 
     const editToDo = document.createElement("button");
@@ -389,5 +388,4 @@ export const toDoDisplayFunc = (projectPosition) => {
 
     toDoContainer.appendChild(toDoDetailsDiv);
   };
-  //this will have edit pencil logo for each todo or maybe like a dropdown to see its detail
 };

@@ -107,10 +107,6 @@ body {
   transition: 0.2s;
 }
 
-/* .deleteableProjects { }*/
-
-
-
 .main-title {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
@@ -280,6 +276,13 @@ input:invalid{
   padding: 20px;
   font-size: 1rem;
   box-shadow: 0 5px 3px black;
+}
+
+.toDoTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
 .toDoContainer {
   display: grid;
