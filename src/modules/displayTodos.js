@@ -5,7 +5,6 @@ import { parseISO, startOfToday } from "date-fns";
 export const toDoDisplayFunc = (projectPosition) => {
   const instanceOfTodos = ToDoFunc();
   const instanceOfProjectsFromTodo = ProjectFunc();
-
   const toDoContainer = document.querySelector(".toDoContainer");
   toDoContainer.textContent = "";
 
@@ -57,11 +56,28 @@ export const toDoDisplayFunc = (projectPosition) => {
   };
 
   createToDoHandler(getProjectPosition);
+  const sortToDoHandler = () => {
+    const checkSortToDoButton = document.querySelector('.sortToDoButton');
+
+    if (checkSortToDoButton) {
+      checkSortToDoButton.remove();
+    }
+    const sortToDoButton = document.createElement('button');
+    sortToDoButton.textContent = "SORT SYMBOL";
+    sortToDoButton.classList.add('sortToDoButton');
+    
+    sortToDoButton.addEventListener('click', () => {
+      instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
+      viewTodos(); // Call viewTodos to refresh the display with the sorted array
+    });
+    toDoContainerTitle.appendChild(sortToDoButton);
+  };
+
+  sortToDoHandler();
 
   const viewTodos = () => {
     toDoContainer.textContent = "";
-    const todos = instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
-  
+    const todos = instanceOfProjectsFromTodo.getToDoArr(projectPosition);
 
     todos.forEach((todo, index) => {
       const toDoItem = document.createElement("div");
@@ -72,7 +88,7 @@ export const toDoDisplayFunc = (projectPosition) => {
       if (todo.priority === "low") {
         toDoSquare.classList.add('low');
       } else if (todo.priority === 'medium') {
-        toDoSquare.classList.add('medium')
+        toDoSquare.classList.add('medium');
       }
       
       toDoSquare.addEventListener("click", () => {
