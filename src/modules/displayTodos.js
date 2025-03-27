@@ -346,7 +346,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         "removed" +
           instanceOfProjectsFromTodo.getToDoArr(getProjectPosition().name),
       );
-      viewTodos();
+      toDoDisplayFunc(projectPosition);
     });
 
     const editToDo = document.createElement("button");
