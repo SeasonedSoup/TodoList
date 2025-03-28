@@ -1,7 +1,4 @@
-import { ProjectFunc } from "./project";
-
-export const ToDoFunc = () => {
-  const instanceOfProjects = ProjectFunc();
+export const ToDoFunc = (projectInstance ) => {
 
   const createToDo = (title, description, dueDate, priority) => {
     return { title, description, dueDate: dueDate || "No Due Date", priority };
@@ -16,7 +13,7 @@ export const ToDoFunc = () => {
   ) => {
     const addedToDo = createToDo(title, description, dueDate, priority);
 
-    const projects = instanceOfProjects.getProjectArr();
+    const projects = projectInstance.getProjectArr();
     if (!projects[projectPosition]) {
       console.log("Project does not exist in project position");
       return;
@@ -24,7 +21,7 @@ export const ToDoFunc = () => {
 
     projects[projectPosition].toDoList.push(addedToDo);
     console.log(projects[projectPosition]);
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
 
@@ -36,7 +33,7 @@ export const ToDoFunc = () => {
     dueDate,
     priority
   ) => {
-    const projects = instanceOfProjects.getProjectArr();
+    const projects = projectInstance.getProjectArr();
     if (
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
@@ -50,10 +47,10 @@ export const ToDoFunc = () => {
       dueDate,
       priority,
     });
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   const removeToDo = (projectPosition, toDoPosition) => {
-    const projects = instanceOfProjects.getProjectArr();
+    const projects = projectInstance.getProjectArr();
     if (
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
@@ -61,14 +58,14 @@ export const ToDoFunc = () => {
       console.error("Invalid project or ToDo position.");
       return;
     }
-    instanceOfProjects
+    projectInstance
       .getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   
   const selectToDo = (projectPosition) => {
     try {
-      return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
+      return projectInstance.getProjectArr()[projectPosition].toDoList;
     } catch (err) {
       console.log("It seems I am not able to select this to do 'trying again'");
     }

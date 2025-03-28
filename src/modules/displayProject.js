@@ -1,6 +1,6 @@
 import cogImg from "../logos/cog.svg";
 
-export const ProjectDisplayFunc = (projectInstance, toDoInstance, toDoDisplayFunc) => {
+export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFunc) => {
   const projects = projectInstance.getProjectArr();
 
   const sidebar = document.querySelector(".sidebar");
@@ -83,8 +83,8 @@ export const ProjectDisplayFunc = (projectInstance, toDoInstance, toDoDisplayFun
       projectTitle.addEventListener("click", () => {
         if (projects.length !== 1 ) {
           projectInstance.deleteProject(projectIndex);
-          ProjectDisplayFunc(projectInstance, toDoInstance, toDoDisplayFunc);
-          toDoDisplayFunc(projectIndex - 1, toDoInstance, projectInstance);
+          DisplayProjectFunc(projectInstance, toDoInstance, DisplayToDoFunc);
+          DisplayToDoFunc(projectIndex - 1, toDoInstance, projectInstance);
         } else {
           alert("There is only One Project Left, keep it.")
         }
@@ -114,7 +114,7 @@ export const ProjectDisplayFunc = (projectInstance, toDoInstance, toDoDisplayFun
     projectTitle.textContent = `${project.name}`;
     projectTitle.classList.add("projectTitles");
     projectTitle.addEventListener("click", () => {
-      toDoDisplayFunc(projectIndex, toDoInstance, projectInstance);
+      DisplayToDoFunc(projectIndex, toDoInstance, projectInstance);
     });
     sidebar.appendChild(projectTitle);
   });
@@ -214,7 +214,7 @@ export const ProjectDisplayFunc = (projectInstance, toDoInstance, toDoDisplayFun
       form.remove();
       modal.classList.remove("open");
       overlay.classList.remove("open");
-      ProjectDisplayFunc(projectInstance, toDoInstance, toDoDisplayFunc);
+      DisplayProjectFunc(projectInstance, toDoInstance, DisplayToDoFunc);
     });
     
     const showError = (name) => {

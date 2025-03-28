@@ -1,8 +1,7 @@
-
 import { parseISO, startOfToday } from "date-fns";
 import sortImg from "../logos/sort.svg";
 
-export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) => {
+export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) => {
 
   const toDoContainer = document.querySelector(".toDoContainer");
   toDoContainer.textContent = "";
@@ -296,6 +295,7 @@ export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) 
           toDoDueDate,
           toDoPriority,
         );
+      console.log("After Update:", projectInstance.getToDoArr(projectPosition));
       } else {
         toDoInstance.insertToDoToProject(
           projectPosition,
@@ -305,7 +305,7 @@ export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) 
           toDoPriority,
         );
       }
-      toDoDisplayFunc(projectPosition, toDoInstance, projectInstance);
+      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
 
       toDoForm.remove();
 
@@ -359,7 +359,7 @@ export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) 
 
     finishToDo.addEventListener("click", () => {
       toDoInstance.removeToDo(getProjectPosition(), toDoIndex);
-      toDoDisplayFunc(projectPosition,toDoInstance, projectInstance)
+      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance)
     });
 
     const editToDo = document.createElement("button");
@@ -373,7 +373,7 @@ export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) 
     goBack.textContent = '>';
 
     goBack.addEventListener('click', () => {
-      toDoDisplayFunc(projectPosition, toDoInstance, projectInstance);
+      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
     })
 
     toDoDetailsDiv.appendChild(toDoIndexAndTitle);
