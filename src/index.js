@@ -1,13 +1,20 @@
 import "./reset.css"
 import "./styles.css";
+import {ToDoFunc} from "./modules/todo";
+import { ProjectFunc } from "./modules/project";
 import { ProjectDisplayFunc } from "./modules/displayProject";
 import { toDoDisplayFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 
-console.log("helloWorld!");
+const toDoInstance = ToDoFunc();
+console.log(toDoInstance); 
 
-ProjectDisplayFunc();
-toDoDisplayFunc(0);
+const projectInstance = ProjectFunc();
+console.log(projectInstance); 
+
+
+ProjectDisplayFunc(projectInstance, toDoInstance, toDoDisplayFunc);
+toDoDisplayFunc(0, toDoInstance, projectInstance);
 
 const {nextQuote, prevQuote} = quoteSwitching();
 

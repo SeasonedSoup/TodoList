@@ -1,11 +1,9 @@
-import { ToDoFunc } from "./todo";
-import { ProjectFunc } from "./project";
+
 import { parseISO, startOfToday } from "date-fns";
 import sortImg from "../logos/sort.svg";
 
-export const toDoDisplayFunc = (projectPosition) => {
-  const instanceOfTodos = ToDoFunc();
-  const instanceOfProjectsFromTodo = ProjectFunc();
+export const toDoDisplayFunc = (projectPosition, toDoInstance, projectInstance) => {
+
   const toDoContainer = document.querySelector(".toDoContainer");
   toDoContainer.textContent = "";
 
@@ -14,12 +12,12 @@ export const toDoDisplayFunc = (projectPosition) => {
 
   if (!paraTitleCheck) {
     const paragraphTitle = document.createElement("h1");
-    paragraphTitle.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+    paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
     paragraphTitle.classList.add("paragraphTitle");
 
     toDoContainerTitle.appendChild(paragraphTitle);
   } else {
-    paraTitleCheck.textContent = `To-Dos: ${instanceOfProjectsFromTodo.getProjectArr()[projectPosition].name}`;
+    paraTitleCheck.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
   }
   //problem these overlays and modals are repeating and repeating
   const overlay = document.createElement("div");
@@ -72,7 +70,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     sortToDoButton.classList.add('logos', 'sortToDoButton');
     
     sortToDoButton.addEventListener('click', () => {
-      instanceOfProjectsFromTodo.sortToDoArr(projectPosition);
+     projectInstance.sortToDoArr(projectPosition);
       viewTodos(); // Call viewTodos to refresh the display with the sorted array
     });
     sortDiv.appendChild(sortPara);
@@ -84,7 +82,7 @@ export const toDoDisplayFunc = (projectPosition) => {
 
   const viewTodos = () => {
     toDoContainer.textContent = "";
-    const todos = instanceOfProjectsFromTodo.getToDoArr(projectPosition);
+    const todos = projectInstance.getToDoArr(projectPosition);
 
     todos.forEach((todo, index) => {
       const toDoItem = document.createElement("div");
@@ -290,7 +288,7 @@ export const toDoDisplayFunc = (projectPosition) => {
         return
       }
       if (todo) {
-        instanceOfTodos.updateToDo(
+        toDoInstance.updateToDo(
           projectPosition,
           toDoIndex,
           toDoName,
@@ -299,7 +297,7 @@ export const toDoDisplayFunc = (projectPosition) => {
           toDoPriority,
         );
       } else {
-        instanceOfTodos.insertToDoToProject(
+        toDoInstance.insertToDoToProject(
           projectPosition,
           toDoName,
           toDoDescription,
@@ -307,7 +305,7 @@ export const toDoDisplayFunc = (projectPosition) => {
           toDoPriority,
         );
       }
-      toDoDisplayFunc(projectPosition);
+      toDoDisplayFunc(projectPosition, toDoInstance, projectInstance);
 
       toDoForm.remove();
 
@@ -360,8 +358,8 @@ export const toDoDisplayFunc = (projectPosition) => {
     finishToDo.textContent = "Finish It!";
 
     finishToDo.addEventListener("click", () => {
-      instanceOfTodos.removeToDo(getProjectPosition(), toDoIndex);
-      toDoDisplayFunc(projectPosition)
+      toDoInstance.removeToDo(getProjectPosition(), toDoIndex);
+      toDoDisplayFunc(projectPosition,toDoInstance, projectInstance)
     });
 
     const editToDo = document.createElement("button");
@@ -375,7 +373,7 @@ export const toDoDisplayFunc = (projectPosition) => {
     goBack.textContent = '>';
 
     goBack.addEventListener('click', () => {
-      toDoDisplayFunc(projectPosition);
+      toDoDisplayFunc(projectPosition, toDoInstance, projectInstance);
     })
 
     toDoDetailsDiv.appendChild(toDoIndexAndTitle);

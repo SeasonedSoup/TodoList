@@ -1,12 +1,7 @@
-import { ProjectFunc } from "./project";
-import { toDoDisplayFunc } from "./displayTodos";
 import cogImg from "../logos/cog.svg";
 
-//testing data will be named Default Project
-const instanceOfProjects = ProjectFunc();
-
-export const ProjectDisplayFunc = () => {
-  const projects = instanceOfProjects.getProjectArr();
+export const ProjectDisplayFunc = (projectInstance, toDoInstance, toDoDisplayFunc) => {
+  const projects = projectInstance.getProjectArr();
 
   const sidebar = document.querySelector(".sidebar");
   sidebar.textContent = "";
@@ -87,9 +82,9 @@ export const ProjectDisplayFunc = () => {
       projectTitle.classList.add("deleteableProjects");
       projectTitle.addEventListener("click", () => {
         if (projects.length !== 1 ) {
-          instanceOfProjects.deleteProject(projectIndex);
-          ProjectDisplayFunc();
-          toDoDisplayFunc(projectIndex - 1);
+          projectInstance.deleteProject(projectIndex);
+          ProjectDisplayFunc(projectInstance, toDoInstance, toDoDisplayFunc);
+          toDoDisplayFunc(projectIndex - 1, toDoInstance, projectInstance);
         } else {
           alert("There is only One Project Left, keep it.")
         }
@@ -119,7 +114,7 @@ export const ProjectDisplayFunc = () => {
     projectTitle.textContent = `${project.name}`;
     projectTitle.classList.add("projectTitles");
     projectTitle.addEventListener("click", () => {
-      toDoDisplayFunc(projectIndex);
+      toDoDisplayFunc(projectIndex, toDoInstance, projectInstance);
     });
     sidebar.appendChild(projectTitle);
   });
@@ -215,11 +210,11 @@ export const ProjectDisplayFunc = () => {
         return;
       }
       const submittedName = name.value;
-      instanceOfProjects.addProjectToProjectArr(submittedName);
+      projectInstance.addProjectToProjectArr(submittedName);
       form.remove();
       modal.classList.remove("open");
       overlay.classList.remove("open");
-      ProjectDisplayFunc();
+      ProjectDisplayFunc(projectInstance, toDoInstance, toDoDisplayFunc);
     });
     
     const showError = (name) => {

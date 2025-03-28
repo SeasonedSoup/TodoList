@@ -43,8 +43,9 @@ How do i implement colors on squares:
 ---
 -old
 -
--
-
+- steps to gh pages update npx webpack serve, git add dist, git commit -m  "Deployment commit", git subtree push --prefix dist origin gh-pages
+- take note try refactoring the dom manipulation js and take notes about the structure of the code first before adding right now we need to fi
+fix rather than add functionalities first
 future notes prob njot uysed 
 
 //function that called to show and append all projects for the new project made to show in the dom
