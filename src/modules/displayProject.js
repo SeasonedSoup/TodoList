@@ -1,4 +1,5 @@
 import cogImg from "../logos/cog.svg";
+import { overlay, modal, modal_inner } from "./elements";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFunc) => {
   const projects = projectInstance.getProjectArr();
@@ -19,19 +20,6 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFun
     paragraphTitle.textContent = "Projects";
     textTitle.appendChild(paragraphTitle);
   }
-  const overlay = document.createElement("div");
-  overlay.classList.add("overlay");
-
-  const modal = document.createElement("div");
-  overlay.appendChild(modal);
-  modal.classList.add("modal");
-
-  const modal_inner = document.createElement("div");
-  modal_inner.classList.add("inner-modal");
-
-  modal.appendChild(modal_inner);
-  document.body.appendChild(overlay);
-
   const createProjectHandler = () => {
     const buttonDiv = document.createElement("div");
     buttonDiv.classList.add("buttonDiv");

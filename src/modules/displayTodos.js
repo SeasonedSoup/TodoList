@@ -1,5 +1,6 @@
 import { parseISO, startOfToday } from "date-fns";
 import sortImg from "../logos/sort.svg";
+import { overlay, modal, modal_inner } from "./elements";
 
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) => {
 
@@ -18,19 +19,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
   } else {
     paraTitleCheck.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
   }
-  //problem these overlays and modals are repeating and repeating
-  const overlay = document.createElement("div");
-  overlay.classList.add("overlay");
-
-  const modal = document.createElement("div");
-  overlay.appendChild(modal);
-  modal.classList.add("modal");
-
-  const modal_inner = document.createElement("div");
-  modal_inner.classList.add("inner-modal");
-
-  modal.appendChild(modal_inner);
-  document.body.appendChild(overlay);
 
   const getProjectPosition = () => projectPosition;
 
