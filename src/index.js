@@ -8,7 +8,7 @@ import { quoteSwitching } from "./modules/quoteTransition";
 
 //=====epock dark mode button
 function darkMode() {
-    alert('its dark');
+    document.body.classList.toggle('dark')
 }
 
 const darkModeButton = document.querySelector('.toggle');

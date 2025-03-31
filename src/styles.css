@@ -8,6 +8,17 @@ body {
   height: 100vh;
 }
 
+body.dark {
+  background-color: black;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+body.dark .main-container, body.dark .sidebar, body.dark .content  {
+  background-color: black;
+  transition: opacity 0.5 ease-in-out;
+}
+
 .title {
   margin: 40px;
 }
@@ -188,6 +199,7 @@ body {
   
 }
 
+
 .logos {
   width: 44px;
   height: 44px;
@@ -338,4 +350,3 @@ input:invalid{
   border-radius: 12px;
   border: 2px solid black;
 }
-
