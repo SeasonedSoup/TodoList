@@ -68,6 +68,14 @@ body {
   opacity: 0.8;
 }
 
+.sortToDoButton {
+  cursor: pointer;
+}
+
+.sortToDoButton:hover {
+  opacity: 0.6;
+}
+
 .drpdwnitems {
   display: none;
   background-color: whitesmoke;
@@ -191,6 +199,7 @@ body {
   margin: 5px;
   font-weight: lighter;
   border-bottom: 2px solid black;
+  cursor: pointer;
 }
 
 .content {
@@ -276,6 +285,7 @@ input:invalid{
   padding: 20px;
   font-size: 1rem;
   box-shadow: 0 5px 3px black;
+  cursor: pointer;
 }
 
 .toDoTitle {
@@ -310,6 +320,7 @@ input:invalid{
   width: 80px;
   border-radius: 12px;
   border: 2px solid black;
+  cursor: pointer;
 }
 
 .square.low {

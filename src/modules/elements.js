@@ -1,4 +1,11 @@
-const overlay = document.createElement("div");
+    //paragraph message
+    const paragraphTitle = document.createElement("h1");
+    paragraphTitle.classList.add("paragraphTitle");
+    
+    export {paragraphTitle};
+
+    //modal elements
+    const overlay = document.createElement("div");
     overlay.classList.add("overlay");
 
     const modal = document.createElement("div");
@@ -11,4 +18,4 @@ const overlay = document.createElement("div");
     modal.appendChild(modal_inner);
     document.body.appendChild(overlay);
 
-    export {overlay, modal, modal_inner}
+    export {overlay, modal, modal_inner};

@@ -6,6 +6,15 @@ import { DisplayProjectFunc } from "./modules/displayProject";
 import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 
+//=====epock dark mode button
+function darkMode() {
+    alert('its dark');
+}
+
+const darkModeButton = document.querySelector('.toggle');
+darkModeButton.addEventListener('click', darkMode);
+
+//========Functionality
 const projectInstance = ProjectFunc();
 console.log(projectInstance); 
 
