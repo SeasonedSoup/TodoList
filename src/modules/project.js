@@ -55,6 +55,7 @@ export const ProjectFunc = () => {
     });
     saveProjectLocally();
     return toDoLists;
+    
   };
   restoreProjectLocally();  
 

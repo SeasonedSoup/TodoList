@@ -46,7 +46,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     sortToDoButton.classList.add('logos', 'sortToDoButton');
     
     sortToDoButton.addEventListener('click', () => {
-     projectInstance.sortToDoArr(projectPosition);
+      projectInstance.sortToDoArr(projectPosition);
       viewTodos(); // Call viewTodos to refresh the display with the sorted array
     });
     sortDiv.appendChild(sortPara);
@@ -57,8 +57,10 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
   sortToDoHandler();
 
   const viewTodos = () => {
-    const todos = projectInstance.getToDoArr(projectPosition);
 
+    toDoContainer.textContent = ''
+    const todos = projectInstance.getToDoArr(projectPosition);
+    console.log(todos);
     todos.forEach((todo, index) => {
       const toDoItem = document.createElement('div');
       toDoItem.classList.add('toDoItem');
@@ -167,8 +169,9 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       if (input.id === 'toDoName') {
         input.maxLength = 50;
       }
-    
-      toDoForm.appendChild(label, input, span);
+      toDoForm.appendChild(label);
+      toDoForm.appendChild(input);
+      toDoForm.appendChild(span);
       toDoForm.appendChild(document.createElement('br'));
     });
     //High, Medium, Low
@@ -267,7 +270,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
           toDoDueDate,
           toDoPriority,
         );
-      console.log('After Update:', projectInstance.getToDoArr(projectPosition));
+      console.log(projectInstance.getToDoArr(projectPosition));
       } else {
         toDoInstance.insertToDoToProject(
           projectPosition,
