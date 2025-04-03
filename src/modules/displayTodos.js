@@ -3,9 +3,13 @@ import sortImg from '../logos/sort.svg';
 import {paragraphTitle, overlay, modal, modal_inner } from './elements';
 
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) => {
+  
+  const content = document.querySelector('.content');
+  content.classList.remove('content2')
 
   const toDoContainer = document.querySelector('.toDoContainer');
   toDoContainer.textContent = '';
+  content.appendChild(toDoContainer);
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(paragraphTitle);
@@ -59,6 +63,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
   const viewTodos = () => {
 
     toDoContainer.textContent = ''
+    toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition);
     console.log(todos);
     todos.forEach((todo, index) => {
@@ -312,25 +317,42 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
   };
   //see the details when clicking the todo
   const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
-    toDoContainer.textContent = '';
+    content.classList.toggle('content2')
+    toDoContainerTitle.textContent = ''
+    toDoContainer.textContent = ''
+    toDoContainer.classList.remove('grid');
 
     const toDoDetailsDiv = document.createElement('div');
     toDoDetailsDiv.classList.add('toDoDetailsDiv');
 
+    const details = []
     const toDoIndexAndTitle = document.createElement('h2');
     toDoIndexAndTitle.textContent = `Title: #${toDoIndex + 1} ${todo.title}`;
+    details.push(toDoIndexAndTitle)
 
     const toDoDesc = document.createElement('h2');
     toDoDesc.textContent = `Description: ${todo.description}`;
+    details.push(toDoDesc)
 
     const toDoDueDate = document.createElement('h2');
     toDoDueDate.textContent = `Due Date: ${todo.dueDate}`;
+    details.push(toDoDueDate)
 
     const toDoPriority = document.createElement('h2');
     toDoPriority.textContent = `Priority: ${todo.priority}`;
+    details.push(toDoPriority)
 
+    details.forEach((detail) => {
+      detail.classList.add('details')
+    })
+    //buttondiv
+    const buttons = document.createElement('div');
+    buttons.classList.add('buttonDiv')
     const finishToDo = document.createElement('button');
     finishToDo.textContent = 'Finish It!';
+    finishToDo.classList.add('toDoButton')
+
+    buttons.appendChild(finishToDo);
 
     finishToDo.addEventListener('click', () => {
       toDoInstance.removeToDo(projectPosition, toDoIndex);
@@ -339,15 +361,20 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     const editToDo = document.createElement('button');
     editToDo.textContent = 'Edit';
+    buttons.appendChild(editToDo);
+    editToDo.classList.add('toDoButton')
 
     editToDo.addEventListener('click', () => {
       formModal(projectPosition, todo, toDoIndex);
     });
 
     const goBack = document.createElement('button');
-    goBack.textContent = '>';
+    goBack.textContent = 'Go Back';
+    buttons.appendChild(goBack)
+    goBack.classList.add('toDoButton')
 
     goBack.addEventListener('click', () => {
+      content.classList.toggle('content2')
       DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
     })
 
@@ -355,9 +382,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     toDoDetailsDiv.appendChild(toDoDesc);
     toDoDetailsDiv.appendChild(toDoDueDate);
     toDoDetailsDiv.appendChild(toDoPriority);
-    toDoDetailsDiv.appendChild(finishToDo);
-    toDoDetailsDiv.appendChild(editToDo);
-    toDoDetailsDiv.appendChild(goBack);
+    toDoDetailsDiv.appendChild(buttons);
 
     toDoContainer.appendChild(toDoDetailsDiv);
   };

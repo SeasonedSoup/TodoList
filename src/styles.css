@@ -29,6 +29,10 @@ body.dark .createToDoButton, body.dark .button {
   border: solid 2px #333;
 }
 
+body.dark .drpdwnitems.active {
+  color: black;
+}
+
 body.dark .sidebar {
   border-left: 10px solid rgb(39, 53, 95);
 }
@@ -40,7 +44,7 @@ body.dark .square {
 
 body.dark .square.low {
   background-color: rgb(58, 126, 49);
-  transition: all 0.9s ease;
+  transition: all 0.2s ease;
 }
 
 body.dark .square.medium {
@@ -78,7 +82,7 @@ body.dark .logos {
   display: grid;
   grid-template-rows: 1fr 4fr;
   grid-template-columns: 1fr 3fr;
-  transition: all 0.7s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .project-title {
@@ -250,7 +254,11 @@ body.dark .logos {
   cursor: pointer;
 }
 
-.content {
+body.dark .projectTitles {
+  border-bottom: 2px solid white;
+}
+
+.content  {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
   background-color: white;
@@ -262,6 +270,13 @@ body.dark .logos {
   margin-right: 40px;
   margin-bottom: 40px;
   transition: all 0.7s ease-in-out;
+  overflow: auto;
+}
+
+.content2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {
@@ -342,15 +357,28 @@ input:invalid{
   justify-content: center;
   align-items: center;
   gap: 40px;
+  margin-bottom: 40px;
+  border-bottom: solid 5px black;
 }
 .toDoContainer {
+  height: 80%;
+  width: 70%;
+  background-color: rgb(132, 149, 206);
+}
+
+.toDoContainer.grid {
+  background-color: white;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px;
   padding: 20px;
   margin-left: 20px;
   margin-top: 20px;
+  height: 100%;
+  width: auto;
 }
+
+
 
 .paragraphTitle {
   font-size: 2rem;
@@ -365,8 +393,8 @@ input:invalid{
 
 .square {
   background-color: rgb(253, 86, 86);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   border-radius: 12px;
   border: 2px solid black;
   cursor: pointer;
@@ -374,16 +402,44 @@ input:invalid{
 
 .square.low {
   background-color: rgb(94, 224, 77);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   border-radius: 12px;
   border: 2px solid black;
 }
 
 .square.medium {
   background-color: rgb(228, 215, 43);
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   border-radius: 12px;
   border: 2px solid black;
+}
+
+.toDoDetailsDiv {
+  height:100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.toDoButton {
+  height: 80px;
+  width: 100px;
+  border-radius: 12px;
+}
+h2 {
+  font-size: 1.5rem;
+}
+
+.details {
+  font-size: 3rem;
 }
