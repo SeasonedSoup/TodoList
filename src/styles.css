@@ -19,14 +19,24 @@ body.dark {
   transition: all 0.5 ease-in-out;
 }
 
-body.dark .main-container, body.dark .sidebar, body.dark .content, body.dark .createToDoButton, body.dark .button {
+
+body.dark .main-container, body.dark .sidebar, body.dark .content2, body.dark .content, body.dark .createToDoButton, body.dark .button  {
   background-color: var(--bg-blk);
   color: white;
   transition: all 0.5s ease-in-out;
 }
 
+body.dark .toDoContainer.grid {
+  background-color: #333;
+}
+
+body.dark .toDoTitle {
+  border-bottom: 5px solid white;
+  padding: 20px;
+}
+
 body.dark .createToDoButton, body.dark .button {
-  border: solid 2px #333;
+  border: solid white 2px;
 }
 
 body.dark .drpdwnitems.active {
@@ -53,6 +63,10 @@ body.dark .square.medium {
 }
 body.dark .logos {
   filter: invert(1);
+}
+
+body.dark .toDoContainer {
+    background-color: rgb(80, 91, 126);
 }
 
 .title {
@@ -84,6 +98,7 @@ body.dark .logos {
   grid-template-columns: 1fr 3fr;
   transition: all 0.5s ease-in-out;
 }
+
 
 .project-title {
   grid-row: 1 / 2;
@@ -174,6 +189,12 @@ body.dark .logos {
   margin-top: 20px;
 }
 
+img.toggle {
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+
 #TODOIT {
   font-size: 50px;
 }
@@ -243,7 +264,10 @@ body.dark .logos {
   width: 44px;
   height: 44px;
   cursor: pointer;
-  
+}
+
+.logos:hover {
+  opacity: 0.5;
 }
 
 .projectTitles {
@@ -279,6 +303,10 @@ body.dark .projectTitles {
   align-items: center;
 }
 
+body.dark .modal{
+  background-color: black;
+  border: solid white 2px;
+}
 .modal {
   position: fixed;
   top: 50%;
@@ -359,26 +387,25 @@ input:invalid{
   gap: 40px;
   margin-bottom: 40px;
   border-bottom: solid 5px black;
+  padding: 20px;
 }
 .toDoContainer {
   height: 80%;
   width: 70%;
   background-color: rgb(132, 149, 206);
+  border-radius: 5px;
 }
 
 .toDoContainer.grid {
-  background-color: white;
+  background-color: whitesmoke;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px;
   padding: 20px;
-  margin-left: 20px;
-  margin-top: 20px;
+  margin: 20px;
   height: 100%;
   width: auto;
 }
-
-
 
 .paragraphTitle {
   font-size: 2rem;
