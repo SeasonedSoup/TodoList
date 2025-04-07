@@ -1,7 +1,8 @@
-import { parseISO, startOfToday } from 'date-fns';
+import { parseISO, startOfToday, format } from 'date-fns';
 import sortImg from '../logos/sort.svg';
 import {paragraphTitle, overlay, modal, modal_inner } from './elements';
 
+//PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) => {
   
   const content = document.querySelector('.content');
@@ -335,8 +336,14 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     details.push(toDoDesc)
 
     const toDoDueDate = document.createElement('h2');
-    toDoDueDate.textContent = `Due Date: ${todo.dueDate}`;
-    details.push(toDoDueDate)
+    if (todo.dueDate !== "No Due Date") {
+      console.log(todo.dueDate)
+      toDoDueDate.textContent = `Due Date: ${format(new Date(todo.dueDate), 'PPPP')}`;
+    } else {
+      toDoDueDate.textContent = 'Due Date: Not specified';
+    }
+
+    details.push(toDoDueDate);
 
     const toDoPriority = document.createElement('h2');
     toDoPriority.textContent = `Priority: ${todo.priority}`;
