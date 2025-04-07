@@ -77,7 +77,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       } else if (todo.priority === 'medium') {
         toDoSquare.classList.add('medium');
       }
-      
+
       toDoSquare.addEventListener('click', () => {
         seeToDoDetails(todo, index, projectPosition);
       });

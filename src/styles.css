@@ -427,6 +427,7 @@ input:invalid{
   cursor: pointer;
 }
 
+
 .square.low {
   background-color: rgb(94, 224, 77);
   height: 100px;
@@ -441,6 +442,18 @@ input:invalid{
   width: 100px;
   border-radius: 12px;
   border: 2px solid black;
+}
+
+.square:hover {
+  height: 90px;
+  width: 90px;
+  opacity: 0.7;
+}
+
+.square:active {
+  height: 80px;
+  width: 80px;
+  opacity: 0.5;
 }
 
 .toDoDetailsDiv {
