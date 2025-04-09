@@ -77,8 +77,13 @@ body.dark .toDoContainer {
   border-radius: 5px;
   border: none;
   padding: 20px;
-  box-shadow: 1px 2px 10px black;
+  box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.2);
   transition: all 0.7s ease-in-out;
+  cursor: pointer;
+}
+
+.button:hover {
+  padding: 10px;
 }
 
 .buttons {
@@ -278,6 +283,10 @@ img.toggle {
   cursor: pointer;
 }
 
+.projectTitles:hover {
+  color: orange;
+}
+
 body.dark .projectTitles {
   border-bottom: 2px solid white;
 }
@@ -372,12 +381,21 @@ input:invalid{
 .createToDoButton {
   border-radius: 15px;
   border: none;
-  background-color: black;
+  background-color: royalblue;
   color: white;
   padding: 20px;
   font-size: 1rem;
-  box-shadow: 0 5px 3px black;
+  box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  border: solid 2px rgba(0, 0, 0, 0.6);
+}
+
+.createToDoButton:hover {
+  background-color: rgb(73, 104, 197);
+}
+
+body.dark .createToDoButton:hover {
+  background-color: rgba(204, 192, 192, 0.403);
 }
 
 .toDoTitle {
@@ -405,6 +423,7 @@ input:invalid{
   margin: 20px;
   height: 100%;
   width: auto;
+  justify-items: center;
 }
 
 .paragraphTitle {

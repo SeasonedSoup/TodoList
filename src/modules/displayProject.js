@@ -21,17 +21,13 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFun
     textTitle.appendChild(paragraphTitle);
   }
   const createProjectHandler = () => {
-    const buttonDiv = document.createElement("div");
-    buttonDiv.classList.add("buttonDiv");
-
     const createProjectButton = document.createElement("button");
     createProjectButton.classList.add("button");
     createProjectButton.textContent = "Add Project";
     createProjectButton.addEventListener("click", () => {
       projectFormModal();
     });
-    buttonDiv.appendChild(createProjectButton);
-    buttons.appendChild(buttonDiv);
+    buttons.appendChild(createProjectButton);
   };
 
   const removeProjectHandler = () => {
