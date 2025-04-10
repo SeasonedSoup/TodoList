@@ -8,6 +8,12 @@ html {
   font-style: normal;
 }
 
+html body.dark {
+  background-color: var(--bg-blk);
+  color: white;
+  transition: all 0.5 ease-in-out;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -58,7 +64,7 @@ body.dark .sidebar {
 
 body.dark .square {
   background-color: rgb(139, 50, 50);
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 body.dark .square.low {
@@ -68,7 +74,7 @@ body.dark .square.low {
 
 body.dark .square.medium {
   background-color: rgb(172, 165, 66);
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 body.dark .logos {
   filter: invert(1);
@@ -89,6 +95,13 @@ body.dark .toDoContainer {
   box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.2);
   transition: all 0.7s ease-in-out;
   cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .button:hover {
@@ -316,7 +329,7 @@ body.dark .projectTitles {
   margin-top: 40px;
   margin-right: 40px;
   margin-bottom: 40px;
-  transition: all 0.7s ease-in-out;
+  transition: all 0.5s ease-in-out;
   overflow: auto;
 }
 
@@ -352,6 +365,7 @@ body.dark .modal{
 .modal.open {
   z-index: 9999;
   opacity: 1;
+  height: 80%;
 }
 
 .overlay {
@@ -408,6 +422,12 @@ input:invalid{
   background-color: rgb(73, 104, 197);
 }
 
+.toDoForm {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
 body.dark .createToDoButton:hover {
   background-color: rgba(204, 192, 192, 0.403);
 }
@@ -420,6 +440,7 @@ body.dark .createToDoButton:hover {
   margin-bottom: 40px;
   border-bottom: solid 5px black;
   padding: 20px;
+  transition: all 0.5s ease-in-out;
 }
 .toDoContainer {
   height: 80%;
@@ -457,6 +478,7 @@ body.dark .createToDoButton:hover {
   border-radius: 12px;
   border: 2px solid black;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 
@@ -466,6 +488,7 @@ body.dark .createToDoButton:hover {
   width: 100px;
   border-radius: 12px;
   border: 2px solid black;
+  transition: all 0.2s ease;
 }
 
 .square.medium {
@@ -474,6 +497,7 @@ body.dark .createToDoButton:hover {
   width: 100px;
   border-radius: 12px;
   border: 2px solid black;
+  transition: all 0.2s ease;
 }
 
 .square:hover {

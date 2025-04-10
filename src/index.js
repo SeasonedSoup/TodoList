@@ -1,4 +1,4 @@
-import "./reset.css"
+import "./reset.css";
 import "./styles.css";
 import {ToDoFunc} from "./modules/todo";
 import { ProjectFunc } from "./modules/project";
