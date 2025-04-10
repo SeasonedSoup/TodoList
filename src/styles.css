@@ -2,10 +2,19 @@
   --bg-blk: black
 }
 
+html {
+  font-family: "Bytesized", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Bytesized", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
@@ -136,7 +145,10 @@ body.dark .toDoContainer {
 .cog:hover {
   opacity: 0.8;
 }
-
+.sort {
+  text-align: justify;
+  font-size: 1.2rem;
+}
 .sortToDoButton {
   cursor: pointer;
 }
@@ -201,7 +213,7 @@ img.toggle {
 
 
 #TODOIT {
-  font-size: 50px;
+  font-size: 5rem;
 }
 
 .quotes {
@@ -212,6 +224,7 @@ img.toggle {
   visibility: hidden;
   position: absolute;
   transition: opacity 0.6s ease-in-out;
+  font-size: 2rem;
 }
 
 .quote.active {
@@ -300,6 +313,7 @@ body.dark .projectTitles {
   box-shadow:
     20px 5px 10px rgba(154, 160, 185, 0.05),
     0 15px 40px rgba(166, 173, 201, 0.2);
+  margin-top: 40px;
   margin-right: 40px;
   margin-bottom: 40px;
   transition: all 0.7s ease-in-out;
@@ -421,7 +435,6 @@ body.dark .createToDoButton:hover {
   gap: 12px;
   padding: 20px;
   margin: 20px;
-  height: 100%;
   width: auto;
   justify-items: center;
 }

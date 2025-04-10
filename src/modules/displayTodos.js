@@ -44,6 +44,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     const sortDiv = document.createElement('div');
     sortDiv.classList.add('sortDiv')
     const sortPara = document.createElement('p');
+    sortPara.classList.add('sort');
     sortPara.textContent = 'Sort';
 
     const sortToDoButton = document.createElement('img');
