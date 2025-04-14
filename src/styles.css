@@ -2,7 +2,6 @@
   --bg-blk: black
 }
 
-
 html body.dark {
   background-color: var(--bg-blk);
   color: white;
@@ -16,6 +15,10 @@ html body.dark {
   font-family: "Bytesized", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+button {
+  cursor: pointer;
 }
 
 body {
@@ -90,6 +93,10 @@ body.dark .toDoContainer {
   box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.button:hover {
+  opacity: 0.6;
 }
 
 .form {
@@ -434,11 +441,15 @@ input:invalid{
 .submitButton {
   font-size: 2rem;
   background-color: green;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 .closeButton {
   font-size: 2rem;
   background-color: red;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 input {
@@ -456,7 +467,6 @@ body.dark .createToDoButton:hover {
   justify-content: center;
   align-items: center;
   gap: 40px;
-  margin-bottom: 40px;
   border-bottom: solid 5px black;
   padding: 20px;
   transition: all 0.5s ease-in-out;

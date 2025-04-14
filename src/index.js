@@ -7,10 +7,19 @@ import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 
 import toggleImg from "./logos/theme-light-dark.svg"
+let isItDark =  JSON.parse(localStorage.getItem('darkMode')) || false;
+
+(function loadDark() {
+    if (isItDark) {
+        document.body.classList.toggle('dark')
+    }
+})();
 
 //=====epock dark mode button
 function darkMode() {
     document.body.classList.toggle('dark')
+    isItDark = document.body.classList.contains('dark')
+    localStorage.setItem('darkMode', JSON.stringify(isItDark))
 }
 
 const darkModeLogo = document.querySelector('.toggle');
