@@ -162,21 +162,27 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFun
       form.appendChild(span);
       form.appendChild(document.createElement("br"));
     });
+    const buttonDiv = document.createElement('div');
+    buttonDiv.classList.add('buttonDivForm')
 
     const submitButton = document.createElement("button");
+    submitButton.classList.add('submitButton')
     submitButton.type = "submit";
     submitButton.textContent = "Create Project";
-    form.appendChild(submitButton);
+    buttonDiv.appendChild(submitButton);
 
     const closeButton = document.createElement("button");
+    closeButton.classList.add('closeButton')
     closeButton.type = "button";
     closeButton.textContent = "Close";
-    form.appendChild(closeButton);
+    buttonDiv.appendChild(closeButton);
     closeButton.addEventListener("click", () => {
       form.remove();
       modal.classList.remove("open");
       overlay.classList.remove("open");
     });
+
+    form.appendChild(buttonDiv);
 
     formprojectsidebar.appendChild(form);
     modal_inner.appendChild(formprojectsidebar);
