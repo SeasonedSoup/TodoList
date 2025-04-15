@@ -205,16 +205,22 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     toDoForm.appendChild(priorityLabel);
     toDoForm.appendChild(priorityInput);
+    const toDoButtons = document.createElement('div') 
+    toDoButtons.classList.add('toDoButtons');
 
     const submitButton = document.createElement('button');
+    submitButton.classList.add('submitButton')
     submitButton.setAttribute('type', 'submit');
     submitButton.textContent = todo ? 'Update ToDo' : 'Create ToDo';
-    toDoForm.appendChild(submitButton);
+    toDoButtons.appendChild(submitButton);
 
     const closeButton = document.createElement('button');
+    closeButton.classList.add('closeButton')
     closeButton.setAttribute('type', 'button');
     closeButton.textContent = 'Close';
-    toDoForm.appendChild(closeButton);
+    toDoButtons.appendChild(closeButton);
+
+    toDoForm.appendChild(toDoButtons);
 
     toDoFormContainer.appendChild(toDoForm);
     modal_inner.appendChild(toDoFormContainer);

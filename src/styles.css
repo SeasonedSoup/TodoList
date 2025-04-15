@@ -383,6 +383,12 @@ body.dark .modal{
   z-index: 9998;
 }
 
+.toDoButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
 input:invalid{
   border: 2px solid red;
 }
