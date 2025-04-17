@@ -464,6 +464,10 @@ input {
   text-rendering: optimizeLegibility;
   overflow:auto
 }
+
+select {
+  font-size: 2rem;
+}
 body.dark .createToDoButton:hover {
   background-color: rgba(204, 192, 192, 0.403);
 }
@@ -563,9 +567,21 @@ body.dark .createToDoButton:hover {
 }
 
 .toDoButton {
-  height: 80px;
-  width: 100px;
+  font-size: 2rem;
+  padding: 1rem ;
   border-radius: 12px;
+}
+
+#finish {
+  background-color: aquamarine;
+}
+
+#edit {
+  background-color: lightgreen;
+}
+
+#goBack {
+  background-color: orangered;
 }
 h2 {
   font-size: 1.5rem;

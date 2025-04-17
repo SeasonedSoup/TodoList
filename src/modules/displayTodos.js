@@ -66,8 +66,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     toDoContainer.textContent = ''
     toDoContainer.classList.add('grid');
-    const todos = projectInstance.getToDoArr(projectPosition);
+    const todos = projectInstance.getToDoArr(projectPosition) || [];
     console.log(todos);
+    if (todos.length === 0) {
+      const p = document.createElement('p')
+      p.textContent = 'Currently No To Dos Go Add a Few!'
+      toDoContainer.appendChild(p);
+    }
     todos.forEach((todo, index) => {
       const toDoItem = document.createElement('div');
       toDoItem.classList.add('toDoItem');
@@ -364,7 +369,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     buttons.classList.add('buttonDiv')
     const finishToDo = document.createElement('button');
     finishToDo.textContent = 'Finish It!';
-    finishToDo.classList.add('toDoButton')
+    finishToDo.classList.add('toDoButton');
+    finishToDo.id = 'finish';
 
     buttons.appendChild(finishToDo);
 
@@ -374,18 +380,20 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
     });
 
     const editToDo = document.createElement('button');
-    editToDo.textContent = 'Edit';
+    editToDo.textContent = 'Edit ✎';
     buttons.appendChild(editToDo);
     editToDo.classList.add('toDoButton')
+    editToDo.id = 'edit'
 
     editToDo.addEventListener('click', () => {
       formModal(projectPosition, todo, toDoIndex);
     });
 
     const goBack = document.createElement('button');
-    goBack.textContent = 'Go Back';
+    goBack.textContent = 'Go Back <<';
     buttons.appendChild(goBack)
     goBack.classList.add('toDoButton')
+    goBack.id = 'goBack'
 
     goBack.addEventListener('click', () => {
       content.classList.toggle('content2')
