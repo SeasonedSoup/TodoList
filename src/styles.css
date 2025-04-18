@@ -504,6 +504,10 @@ body.dark .createToDoButton:hover {
   font-weight: bolder;
 }
 
+.emptyPara {
+  font-size: 1.1rem;
+}
+
 .toDoItem {
   word-wrap: break-word;
   display: flex;
@@ -585,6 +589,10 @@ body.dark .createToDoButton:hover {
 }
 h2 {
   font-size: 1.5rem;
+}
+
+.toDoDetails {
+  background-color: royalblue;
 }
 
 .details {

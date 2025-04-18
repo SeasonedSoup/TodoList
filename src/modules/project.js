@@ -47,7 +47,10 @@ export const ProjectFunc = () => {
   const sortToDoArr = (projectPosition) => {
     const priorityOrder = { low: 1, medium: 2, high: 3 };
     let toDoLists = getToDoArr(projectPosition);
-
+    if (toDoLists.length === 0 || toDoLists.length === 1) {
+      alert('Cannot be Sorted there is only one or an empty to do array element');
+      return;
+    }
     sorted = !sorted;
 
     toDoLists = toDoLists.sort((toDo1, toDo2) => {

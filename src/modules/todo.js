@@ -33,6 +33,7 @@ export const ToDoFunc = (projectInstance ) => {
     dueDate,
     priority
   ) => {
+    dueDate = dueDate || "No Due Date";
     const projects = projectInstance.getProjectArr();
     if (
       !projects[projectPosition] ||

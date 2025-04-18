@@ -64,13 +64,14 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
   const viewTodos = () => {
 
-    toDoContainer.textContent = ''
+    toDoContainer.textContent = '';
     toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition) || [];
     console.log(todos);
     if (todos.length === 0) {
-      const p = document.createElement('p')
-      p.textContent = 'Currently No To Dos Go Add a Few!'
+      const p = document.createElement('p');
+      p.className = 'emptyPara';
+      p.textContent = 'Currently No To Dos Go Add a Few!';
       toDoContainer.appendChild(p);
     }
     todos.forEach((todo, index) => {
@@ -258,9 +259,12 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
       const toDoName = document.querySelector('#toDoName').value;
       const toDoDescription = document.querySelector('#toDoDescription').value;
-      const toDoDueDate = document.querySelector('#toDoDueDate').value;
+      let toDoDueDate = document.querySelector('#toDoDueDate').value;
       const toDoPriority = document.querySelector('#toDoPriority').value;
 
+      if (!toDoDueDate) {
+        toDoDueDate = "No Due Date";
+      }
 
       let isValid = true;
       inputs.forEach(({ input, span }) => {
@@ -337,10 +341,11 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     const toDoDetailsDiv = document.createElement('div');
     toDoDetailsDiv.classList.add('toDoDetailsDiv');
-
+    const toDoDetails = document.createElement('div');
+    toDoDetails.classList.add('toDoDetails');
     const details = []
     const toDoIndexAndTitle = document.createElement('h2');
-    toDoIndexAndTitle.textContent = `Title: #${toDoIndex + 1} ${todo.title}`;
+    toDoIndexAndTitle.textContent = `Title: ${todo.title}`;
     details.push(toDoIndexAndTitle)
 
     const toDoDesc = document.createElement('h2');
@@ -363,6 +368,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     details.forEach((detail) => {
       detail.classList.add('details')
+      toDoDetails.appendChild(detail);
     })
     //buttondiv
     const buttons = document.createElement('div');
@@ -400,10 +406,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
     })
 
-    toDoDetailsDiv.appendChild(toDoIndexAndTitle);
-    toDoDetailsDiv.appendChild(toDoDesc);
-    toDoDetailsDiv.appendChild(toDoDueDate);
-    toDoDetailsDiv.appendChild(toDoPriority);
+    toDoDetailsDiv.appendChild(toDoDetails);
     toDoDetailsDiv.appendChild(buttons);
 
     toDoContainer.appendChild(toDoDetailsDiv);
