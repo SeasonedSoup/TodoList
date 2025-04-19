@@ -91,6 +91,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       });
 
       const toDoIndexAndTitle = document.createElement('h2');
+      toDoIndexAndTitle.className = 'toDoItem-title'
       toDoIndexAndTitle.textContent = `${todo.title}`;
 
       const toDoDueDate = document.createElement('h2');
@@ -122,14 +123,14 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     const inputs = [
       {
-        label: '(50 max Length) ToDo Name:',
+        label: '(25 max Length) ToDo Name:',
         type: 'text',
         name: 'toDoName',
         id: 'toDoName',
         value: todo ? todo.title : '',
       },
       {
-        label: 'ToDo Description:',
+        label: '(25 max Length) ToDo Description:',
         type: 'text',
         name: 'toDoDescription',
         id: 'toDoDescription',
@@ -179,8 +180,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       })
      }
 
-      if (input.id === 'toDoName') {
-        input.maxLength = 50;
+      if (input.id === 'toDoName' || input.id === 'toDoDesc') {
+        input.maxLength = 25;
       }
       toDoForm.appendChild(label);
       toDoForm.appendChild(input);
@@ -341,8 +342,18 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     const toDoDetailsDiv = document.createElement('div');
     toDoDetailsDiv.classList.add('toDoDetailsDiv');
+    
+    
+    const toDoDetailsContainer = document.createElement('div');
+    toDoDetailsContainer.classList.add('toDoDetailsContainer');
+
     const toDoDetails = document.createElement('div');
-    toDoDetails.classList.add('toDoDetails');
+    toDoDetails.classList.add('toDoDetails')
+    //checklistDiv will contain three actionable checklist will be added in checklist.js
+    const checkListDiv = document.createElement('div');
+    checkListDiv.textContent = 'under construction';
+    checkListDiv.classList.add('checkListDiv')
+
     const details = []
     const toDoIndexAndTitle = document.createElement('h2');
     toDoIndexAndTitle.textContent = `Title: ${todo.title}`;
@@ -406,7 +417,10 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
     })
 
-    toDoDetailsDiv.appendChild(toDoDetails);
+    toDoDetailsContainer.appendChild(toDoDetails);
+    toDoDetailsContainer.appendChild(checkListDiv);
+    
+    toDoDetailsDiv.appendChild(toDoDetailsContainer)
     toDoDetailsDiv.appendChild(buttons);
 
     toDoContainer.appendChild(toDoDetailsDiv);

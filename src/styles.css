@@ -509,11 +509,16 @@ body.dark .createToDoButton:hover {
 }
 
 .toDoItem {
-  word-wrap: break-word;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
 }
 
+.toDoItem-title {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 .square {
   background-color: rgb(253, 86, 86);
   height: 100px;
@@ -590,11 +595,23 @@ body.dark .createToDoButton:hover {
 h2 {
   font-size: 1.5rem;
 }
-
+.toDoDetailsContainer {
+  display: flex;
+  height: clamp(50%, 30vh, 100%);
+  box-sizing: border-box;
+  padding: 2px;
+}
 .toDoDetails {
   background-color: royalblue;
+  width: 50%;
+
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  gap: 10%;
 }
 
 .details {
-  font-size: 3rem;
+  font-size: 1.8rem;
 }

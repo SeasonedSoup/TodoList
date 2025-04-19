@@ -121,7 +121,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFun
 
     const inputs = [
       {
-        label: "Project Name (up to 3-30 characters): ",
+        label: "Project Name (up to 3-20 characters): ",
         type: "text",
         name: "projectName",
         id: "projectName",
@@ -154,7 +154,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, DisplayToDoFun
       input.required = true;
       input.autofocus = false;
       input.minLength = 3;
-      input.maxLength = 30;
+      input.maxLength = 20;
       input.setAttribute("autocomplete", "off");
 
       form.appendChild(label);
