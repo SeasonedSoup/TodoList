@@ -349,10 +349,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
 
     const toDoDetails = document.createElement('div');
     toDoDetails.classList.add('toDoDetails')
-    //checklistDiv will contain three actionable checklist will be added in checklist.js
-    const checkListDiv = document.createElement('div');
-    checkListDiv.textContent = 'under construction';
-    checkListDiv.classList.add('checkListDiv')
 
     const details = []
     const toDoIndexAndTitle = document.createElement('h2');
@@ -381,6 +377,33 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       detail.classList.add('details')
       toDoDetails.appendChild(detail);
     })
+
+    //checklistDiv will contain three actionable checklist will be added in checklist.js
+    const checkListDiv = document.createElement('div');
+    checkListDiv.classList.add('checkListDiv');
+
+  
+    for (let i = 0; i < 3; i++) {
+
+      const checkListWrapper = document.createElement('div')
+
+      //this will toggle the true false state of each checklist and only allows to finish it once all three are ticked backend logic not yet implemented
+      const checkListInput = document.createElement('input');
+      checkListInput.type = 'checkbox'
+      checkListInput.id = 'check'
+      checkListInput.name = 'check'
+      
+      //this label will contain the  details of what its needed to be done
+      const checkListLabel = document.createElement('label')
+      checkListLabel.setAttribute('for', 'check');
+      checkListLabel.textContent = 'CheckList under construction'
+
+      checkListWrapper.appendChild(checkListInput);
+      checkListWrapper.appendChild(checkListLabel);
+
+      checkListDiv.appendChild(checkListWrapper);
+    }
+    
     //buttondiv
     const buttons = document.createElement('div');
     buttons.classList.add('buttonDiv')

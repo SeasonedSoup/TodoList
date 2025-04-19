@@ -25,7 +25,7 @@ improve the todo functionality and display
 these between medium and low can be implemented on free time for the cs50 PROJECT pass basically qol updates
 Low
 possibly a checklist function for todos
-setting that can delete all finished todos
+setting that can delete all finished todos 
 
 ideas:
 ipad click app switch tab dynamically display more details on todo
@@ -54,3 +54,20 @@ future notes prob njot uysed
       //const makeSureHandler = () => {
         
       //}
+
+FINAL ONE THEN I CAN SUBMIT MAYBE A BIT MORE POLISHING AFTERWARDS
+Implementing A checkList Function 
+
+why implement it: its cool to have steps to finish it by setting them maybe i shouldnt make just three and just make a class or factory function that creates them 
+and make the div inside it overflow auto so that when user creates a bunch of these it dont overflow. text deco linethrough to make checklsit done when checkbox clicked.
+
+how to implement? dunno create factory function have the todo have an array that stores these todos so for each todo theres an checklistarray but idk if logic is correct 
+like will it not work because of projectInstance having to do arr this thing confusing. ill figure it ouit when i implement.
+
+features/ functions:
+Create a checkbox
+edit a checkbox
+toggle a checkBox
+delete a checkbox
+
+finish It button is only clickable once all checkboxes in the cbecklist Array are toggle to a true state / have the line through class or sum. yes

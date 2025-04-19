@@ -1,4 +1,6 @@
-export const ToDoFunc = (projectInstance ) => {
+export const ToDoFunc = (projectInstance) => {
+
+  let checkListArr = []
 
   const createToDo = (title, description, dueDate, priority) => {
     return { title, description, dueDate: dueDate || "No Due Date", priority };
