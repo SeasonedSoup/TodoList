@@ -611,7 +611,7 @@ h2 {
 }
 
 .checkListDiv {
-  background-color: #333;
+  background-color: rgb(201, 167, 103);
   width: 50%;
   display: flex;
   flex-direction: column;

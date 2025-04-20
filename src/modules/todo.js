@@ -1,9 +1,7 @@
 export const ToDoFunc = (projectInstance) => {
 
-  let checkListArr = []
-
-  const createToDo = (title, description, dueDate, priority) => {
-    return { title, description, dueDate: dueDate || "No Due Date", priority };
+  const createToDo = (title, description, dueDate, priority, checkList = []) => {
+    return { title, description, dueDate: dueDate || "No Due Date", priority, checkList};
   };
 
   const insertToDoToProject = (
@@ -11,9 +9,10 @@ export const ToDoFunc = (projectInstance) => {
     title,
     description,
     dueDate,
-    priority
+    priority,
+    checkList = []
   ) => {
-    const addedToDo = createToDo(title, description, dueDate, priority);
+    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
 
     const projects = projectInstance.getProjectArr();
     if (!projects[projectPosition]) {
