@@ -2,6 +2,7 @@ import "./reset.css";
 import "./styles.css";
 import {ToDoFunc} from "./modules/todo";
 import { ProjectFunc } from "./modules/project";
+import { checkListFunc } from "./modules/checkList";
 import { DisplayProjectFunc } from "./modules/displayProject";
 import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
@@ -34,9 +35,13 @@ console.log(projectInstance);
 const toDoInstance = ToDoFunc(projectInstance);
 console.log(toDoInstance); 
 
+const checkListInstance = checkListFunc(projectInstance);
+console.log(checkListInstance);
+
 
 DisplayProjectFunc(projectInstance, toDoInstance, DisplayToDoFunc);
-DisplayToDoFunc(0, toDoInstance, projectInstance);
+DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
+
 
 const {nextQuote, prevQuote} = quoteSwitching();
 

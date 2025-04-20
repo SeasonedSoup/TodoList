@@ -1,9 +1,9 @@
 import { parseISO, startOfToday, format } from 'date-fns';
 import sortImg from '../logos/sort.svg';
-import {paragraphTitle, overlay, modal, modal_inner } from './elements';
-
+import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './elements';
+import { displayCheckListFunc } from './displayCheckList';
 //PPPP format
-export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) => {
+export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
   
   const content = document.querySelector('.content');
   content.classList.remove('content2')
@@ -335,6 +335,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
   };
   //see the details when clicking the todo
   const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
+    console.log(todo)
     content.classList.toggle('content2')
     toDoContainerTitle.textContent = ''
     toDoContainer.textContent = ''
@@ -377,33 +378,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance) 
       detail.classList.add('details')
       toDoDetails.appendChild(detail);
     })
-
-    //checklistDiv will contain three actionable checklist will be added in checklist.js
-    const checkListDiv = document.createElement('div');
-    checkListDiv.classList.add('checkListDiv');
-
-  
-    for (let i = 0; i < 3; i++) {
-
-      const checkListWrapper = document.createElement('div')
-
-      //this will toggle the true false state of each checklist and only allows to finish it once all three are ticked backend logic not yet implemented
-      const checkListInput = document.createElement('input');
-      checkListInput.type = 'checkbox'
-      checkListInput.id = 'check'
-      checkListInput.name = 'check'
-      
-      //this label will contain the  details of what its needed to be done
-      const checkListLabel = document.createElement('label')
-      checkListLabel.setAttribute('for', 'check');
-      checkListLabel.textContent = 'CheckList under construction'
-
-      checkListWrapper.appendChild(checkListInput);
-      checkListWrapper.appendChild(checkListLabel);
-
-      checkListDiv.appendChild(checkListWrapper);
-    }
     
+    displayCheckListFunc(checkListInstance, toDoIndex, projectPosition);
     //buttondiv
     const buttons = document.createElement('div');
     buttons.classList.add('buttonDiv')

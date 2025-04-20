@@ -18,4 +18,7 @@
     modal.appendChild(modal_inner);
     document.body.appendChild(overlay);
 
-    export {overlay, modal, modal_inner};
+    const checkListDiv = document.createElement('div');
+    checkListDiv.classList.add('checkListDiv');
+
+    export {overlay, modal, modal_inner,checkListDiv};
