@@ -17,14 +17,27 @@ export const checkListFunc = (projectInstance) => {
         console.log(toDo);
         projectInstance.saveProjectLocally();
     }
-    /*
-    const toggleCheckBox
 
-    const deleteCheckBox
+    const deleteCheckBox = (toDoPosition, projectPosition) => {
+        const projects = projectInstance.getProjectArr;
+        const toDo = projects[projectPosition].toDoList[toDoPosition];
+
+        if (!toDo || !projects){
+            console.log('no existing todo position for that index')
+            return;
+        }
+
+        toDo.checkList.splice(toDoPosition, 1)
+        projectInstance.saveProjectLocally();
+    }
+    /*     
+    
+    const toggleCheckBox
 
     const editCheckBox
     */
    return {
-        insertCheckBoxtoArr
+        insertCheckBoxtoArr,
+        deleteCheckBox
     }
 }
