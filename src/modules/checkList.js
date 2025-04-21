@@ -1,10 +1,10 @@
 export const checkListFunc = (projectInstance) => {
-    const createCheckBox = (checkBox, action) => {
-        return {checkBox, action}
+    const createCheckBox = (action) => {
+        return {action}
     }
 
-    const insertCheckBoxtoArr = (toDoPosition, projectPosition, checkBox, action) => {
-        const addedCheckBox = createCheckBox(checkBox, action)
+    const insertCheckBoxtoArr = (toDoPosition, projectPosition, action) => {
+        const addedCheckBox = createCheckBox(action)
         const projects = projectInstance.getProjectArr();
         const toDo = projects[projectPosition].toDoList[toDoPosition]
 

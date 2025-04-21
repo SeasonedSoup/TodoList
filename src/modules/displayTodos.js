@@ -379,7 +379,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       toDoDetails.appendChild(detail);
     })
     
-    displayCheckListFunc(checkListInstance, toDoIndex, projectPosition);
+    displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
     //buttondiv
     const buttons = document.createElement('div');
     buttons.classList.add('buttonDiv')

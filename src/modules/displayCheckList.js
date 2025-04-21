@@ -2,10 +2,12 @@
 import { checkListDiv, modal, overlay, modal_inner } from "./elements";
 import plusBoxImg from "../logos/plus-box-multiple.svg";
 
-export const displayCheckListFunc = (checkListInstance, toDoIndex, projectPosition) => {
+export const displayCheckListFunc = (projectInstance, checkListInstance, toDoIndex, projectPosition) => {
+    console.log(projectInstance);
+    checkListDiv.textContent = '';
     console.log(checkListInstance);
     const addCheckBoxIcon = document.createElement('img');
-    addCheckBoxIcon.classList.add('logos')
+    addCheckBoxIcon.classList.add('logos');
     addCheckBoxIcon.src = plusBoxImg;
 
     checkListDiv.appendChild(addCheckBoxIcon);
@@ -13,6 +15,35 @@ export const displayCheckListFunc = (checkListInstance, toDoIndex, projectPositi
     addCheckBoxIcon.addEventListener('click', () => {
         checkListFormModal();
     })
+    
+    
+    const displayCheckList = () => {
+        const toDo = projectInstance.getToDoArr(projectPosition)
+        console.log(toDo);
+        const checkListArr = toDo[projectPosition].checkList;
+        console.log(checkListArr);
+
+        for(let i in checkListArr) {
+            const label = document.createElement('label')
+            label.textContent = checkListArr[i].action;
+
+            checkListDiv.appendChild(label);
+        }
+    }
+
+    displayCheckList();
+
+
+
+
+
+
+
+
+
+
+
+
 
     const checkListFormModal = () => {
         modal.classList.add("open");
@@ -52,7 +83,7 @@ export const displayCheckListFunc = (checkListInstance, toDoIndex, projectPositi
         formWrapper.appendChild(form);
 
         const buttonDiv = document.createElement('div');
-        buttonDiv.classList.add('buttonDivForm')
+        buttonDiv.classList.add('buttonCheckListForm')
     
         const submitButton = document.createElement("button");
         submitButton.classList.add('submitButton')
@@ -87,13 +118,11 @@ export const displayCheckListFunc = (checkListInstance, toDoIndex, projectPositi
 
             const submittedAction = action.value 
 
-            const checkBox = document.createElement('input');
-            checkBox.type = 'checkbox';
-
-            checkListInstance.insertCheckBoxtoArr(toDoIndex, projectPosition, checkBox, submittedAction);
+            checkListInstance.insertCheckBoxtoArr(toDoIndex, projectPosition, submittedAction);
             form.remove();
             modal.classList.remove("open");
             overlay.classList.remove("open");
+            displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
         })
     }
 }
