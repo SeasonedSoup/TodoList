@@ -24,10 +24,25 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         console.log(checkListArr);
 
         for(let i in checkListArr) {
+
+            const checkListWrapper = document.createElement('div')
+            const input = document.createElement('input');
+            input.type =  'checkbox';
             const label = document.createElement('label')
             label.textContent = checkListArr[i].action;
 
-            checkListDiv.appendChild(label);
+            const button = document.createElement('button')
+            button.textContent = 'Delete CheckBox';
+
+            button.addEventListener('click', () => {
+                checkListInstance.deleteCheckBox(toDoIndex, projectPosition, i);
+                displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
+            })
+            checkListWrapper.appendChild(input);
+            checkListWrapper.appendChild(label);
+            checkListWrapper.appendChild(button);
+
+            checkListDiv.appendChild(checkListWrapper);
         }
     }
 

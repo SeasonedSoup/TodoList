@@ -18,8 +18,8 @@ export const checkListFunc = (projectInstance) => {
         projectInstance.saveProjectLocally();
     }
 
-    const deleteCheckBox = (toDoPosition, projectPosition) => {
-        const projects = projectInstance.getProjectArr;
+    const deleteCheckBox = (toDoPosition, projectPosition, checkListPosition) => {
+        const projects = projectInstance.getProjectArr();
         const toDo = projects[projectPosition].toDoList[toDoPosition];
 
         if (!toDo || !projects){
@@ -27,7 +27,7 @@ export const checkListFunc = (projectInstance) => {
             return;
         }
 
-        toDo.checkList.splice(toDoPosition, 1)
+        toDo.checkList.splice(checkListPosition, 1)
         projectInstance.saveProjectLocally();
     }
     /*     
