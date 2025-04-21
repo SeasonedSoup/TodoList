@@ -1,10 +1,10 @@
 export const checkListFunc = (projectInstance) => {
-    const createCheckBox = (action) => {
-        return {action}
+    const createCheckBox = (action, done = false) => {
+        return {action, done}
     }
 
-    const insertCheckBoxtoArr = (toDoPosition, projectPosition, action) => {
-        const addedCheckBox = createCheckBox(action)
+    const insertCheckBoxtoArr = (toDoPosition, projectPosition, action, done = false) => {
+        const addedCheckBox = createCheckBox(action, done)
         const projects = projectInstance.getProjectArr();
         const toDo = projects[projectPosition].toDoList[toDoPosition]
 
@@ -30,14 +30,21 @@ export const checkListFunc = (projectInstance) => {
         toDo.checkList.splice(checkListPosition, 1)
         projectInstance.saveProjectLocally();
     }
-    /*     
     
-    const toggleCheckBox
+    const toggleCheckBox = (toDoPosition, projectPosition, checkListPosition) => {
+        const projects = projectInstance.getProjectArr();
+        const toDo = projects[projectPosition].toDoList[toDoPosition];
 
+        toDo.checkList[checkListPosition].done = !toDo.checkList[checkListPosition].done
+        projectInstance.saveProjectLocally();
+    }
+
+    /*
     const editCheckBox
     */
    return {
         insertCheckBoxtoArr,
-        deleteCheckBox
+        deleteCheckBox,
+        toggleCheckBox
     }
 }

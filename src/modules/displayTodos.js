@@ -4,7 +4,7 @@ import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './eleme
 import { displayCheckListFunc } from './displayCheckList';
 //PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
-  
+  console.log(checkListInstance);
   const content = document.querySelector('.content');
   content.classList.remove('content2')
 
@@ -380,6 +380,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     })
     
     displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
+    
+    
     //buttondiv
     const buttons = document.createElement('div');
     buttons.classList.add('buttonDiv')
@@ -392,7 +394,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     finishToDo.addEventListener('click', () => {
       toDoInstance.removeToDo(projectPosition, toDoIndex);
-      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance)
+      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance)
     });
 
     const editToDo = document.createElement('button');
@@ -413,7 +415,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     goBack.addEventListener('click', () => {
       content.classList.toggle('content2')
-      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
+      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance);
     })
 
     toDoDetailsContainer.appendChild(toDoDetails);

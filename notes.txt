@@ -71,3 +71,9 @@ toggle a checkBox
 delete a checkbox
 
 finish It button is only clickable once all checkboxes in the cbecklist Array are toggle to a true state / have the line through class or sum. yes
+
+plan in motion:
+it works now so i can create checklists and remove them albeit jsuit text and just an input added a new parameter "Done" that is true or false
+
+current problems, when i call checkListFunc it seems the checkListInstance gets depreceated when leaving the specific to do probably cause of losing the to do index
+but this will be noted which means i cannot create or delete the checkList array within the todo cause it returns undefined

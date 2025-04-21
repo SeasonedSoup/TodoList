@@ -29,19 +29,13 @@ darkModeLogo.addEventListener('click', darkMode);
 
 //========Functionality
 const projectInstance = ProjectFunc();
-console.log(projectInstance); 
-
 
 const toDoInstance = ToDoFunc(projectInstance);
-console.log(toDoInstance); 
 
 const checkListInstance = checkListFunc(projectInstance);
 console.log(checkListInstance);
-
-
 DisplayProjectFunc(projectInstance, toDoInstance, DisplayToDoFunc);
 DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
-
 
 const {nextQuote, prevQuote} = quoteSwitching();
 

@@ -4,8 +4,8 @@ import plusBoxImg from "../logos/plus-box-multiple.svg";
 
 export const displayCheckListFunc = (projectInstance, checkListInstance, toDoIndex, projectPosition) => {
     console.log(projectInstance);
-    checkListDiv.textContent = '';
     console.log(checkListInstance);
+    checkListDiv.textContent = '';
     const addCheckBoxIcon = document.createElement('img');
     addCheckBoxIcon.classList.add('logos');
     addCheckBoxIcon.src = plusBoxImg;
@@ -19,15 +19,20 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
     
     const displayCheckList = () => {
         const toDo = projectInstance.getToDoArr(projectPosition)
-        console.log(toDo);
         const checkListArr = toDo[projectPosition].checkList;
-        console.log(checkListArr);
 
         for(let i in checkListArr) {
 
             const checkListWrapper = document.createElement('div')
             const input = document.createElement('input');
             input.type =  'checkbox';
+            input.checked = checkListArr[i].done;
+
+            input.addEventListener('click', () => {
+                console.log('hey your clicking me!')
+                checkListInstance.toggleCheckBox(toDoIndex, projectPosition, i)
+                displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
+            })
             const label = document.createElement('label')
             label.textContent = checkListArr[i].action;
 
@@ -47,18 +52,6 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
     }
 
     displayCheckList();
-
-
-
-
-
-
-
-
-
-
-
-
 
     const checkListFormModal = () => {
         modal.classList.add("open");
