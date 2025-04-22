@@ -27,10 +27,12 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
             const input = document.createElement('input');
             input.type =  'checkbox';
             input.checked = checkListArr[i].done;
+            input.classList.add(checkListArr[i].done.toString());
 
             input.addEventListener('click', () => {
                 console.log('hey your clicking me!')
                 checkListInstance.toggleCheckBox(toDoIndex, projectPosition, i)
+                input.classList.toggle(checkListArr[i].done.toString());
                 displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
             })
             const label = document.createElement('label')

@@ -456,6 +456,10 @@ input:invalid{
   margin-top: 30px;
 }
 
+input.true + label{
+  text-decoration: line-through;
+}
+
 .submitButton {
   font-size: 2rem;
   background-color: green;

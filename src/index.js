@@ -34,7 +34,7 @@ const toDoInstance = ToDoFunc(projectInstance);
 
 const checkListInstance = checkListFunc(projectInstance);
 console.log(checkListInstance);
-DisplayProjectFunc(projectInstance, toDoInstance, DisplayToDoFunc);
+DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
 DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
 
 const {nextQuote, prevQuote} = quoteSwitching();

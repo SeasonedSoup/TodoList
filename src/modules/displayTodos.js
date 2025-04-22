@@ -303,7 +303,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           toDoPriority,
         );
       }
-      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance);
+      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance);
 
       toDoForm.remove();
 
@@ -393,6 +393,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     buttons.appendChild(finishToDo);
 
     finishToDo.addEventListener('click', () => {
+      const checkList = projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex].checkList
+      for (let i in checkList) {
+        if (checkList[i].done === false) {
+          alert('Bro finish your to do with specific actions ya lazy horse')
+          return;
+        }
+      }
       toDoInstance.removeToDo(projectPosition, toDoIndex);
       DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance)
     });
