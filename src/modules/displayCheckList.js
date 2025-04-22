@@ -19,7 +19,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
     
     const displayCheckList = () => {
         const toDo = projectInstance.getToDoArr(projectPosition)
-        const checkListArr = toDo[projectPosition].checkList;
+        const checkListArr = toDo[toDoIndex].checkList;
 
         for(let i in checkListArr) {
 
