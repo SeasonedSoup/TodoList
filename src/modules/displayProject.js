@@ -65,12 +65,23 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       projectTitle.textContent = `${project.name} \u00D7`;
       projectTitle.classList.add("deleteableProjects");
       projectTitle.addEventListener("click", () => {
-        if (projects.length !== 1 ) {
+        if (projects.length === 1 ) {
+          alert("There is only One Project Left, keep it.")
+          return
+        }
+
+        const confirmation = prompt('Type yes to delete this project.');
+        if (confirmation === null) {
+          return
+        }
+
+        if (confirmation.toLowerCase() === 'yes') {
           projectInstance.deleteProject(projectIndex);
           DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
           DisplayToDoFunc(projectIndex - 1, toDoInstance, projectInstance, checkListInstance);
         } else {
-          alert("There is only One Project Left, keep it.")
+          alert('Project deletion canceled.');
+          return
         }
       });
       deleteProjectDropDown.appendChild(projectTitle);

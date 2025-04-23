@@ -78,10 +78,6 @@ body.dark .logos, body.dark .smallLogos {
   filter: invert(1);
 }
 
-body.dark .toDoContainer {
-    background-color: rgb(80, 91, 126);
-}
-
 .title {
   margin: 40px;
 }
@@ -498,6 +494,11 @@ body.dark .createToDoButton:hover {
   padding: 20px;
   transition: all 0.5s ease-in-out;
 }
+
+.content2 > .toDoTitle > .paragraphTitle {
+  font-size: 2rem
+}
+
 .toDoContainer {
   height: 100%;
   width: 100%;
@@ -598,17 +599,6 @@ body.dark .createToDoButton:hover {
   border-radius: 12px;
 }
 
-#finish {
-  background-color: aquamarine;
-}
-
-#edit {
-  background-color: lightgreen;
-}
-
-#goBack {
-  background-color: orangered;
-}
 h2 {
   font-size: 1.5rem;
 }
@@ -624,16 +614,21 @@ h2 {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  overflow: auto;
   gap: 10px;
+  border: solid 2px black;
+  border-right: 1px solid black;
 }
 
 .checkListDiv {
-  background-color: rgb(201, 167, 103);
+  background-color:#C8A2C8;
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
+  border: solid 2px black;
+  border-left: solid 1px black;
 }
 
 .actionTitle {
@@ -648,7 +643,7 @@ h2 {
   font-size: 2rem;
   font-weight: bold;
   align-self: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .details {
   font-size: 2rem;
@@ -681,4 +676,40 @@ h2 {
 
 .smallLogos:hover {
   opacity: 0.6;
+}
+
+#finish {
+  background-color: aquamarine;
+}
+
+#finish:hover {
+  background-color: rgb(103, 233, 190);
+}
+
+#finish:active {
+  background-color: rgb(71, 207, 162);
+}
+
+#edit {
+  background-color: lightgreen;
+}
+
+#edit:hover {
+  background-color: rgb(103, 221, 103);
+}
+
+#edit:active {
+  background-color: rgb(93, 211, 93);
+}
+
+#goBack {
+  background-color: orangered;
+}
+
+#goBack:hover {
+  background-color: rgb(226, 78, 24);
+}
+
+#goBack:active {
+  background-color: rgb(214, 83, 35);
 }

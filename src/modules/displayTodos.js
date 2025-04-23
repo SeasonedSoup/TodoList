@@ -376,7 +376,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       console.log(todo.dueDate)
       toDoDueDate.textContent = `Due Date: ${format(new Date(todo.dueDate), 'PPPP')}`;
     } else {
-      toDoDueDate.textContent = 'Due Date: Not specified';
+      toDoDueDate.textContent = 'Due Date: Flexible';
     }
 
     details.push(toDoDueDate);
@@ -406,12 +406,12 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     finishToDo.addEventListener('click', () => {
       const checkList = projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex].checkList
       if (checkList.length === 0) {
-        alert('I recommend adding a checklist to keep your to do in track, unless youve finished it, yes actionify it');
+        alert('Please Add Actions');
         return;
       }
       for (let i in checkList) {
         if (checkList[i].done === false) {
-          alert('Bro finish your to do with the actions you made ya lazy horse')
+          alert('Pls Complete Your Action List Before Finishing This To Do')
           return;
         }
       }

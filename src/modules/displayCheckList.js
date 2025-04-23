@@ -14,7 +14,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
 
     const actionTitle = document.createElement('h1');
     actionTitle.className = 'actionTitle'
-    actionTitle.textContent = 'Action List! (recommend 3-5)'
+    actionTitle.textContent = 'Action List!'
 
     checkListDiv.appendChild(actionTitle);
     checkListDiv.appendChild(addCheckBoxIcon);
@@ -103,7 +103,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         input.required = true;
         input.autofocus = false;
         input.minLength = 3;
-        input.maxLength = 20;
+        input.maxLength = 30;
 
         const value = checkList ? checkList.action : '';
         input.value = value;
