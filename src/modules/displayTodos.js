@@ -12,10 +12,12 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   toDoContainer.textContent = '';
   content.appendChild(toDoContainer);
 
+
+  paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
+
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(paragraphTitle);
 
-  paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
 
   const createToDoHandler = (projectPosition) => {
     const checkToDoButton = document.querySelector('.createToDoButton');
@@ -180,7 +182,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       })
      }
 
-      if (input.id === 'toDoName' || input.id === 'toDoDesc') {
+      if (input.id === 'toDoName' || input.id === 'toDoDescription') {
         input.maxLength = 25;
       }
       toDoForm.appendChild(label);
@@ -335,10 +337,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   };
   //see the details when clicking the todo
   const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
-    console.log(todo)
     content.classList.toggle('content2')
+
     toDoContainerTitle.textContent = ''
     toDoContainer.textContent = ''
+
+    paragraphTitle.textContent = todo.title;
+    toDoContainerTitle.appendChild(paragraphTitle);
     toDoContainer.classList.remove('grid');
 
     const toDoDetailsDiv = document.createElement('div');
@@ -350,6 +355,12 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     const toDoDetails = document.createElement('div');
     toDoDetails.classList.add('toDoDetails')
+
+    const detailTitle = document.createElement('h1')
+    detailTitle.classList.add('detailTitle');
+    detailTitle.textContent = 'Details!';
+
+    toDoDetails.appendChild(detailTitle);
 
     const details = []
     const toDoIndexAndTitle = document.createElement('h2');
@@ -394,9 +405,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     finishToDo.addEventListener('click', () => {
       const checkList = projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex].checkList
+      if (checkList.length === 0) {
+        alert('I recommend adding a checklist to keep your to do in track, unless youve finished it, yes actionify it');
+        return;
+      }
       for (let i in checkList) {
         if (checkList[i].done === false) {
-          alert('Bro finish your to do with specific actions ya lazy horse')
+          alert('Bro finish your to do with the actions you made ya lazy horse')
           return;
         }
       }

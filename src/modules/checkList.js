@@ -39,12 +39,19 @@ export const checkListFunc = (projectInstance) => {
         projectInstance.saveProjectLocally();
     }
 
-    /*
-    const editCheckBox
-    */
+    
+    const editCheckBox = (toDoPosition, projectPosition, checkListPosition, action) => {
+        const projects = projectInstance.getProjectArr();
+        const toDo = projects[projectPosition].toDoList[toDoPosition];
+
+        toDo.checkList[checkListPosition].action = action
+        projectInstance.saveProjectLocally();
+    }
+
    return {
         insertCheckBoxtoArr,
         deleteCheckBox,
-        toggleCheckBox
+        toggleCheckBox,
+        editCheckBox
     }
 }

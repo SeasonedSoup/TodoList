@@ -74,7 +74,7 @@ body.dark .square.medium {
   background-color: rgb(172, 165, 66);
   transition: all 0.2s ease;
 }
-body.dark .logos {
+body.dark .logos, body.dark .smallLogos {
   filter: invert(1);
 }
 
@@ -458,6 +458,7 @@ input:invalid{
 
 input.true + label{
   text-decoration: line-through;
+  opacity: 0.5;
 }
 
 .submitButton {
@@ -498,8 +499,8 @@ body.dark .createToDoButton:hover {
   transition: all 0.5s ease-in-out;
 }
 .toDoContainer {
-  height: 80%;
-  width: 70%;
+  height: 100%;
+  width: 100%;
   background-color: rgb(132, 149, 206);
   border-radius: 5px;
 }
@@ -622,8 +623,8 @@ h2 {
   width: 50%;
   display: flex;
   flex-flow: column;
-  justify-content: center;
-  gap: 10%;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .checkListDiv {
@@ -632,8 +633,52 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 
+.actionTitle {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.addIcon {
+  margin-left: 80%;
+}
+.detailTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  align-self: center;
+  margin-bottom: 30px;
+}
 .details {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  margin-left: 10px;
+}
+
+.checkListWrapper {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 25%;
+}
+
+.checkBox {
+  height: 30px;
+  width: 30px;
+  border-radius: 2px;
+}
+
+.checkBox + label {
+  font-size: 1.5rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.smallLogos {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.smallLogos:hover {
+  opacity: 0.6;
 }
