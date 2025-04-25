@@ -4,7 +4,7 @@ import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './eleme
 import { displayCheckListFunc } from './displayCheckList';
 //PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
-  console.log(checkListInstance);
+
   const content = document.querySelector('.content');
   content.classList.remove('content2')
 
@@ -12,12 +12,10 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   toDoContainer.textContent = '';
   content.appendChild(toDoContainer);
 
-
   paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(paragraphTitle);
-
 
   const createToDoHandler = (projectPosition) => {
     const checkToDoButton = document.querySelector('.createToDoButton');
@@ -69,45 +67,51 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainer.textContent = '';
     toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition) || [];
-    console.log(todos);
+
     if (todos.length === 0) {
       const p = document.createElement('p');
       p.className = 'emptyPara';
       p.textContent = 'Currently No To Dos Go Add a Few!';
       toDoContainer.appendChild(p);
     }
-    todos.forEach((todo, index) => {
-      const toDoItem = document.createElement('div');
-      toDoItem.classList.add('toDoItem');
-
-      const toDoSquare = document.createElement('div');
-      toDoSquare.classList.add('square');
-      if (todo.priority === 'low') {
-        toDoSquare.classList.add('low');
-      } else if (todo.priority === 'medium') {
-        toDoSquare.classList.add('medium');
-      }
-
-      toDoSquare.addEventListener('click', () => {
-        seeToDoDetails(todo, index, projectPosition);
+    loadToDos();
+    
+    function loadToDos() {
+      todos.forEach((todo, index) => {
+        const toDoItem = document.createElement('div');
+        toDoItem.classList.add('toDoItem');
+  
+        const toDoSquare = document.createElement('div');
+        toDoSquare.classList.add('square');
+        if (todo.priority === 'low') {
+          toDoSquare.classList.add('low');
+        } else if (todo.priority === 'medium') {
+          toDoSquare.classList.add('medium');
+        }
+  
+        toDoSquare.addEventListener('click', () => {
+          seeToDoDetails(todo, index, projectPosition);
+        });
+  
+        const toDoIndexAndTitle = document.createElement('h2');
+        toDoIndexAndTitle.className = 'toDoItem-title'
+        toDoIndexAndTitle.textContent = `${todo.title}`;
+  
+        const toDoDueDate = document.createElement('h2');
+        toDoDueDate.textContent = `${todo.dueDate}`;
+  
+        toDoItem.appendChild(toDoSquare);
+        toDoItem.appendChild(toDoIndexAndTitle);
+        toDoItem.appendChild(toDoDueDate);
+  
+        toDoContainer.appendChild(toDoItem);
       });
-
-      const toDoIndexAndTitle = document.createElement('h2');
-      toDoIndexAndTitle.className = 'toDoItem-title'
-      toDoIndexAndTitle.textContent = `${todo.title}`;
-
-      const toDoDueDate = document.createElement('h2');
-      toDoDueDate.textContent = `${todo.dueDate}`;
-
-      toDoItem.appendChild(toDoSquare);
-      toDoItem.appendChild(toDoIndexAndTitle);
-      toDoItem.appendChild(toDoDueDate);
-
-      toDoContainer.appendChild(toDoItem);
-    });
+    }
   };
 
   viewTodos();
+
+  
   //form modal creates a modal with the queries  for form
   const formModal = (projectPosition, todo = null, toDoIndex = null) => {
     modal.classList.add('open');
@@ -339,8 +343,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
     content.classList.toggle('content2')
 
-    toDoContainerTitle.textContent = ''
-    toDoContainer.textContent = ''
+    toDoContainerTitle.textContent = '';
+    toDoContainer.textContent = '';
 
     paragraphTitle.textContent = todo.title;
     toDoContainerTitle.appendChild(paragraphTitle);
@@ -386,16 +390,15 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     details.push(toDoPriority)
 
     details.forEach((detail) => {
-      detail.classList.add('details')
+      detail.classList.add('details');
       toDoDetails.appendChild(detail);
     })
     
     displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
     
-    
     //buttondiv
     const buttons = document.createElement('div');
-    buttons.classList.add('buttonDiv')
+    buttons.classList.add('buttonDiv');
     const finishToDo = document.createElement('button');
     finishToDo.textContent = 'Finish It!';
     finishToDo.classList.add('toDoButton');

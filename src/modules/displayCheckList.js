@@ -29,7 +29,6 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         const checkListArr = toDo[toDoIndex].checkList;
 
         for(let i in checkListArr) {
-
             const checkListWrapper = document.createElement('div')
             checkListWrapper.classList.add('checkListWrapper');
 
@@ -46,7 +45,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
                 displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
             })
             const label = document.createElement('label')
-            label.textContent = checkListArr[i].action;
+            label.textContent = `#${parseInt(i) + 1}. ${checkListArr[i].action}`;
 
             const editIcon = document.createElement('img');
             editIcon.src = editImg;
@@ -88,6 +87,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         }
         
         const form = document.createElement("form");
+        form.noValidate = true;
         form.classList.add("checkListForm");
 
         const formWrapper = document.querySelector(".form");
@@ -105,6 +105,19 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         input.minLength = 3;
         input.maxLength = 30;
 
+        const span = document.createElement('span');
+        span.className = 'error';
+        span.ariaLive = 'polite';
+        
+        input.addEventListener('input', () => {
+            if(input.validity.valid) {
+                span.textContent = '';
+                span.className = 'error';
+            } else {
+                showError(input);
+            }
+        })
+
         const value = checkList ? checkList.action : '';
         input.value = value;
 
@@ -112,6 +125,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
 
         form.appendChild(label);
         form.appendChild(input);
+        form.appendChild(span);
 
         formWrapper.appendChild(form);
 
@@ -121,7 +135,11 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         const submitButton = document.createElement("button");
         submitButton.classList.add('submitButton')
         submitButton.type = "submit";
-        submitButton.textContent = "Add Action";
+        if (checkList === null) {
+            submitButton.textContent = "Add Action";
+        } else {
+            submitButton.textContent = 'Edit Action';
+        }
         buttonDiv.appendChild(submitButton);
     
         const closeButton = document.createElement("button");
@@ -129,6 +147,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         closeButton.type = "button";
         closeButton.textContent = "Close";
         buttonDiv.appendChild(closeButton);
+        
         closeButton.addEventListener("click", () => {
           form.remove();
           modal.classList.remove("open");
@@ -144,10 +163,16 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
             overlay.classList.remove("open");
         })
 
+        const action = document.querySelector("#action")
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const action = document.querySelector('#action');
+            if (!action.validity.valid) {
+                showError(action);
+                alert('Invalid Value Submitted');
+                return;
+            }
 
             const submittedAction = action.value 
             if(!checkList) {
@@ -163,18 +188,15 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
                 overlay.classList.remove("open");
                 displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
             }
-           
-        })
+        });
+
+        const showError = (input) => {
+            if (input.validity.valueMissing) {
+                span.textContent = 'Action Value Missing';
+            } else if (input.validity.tooShort) {
+                span.textContent = 'Value is Less than 3';
+            }
+        }
     }
 }
 
-
-   /* const checkListInput = document.createElement('input');
-    checkListInput.type = 'checkbox'
-    checkListInput.id = 'check'
-    checkListInput.name = 'check'
-    
-    //this label will contain the  details of what its needed to be done
-    const checkListLabel = document.createElement('label')
-    checkListLabel.setAttribute('for', 'check');
-    checkListLabel.textContent = 'CheckList under construction' */

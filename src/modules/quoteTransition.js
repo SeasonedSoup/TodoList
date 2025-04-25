@@ -10,14 +10,11 @@ export const quoteSwitching = () => {
         })
     }
 
-    // eslint-disable-next-line no-unused-vars
     const nextQuote = () => {
         quoteIndex = (quoteIndex + 1) % quotesLen;
         updateQuote();
     }
 
-
-    // eslint-disable-next-line no-unused-vars
     const prevQuote = () => {
         quoteIndex = (quoteIndex - 1 + quotesLen) % quotesLen;
         updateQuote();

@@ -3,23 +3,24 @@ import { overlay, modal, modal_inner } from "./elements";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc) => {
   const projects = projectInstance.getProjectArr();
+  
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.textContent = '';
 
-  const sidebar = document.querySelector(".sidebar");
-  sidebar.textContent = "";
-
-  const textTitle = document.querySelector(".text-title");
-  textTitle.textContent = "";
+  const textTitle = document.querySelector('.text-title');
+  textTitle.textContent = '';
   const buttons = document.querySelector(".buttons");
-  buttons.textContent = "";
+  buttons.textContent = '';
 
-  const paragraphTitle = document.createElement("h1");
-  const oneTitleOnly = document.querySelector(".paraTitle");
+  const paragraphTitle = document.createElement('h1');
+  const oneTitleOnly = document.querySelector('.paraTitle');
 
   if (!oneTitleOnly) {
-    paragraphTitle.classList.add("paraTitle");
-    paragraphTitle.textContent = "Projects";
+    paragraphTitle.classList.add('paraTitle');
+    paragraphTitle.textContent = 'Projects';
     textTitle.appendChild(paragraphTitle);
   }
+  //Button Logics
   const createProjectHandler = () => {
     const createProjectButton = document.createElement("button");
     createProjectButton.classList.add("button");
@@ -44,17 +45,17 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     dropDownItems.classList.add('drpdwnitems');
 
     removeProjectDropdown.addEventListener('click', () => {
-      const dropDownToggle = document.querySelector('.drpdwnitems') 
-      dropDownToggle.classList.toggle('active')
+      const dropDownToggle = document.querySelector('.drpdwnitems'); 
+      dropDownToggle.classList.toggle('active');
     })
 
     const deleteProjects = document.createElement('h1');
-    deleteProjects.textContent = "Delete Project";
-    deleteProjects.classList = "deleteProjects"
+    deleteProjects.textContent = 'Delete Project';
+    deleteProjects.classList = 'deleteProjects';
 
     deleteProjects.addEventListener('click', () => {
       const dropDownToggle = document.querySelector('.secondDropdown');
-      dropDownToggle.classList.toggle('active')
+      dropDownToggle.classList.toggle('active');
     })
 
     const deleteProjectDropDown = document.createElement('div');
@@ -66,13 +67,13 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       projectTitle.classList.add("deleteableProjects");
       projectTitle.addEventListener("click", () => {
         if (projects.length === 1 ) {
-          alert("There is only One Project Left, keep it.")
-          return
+          alert('There is only One Project Left, keep it.');
+          return;
         }
 
         const confirmation = prompt('Type yes to delete this project.');
         if (confirmation === null) {
-          return
+          return;
         }
 
         if (confirmation.toLowerCase() === 'yes') {
@@ -103,17 +104,22 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
 
   createProjectHandler();
   removeProjectHandler();
-
-  projects.forEach((project, projectIndex) => {
-    const projectTitle = document.createElement("h1");
-    projectTitle.textContent = `${project.name}`;
-    projectTitle.classList.add("projectTitles");
-    projectTitle.addEventListener("click", () => {
-      DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
+  //
+  
+  const showProjects = () => {
+    projects.forEach((project, projectIndex) => {
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${project.name}`;
+      projectTitle.classList.add("projectTitles");
+      projectTitle.addEventListener("click", () => {
+        DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
+      });
+      sidebar.appendChild(projectTitle);
     });
-    sidebar.appendChild(projectTitle);
-  });
+  };
 
+  showProjects();
+  
   const projectFormModal = () => {
     modal.classList.add("open");
     overlay.classList.add("open");
@@ -160,7 +166,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
         } else {
           showError(input);
         }
-    })
+      })
 
       input.required = true;
       input.autofocus = false;
@@ -213,8 +219,8 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       const submittedName = name.value;
       projectInstance.addProjectToProjectArr(submittedName);
       form.remove();
-      modal.classList.remove("open");
-      overlay.classList.remove("open");
+      modal.classList.remove('open');
+      overlay.classList.remove('open');
       DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
     });
     

@@ -17,6 +17,9 @@ html body.dark {
   font-style: normal;
 }
 
+input {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 button {
   cursor: pointer;
 }
@@ -583,7 +586,6 @@ body.dark .createToDoButton:hover {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .buttonDiv {
@@ -591,6 +593,7 @@ body.dark .createToDoButton:hover {
   justify-content: space-around;
   align-items: center;
   flex-grow: 2;
+  border: 2px solid black;
 }
 
 .toDoButton {
@@ -604,7 +607,7 @@ h2 {
 }
 .toDoDetailsContainer {
   display: flex;
-  height: clamp(50%, 30vh, 100%);
+  height: clamp(50%, 45vh, 100%);
   box-sizing: border-box;
   padding: 2px;
 }
@@ -648,6 +651,7 @@ h2 {
 .details {
   font-size: 2rem;
   margin-left: 10px;
+  margin-bottom: 5%;
 }
 
 .checkListWrapper {
