@@ -1,10 +1,7 @@
-import { ProjectFunc } from "./project";
+export const ToDoFunc = (projectInstance) => {
 
-export const ToDoFunc = () => {
-  const instanceOfProjects = ProjectFunc();
-
-  const createToDo = (title, description, dueDate, priority) => {
-    return { title, description, dueDate: dueDate || "No Due Date", priority };
+  const createToDo = (title, description, dueDate, priority, checkList = []) => {
+    return { title, description, dueDate: dueDate || "No Due Date", priority, checkList};
   };
 
   const insertToDoToProject = (
@@ -12,11 +9,12 @@ export const ToDoFunc = () => {
     title,
     description,
     dueDate,
-    priority
+    priority,
+    checkList = []
   ) => {
-    const addedToDo = createToDo(title, description, dueDate, priority);
+    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
 
-    const projects = instanceOfProjects.getProjectArr();
+    const projects = projectInstance.getProjectArr();
     if (!projects[projectPosition]) {
       console.log("Project does not exist in project position");
       return;
@@ -24,19 +22,25 @@ export const ToDoFunc = () => {
 
     projects[projectPosition].toDoList.push(addedToDo);
     console.log(projects[projectPosition]);
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
 
+  const finishToDo = (todo) => {
+    const completeArr = projectInstance.getCompleteArr();
+    completeArr.push(todo); 
+  }
   const updateToDo = (
     projectPosition,
     toDoPosition,
     title,
     description,
     dueDate,
-    priority
+    priority,
+    checkList
   ) => {
-    const projects = instanceOfProjects.getProjectArr();
+    dueDate = dueDate || "No Due Date";
+    const projects = projectInstance.getProjectArr();
     if (
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
@@ -49,11 +53,12 @@ export const ToDoFunc = () => {
       description,
       dueDate,
       priority,
+      checkList
     });
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   const removeToDo = (projectPosition, toDoPosition) => {
-    const projects = instanceOfProjects.getProjectArr();
+    const projects = projectInstance.getProjectArr();
     if (
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
@@ -61,14 +66,14 @@ export const ToDoFunc = () => {
       console.error("Invalid project or ToDo position.");
       return;
     }
-    instanceOfProjects
+    projectInstance
       .getProjectArr()[projectPosition].toDoList.splice(toDoPosition, 1);
-    instanceOfProjects.saveProjectLocally();
+    projectInstance.saveProjectLocally();
   };
   
   const selectToDo = (projectPosition) => {
     try {
-      return instanceOfProjects.getProjectArr()[projectPosition].toDoList;
+      return projectInstance.getProjectArr()[projectPosition].toDoList;
     } catch (err) {
       console.log("It seems I am not able to select this to do 'trying again'");
     }
@@ -80,5 +85,6 @@ export const ToDoFunc = () => {
     updateToDo,
     removeToDo,
     selectToDo,
+    finishToDo
   };
 };

@@ -1,21 +1,60 @@
-import "./reset.css"
+
+//styles
+import "./reset.css";
 import "./styles.css";
-import { ProjectDisplayFunc } from "./modules/displayProject";
-import { toDoDisplayFunc } from "./modules/displayTodos";
+//img
+import toggleImg from "./logos/theme-light-dark.svg"
+//Functions to instantiate the web site
+import {ToDoFunc} from "./modules/todo";
+import { ProjectFunc } from "./modules/project";
+import { checkListFunc } from "./modules/checkList";
+import { DisplayProjectFunc } from "./modules/displayProject";
+import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 
-console.log("helloWorld!");
 
-ProjectDisplayFunc();
-toDoDisplayFunc(0);
+//======== Functionality ========
+export const projectInstance = ProjectFunc();
+const toDoInstance = ToDoFunc(projectInstance);
+const checkListInstance = checkListFunc(projectInstance);
+console.log(checkListInstance);
+DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
+DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
+//========
 
-const {nextQuote, prevQuote} = quoteSwitching();
+//====== Extras =======
+quoteSwitchLogic();
+darkModeLogoLogic();
 
-const prevButton = document.querySelector('.prev');
+function quoteSwitchLogic() {
+    const {nextQuote, prevQuote} = quoteSwitching();
 
-const nextButton = document.querySelector('.next');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
 
-prevButton.addEventListener('click', prevQuote)
+    prevButton.addEventListener('click', prevQuote)
+    nextButton.addEventListener("click", nextQuote)
+}
 
-nextButton.addEventListener("click", nextQuote)
-                
+function darkModeLogoLogic() {
+
+    let isItDark =  JSON.parse(localStorage.getItem('darkMode')) || false;
+
+    (function loadBackGround() {
+        if (isItDark) {
+            document.body.classList.toggle('dark')
+        }
+    })();
+
+    const darkModeLogo = document.querySelector('.toggle');
+    darkModeLogo.src = toggleImg;
+    darkModeLogo.addEventListener('click', toggleDarkMode);
+
+    //toggles class dark in css and saves.
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark')
+        isItDark = document.body.classList.contains('dark')
+        localStorage.setItem('darkMode', JSON.stringify(isItDark))
+    }
+}
+// =======

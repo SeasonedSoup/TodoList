@@ -1,5 +1,15 @@
 export const ProjectFunc = () => {
   let projectArr = [];
+  let completeArr = [];
+
+  const clearCompArr = () => {
+    completeArr = [];
+  };
+
+  const getCompleteArr = () => completeArr
+
+  //projectArrFunctionms
+
   //this is an array we push on todo.js once we add a to do on a project
   const createProject = (name = "Default Project", toDoList = []) => {
     return { name, toDoList }; //object
@@ -37,34 +47,53 @@ export const ProjectFunc = () => {
 
   const getToDoArr = (projectPosition) => {
     if (projectArr[projectPosition]) {
+      saveProjectLocally();
       return projectArr[projectPosition].toDoList;
     }
   };
 
-  const sortToDoArr = (projectPosition) => {
-    //obj
-    const priorityOrder = {low: 1, medium:2, high:3}
-    let toDoLists = getToDoArr(projectPosition)
-    let reversed = false;
-    if (!reversed) {
-      toDoLists = toDoLists.sort((toDo1, toDo2) => priorityOrder[toDo1.priority] - priorityOrder[toDo2.priority])
-    } else {
-      toDoLists = toDoLists.sort((toDo1, toDo2) => priorityOrder[toDo2.priority] - priorityOrder[toDo1.priority])
-    } 
-    return toDoLists
+  const getCheckListArr = (projectPosition, toDoIndex) => {
+    if(projectArr[projectPosition]) {
+      if(projectArr[projectPosition].toDoList[toDoIndex]) {
+        saveProjectLocally();
+        return projectArr[projectPosition].toDoList[toDoIndex].checkList
+      }
+    }
   }
-  restoreProjectLocally();
+
+  let sorted = false; // Default sorting state
+
+  const sortToDoArr = (projectPosition) => {
+    const priorityOrder = { low: 1, medium: 2, high: 3 };
+    let toDoLists = getToDoArr(projectPosition);
+    if (toDoLists.length === 0 || toDoLists.length === 1) {
+      alert('Cannot be Sorted there is only one or an empty to do array element');
+      return;
+    }
+    sorted = !sorted;
+
+    toDoLists = toDoLists.sort((toDo1, toDo2) => {
+      return sorted ? priorityOrder[toDo2.priority] - priorityOrder[toDo1.priority] : priorityOrder[toDo1.priority] - priorityOrder[toDo2.priority]; 
+    });
+    saveProjectLocally();
+    return toDoLists;
+    
+  };
+  restoreProjectLocally();  
 
   return {
     createProject,
     addProjectToProjectArr,
     getProjectArr,
     getToDoArr,
+    getCheckListArr,
     sortToDoArr,
     updateProject,
     deleteProject,
     saveProjectLocally,
     restoreProjectLocally,
     resetProjectLocally,
+    clearCompArr,
+    getCompleteArr
   };
 };
