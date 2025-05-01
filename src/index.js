@@ -9,7 +9,7 @@ import { quoteSwitching } from "./modules/quoteTransition";
 
 import toggleImg from "./logos/theme-light-dark.svg"
 let isItDark =  JSON.parse(localStorage.getItem('darkMode')) || false;
-
+console.log('hi'); 
 (function loadDark() {
     if (isItDark) {
         document.body.classList.toggle('dark')
