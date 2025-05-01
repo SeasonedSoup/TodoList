@@ -290,7 +290,11 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         alert('This form isnt submitted not a valid todo');
         return
       }
+
+     
       if (todo) {
+        const checkList = projectInstance.getCheckListArr(projectPosition, toDoIndex)
+
         toDoInstance.updateToDo(
           projectPosition,
           toDoIndex,
@@ -298,6 +302,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           toDoDescription,
           toDoDueDate,
           toDoPriority,
+          checkList
         );
       console.log(projectInstance.getToDoArr(projectPosition));
       } else {

@@ -42,6 +42,13 @@ export const ProjectFunc = () => {
     }
   };
 
+  const getCheckListArr = (projectPosition, toDoIndex) => {
+    if(projectArr[projectPosition]) {
+     const toDoList = projectArr[projectPosition].toDoList;
+     return toDoList[toDoIndex].checkList
+    }
+  }
+
   let sorted = false; // Default sorting state
 
   const sortToDoArr = (projectPosition) => {
@@ -67,6 +74,7 @@ export const ProjectFunc = () => {
     addProjectToProjectArr,
     getProjectArr,
     getToDoArr,
+    getCheckListArr,
     sortToDoArr,
     updateProject,
     deleteProject,

@@ -79,7 +79,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
         if (confirmation.toLowerCase() === 'yes') {
           projectInstance.deleteProject(projectIndex);
           DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
-          DisplayToDoFunc(projectIndex - 1, toDoInstance, projectInstance, checkListInstance);
+          DisplayToDoFunc((projectIndex - 1 + projects.length) % projects.length, toDoInstance, projectInstance, checkListInstance);
         } else {
           alert('Project deletion canceled.');
           return

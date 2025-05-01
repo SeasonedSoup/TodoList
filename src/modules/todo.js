@@ -32,7 +32,8 @@ export const ToDoFunc = (projectInstance) => {
     title,
     description,
     dueDate,
-    priority
+    priority,
+    checkList
   ) => {
     dueDate = dueDate || "No Due Date";
     const projects = projectInstance.getProjectArr();
@@ -48,6 +49,7 @@ export const ToDoFunc = (projectInstance) => {
       description,
       dueDate,
       priority,
+      checkList
     });
     projectInstance.saveProjectLocally();
   };
