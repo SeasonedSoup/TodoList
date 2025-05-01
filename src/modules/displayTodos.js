@@ -1,31 +1,17 @@
-import { parseISO, startOfToday, format } from 'date-fns';
-import sortImg from '../logos/sort.svg';
-import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './elements';
-import { displayCheckListFunc } from './displayCheckList';
-//PPPP format
-
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
-  //loads the main content base 
-  const loadMainContents = () => {
-    const content = document.querySelector('.content');
-    content.classList.remove('content2')
-  
-    const toDoContainer = document.querySelector('.toDoContainer');
-    toDoContainer.textContent = '';
-    content.appendChild(toDoContainer);
-  
-    paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
-  
-    const toDoContainerTitle = document.querySelector('.toDoTitle');
-    toDoContainerTitle.appendChild(paragraphTitle);
-    
-    return {content, toDoContainer, paragraphTitle, toDoContainerTitle}
-  }
 
-  //contains element coming from loadMainContents(); (content, toDoContainer, paragraphTitle, toDoContainerTitle)
-  const mainContents = loadMainContents();
+  const content = document.querySelector('.content');
+  content.classList.remove('content2');
 
-  //the Add to Do Button dynamically created for each project maybe not so good implementation
+  const toDoContainer = document.querySelector('.toDoContainer');
+  toDoContainer.textContent = '';
+  content.appendChild(toDoContainer);
+
+  paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
+
+  const toDoContainerTitle = document.querySelector('.toDoTitle');
+  toDoContainerTitle.appendChild(paragraphTitle);
+
   const createToDoHandler = (projectPosition) => {
     const checkToDoButton = document.querySelector('.createToDoButton');
 
@@ -38,21 +24,21 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     createToDoButton.classList.add('createToDoButton');
 
     createToDoButton.addEventListener('click', () => {
-      toDoFormModal(projectPosition);
+      formModal(projectPosition);
     });
 
-    mainContents.toDoContainerTitle.appendChild(createToDoButton);
+    toDoContainerTitle.appendChild(createToDoButton);
   };
 
   createToDoHandler(projectPosition);
-  //sort logo
+
   const sortToDoHandler = () => {
     const checkSortToDoButton = document.querySelector('.sortDiv');
     if (checkSortToDoButton) {
       checkSortToDoButton.remove();
     }
     const sortDiv = document.createElement('div');
-    sortDiv.classList.add('sortDiv')
+    sortDiv.classList.add('sortDiv');
     const sortPara = document.createElement('p');
     sortPara.classList.add('sort');
     sortPara.textContent = 'Sort';
@@ -63,26 +49,26 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     
     sortToDoButton.addEventListener('click', () => {
       projectInstance.sortToDoArr(projectPosition);
-      viewTodos(); // Call viewTodos to refresh the display with the sorted array
+      viewTodos();
     });
+
     sortDiv.appendChild(sortPara);
     sortDiv.appendChild(sortToDoButton);
-    mainContents.toDoContainerTitle.appendChild(sortDiv);
+    toDoContainerTitle.appendChild(sortDiv);
   };
 
   sortToDoHandler();
-  //called everytime we traverse a project
-  const viewTodos = () => {
 
-    mainContents.toDoContainer.textContent = '';
-    mainContents.toDoContainer.classList.add('grid');
+  const viewTodos = () => {
+    toDoContainer.textContent = '';
+    toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition) || [];
 
     if (todos.length === 0) {
       const p = document.createElement('p');
       p.className = 'emptyPara';
       p.textContent = 'Currently No To Dos Go Add a Few!';
-      mainContents.toDoContainer.appendChild(p);
+      toDoContainer.appendChild(p);
     }
     loadToDos();
     
@@ -114,16 +100,14 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         toDoItem.appendChild(toDoIndexAndTitle);
         toDoItem.appendChild(toDoDueDate);
   
-        mainContents.toDoContainer.appendChild(toDoItem);
+        toDoContainer.appendChild(toDoItem);
       });
     }
   };
 
   viewTodos();
 
-  
-  //form modal creates a modal with the queries for form as well as error validation on todos
-  const toDoFormModal = (projectPosition, todo = null, toDoIndex = null) => {
+  const formModal = (projectPosition, todo = null, toDoIndex = null) => {
     modal.classList.add('open');
     overlay.classList.add('open');
     const toDoFormContainer = document.querySelector('.toDoFormContainer');
@@ -160,7 +144,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         value: todo ? todo.dueDate : '',
       },
     ];
-    //create each inputs object to have label, input, and error span
+
     inputs.forEach((inputData) => {
       const label = document.createElement('label');
       label.textContent = inputData.label;
@@ -205,7 +189,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       toDoForm.appendChild(document.createElement('br'));
     });
 
-    //High, Medium, Low separate input
     const priorityLabel = document.createElement('label');
     priorityLabel.textContent = 'Priority: ';
     priorityLabel.setAttribute('for', 'toDoPriority');
@@ -227,7 +210,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       priorityInput.appendChild(priorityOption);
     });
     
-
     toDoForm.appendChild(priorityLabel);
     toDoForm.appendChild(priorityInput);
     const toDoButtons = document.createElement('div') 
@@ -239,9 +221,24 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     submitButton.textContent = todo ? 'Update ToDo' : 'Create ToDo';
     toDoButtons.appendChild(submitButton);
 
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('closeButton')
+    closeButton.setAttribute('type', 'button');
+    closeButton.textContent = 'Close';
+    toDoButtons.appendChild(closeButton);
+
+    toDoForm.appendChild(toDoButtons);
+    toDoFormContainer.appendChild(toDoForm);
+    modal_inner.appendChild(toDoFormContainer);
+
+    closeButton.addEventListener('click', () => {
+      toDoForm.remove();
+      modal.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+    
     toDoForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      //check if the inputs value is correct else create an error
       const inputs = [
         {
           input: document.querySelector('#toDoName'),
@@ -261,8 +258,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       const toDoDescription = document.querySelector('#toDoDescription').value;
       let toDoDueDate = document.querySelector('#toDoDueDate').value;
       const toDoPriority = document.querySelector('#toDoPriority').value;
-        //proejct instance get checklist of current location of to do
-      const checkList = projectInstance.getCheckListArr(projectPosition, toDoIndex)
 
       if (!toDoDueDate) {
         toDoDueDate = "No Due Date";
@@ -292,10 +287,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           toDoName,
           toDoDescription,
           toDoDueDate,
-          toDoPriority,
-          checkList
+          toDoPriority
         );
-      console.log(projectInstance.getToDoArr(projectPosition));
       } else {
         toDoInstance.insertToDoToProject(
           projectPosition,
@@ -306,32 +299,11 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         );
       }
       DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance);
-
       toDoForm.remove();
-
       modal.classList.remove('open');
       overlay.classList.remove('open');
     });
 
-    const closeButton = document.createElement('button');
-    closeButton.classList.add('closeButton')
-    closeButton.setAttribute('type', 'button');
-    closeButton.textContent = 'Close';
-    toDoButtons.appendChild(closeButton);
-
-    toDoForm.appendChild(toDoButtons);
-
-    toDoFormContainer.appendChild(toDoForm);
-    modal_inner.appendChild(toDoFormContainer);
-
-    //addeventlisteners
-    closeButton.addEventListener('click', () => {
-      toDoForm.remove();
-
-      modal.classList.remove('open');
-      overlay.classList.remove('open');
-    });
-    
     const showError = (input, span) => {
       switch (input.id) {
         case 'toDoName':
@@ -354,116 +326,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       }
     }
   };
-  //see the details when clicking the todo
-  const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
-    mainContents.content.classList.toggle('content2')
 
-    mainContents.toDoContainerTitle.textContent = '';
-    mainContents.toDoContainer.textContent = '';
+  const seeToDoDetails = (todo, toDoIndex, projectPosition) => {
+    content.classList.toggle('content2')
+
+    toDoContainerTitle.textContent = '';
+    toDoContainer.textContent = '';
 
     paragraphTitle.textContent = todo.title;
-    mainContents.toDoContainerTitle.appendChild(paragraphTitle);
-    mainContents.toDoContainer.classList.remove('grid');
+    toDo
 
-    const toDoDetailsDiv = document.createElement('div');
-    toDoDetailsDiv.classList.add('toDoDetailsDiv');
-    
-    
-    const toDoDetailsContainer = document.createElement('div');
-    toDoDetailsContainer.classList.add('toDoDetailsContainer');
-
-    const toDoDetails = document.createElement('div');
-    toDoDetails.classList.add('toDoDetails')
-
-    const detailTitle = document.createElement('h1')
-    detailTitle.classList.add('detailTitle');
-    detailTitle.textContent = 'Details!';
-
-    toDoDetails.appendChild(detailTitle);
-
-    const details = []
-    const toDoIndexAndTitle = document.createElement('h2');
-    toDoIndexAndTitle.textContent = `Title: ${todo.title}`;
-    details.push(toDoIndexAndTitle)
-
-    const toDoDesc = document.createElement('h2');
-    toDoDesc.textContent = `Description: ${todo.description}`;
-    details.push(toDoDesc)
-
-    const toDoDueDate = document.createElement('h2');
-    if (todo.dueDate !== "No Due Date") {
-      console.log(todo.dueDate)
-      toDoDueDate.textContent = `Due Date: ${format(new Date(todo.dueDate), 'PPPP')}`;
-    } else {
-      toDoDueDate.textContent = 'Due Date: Flexible';
-    }
-
-    details.push(toDoDueDate);
-
-    const toDoPriority = document.createElement('h2');
-    toDoPriority.textContent = `Priority: ${todo.priority}`;
-    details.push(toDoPriority)
-
-    details.forEach((detail) => {
-      detail.classList.add('details');
-      toDoDetails.appendChild(detail);
-    })
-    
-    displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
-    
-    //buttondiv
-    const buttons = document.createElement('div');
-    buttons.classList.add('buttonDiv');
-    const finishToDo = document.createElement('button');
-    finishToDo.textContent = 'Finish It!';
-    finishToDo.classList.add('toDoButton');
-    finishToDo.id = 'finish';
-
-    buttons.appendChild(finishToDo);
-
-    finishToDo.addEventListener('click', () => {
-      const checkList = projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex].checkList
-      if (checkList.length === 0) {
-        alert('Please Add Actions');
-        return;
-      }
-      for (let i in checkList) {
-        if (checkList[i].done === false) {
-          alert('Pls Complete Your Action List Before Finishing This To Do')
-          return;
-        }
-      }
-      toDoInstance.removeToDo(projectPosition, toDoIndex);
-      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance)
-    });
-
-    const editToDo = document.createElement('button');
-    editToDo.textContent = 'Edit ✎';
-    buttons.appendChild(editToDo);
-    editToDo.classList.add('toDoButton')
-    editToDo.id = 'edit'
-
-    editToDo.addEventListener('click', () => {
-      toDoFormModal(projectPosition, todo, toDoIndex);
-    });
-
-    const goBack = document.createElement('button');
-    goBack.textContent = 'Go Back <<';
-    buttons.appendChild(goBack)
-    goBack.classList.add('toDoButton')
-    goBack.id = 'goBack'
-
-    goBack.addEventListener('click', () => {
-      mainContents.content.classList.toggle('content2')
-      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance);
-    })
-
-    toDoDetailsContainer.appendChild(toDoDetails);
-    toDoDetailsContainer.appendChild(checkListDiv);
-    
-    toDoDetailsDiv.appendChild(toDoDetailsContainer)
-    toDoDetailsDiv.appendChild(buttons);
-
-    mainContents.toDoContainer.appendChild(toDoDetailsDiv);
-  };
-};

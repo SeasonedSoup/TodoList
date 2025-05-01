@@ -2,7 +2,7 @@ import cogImg from "../logos/cog.svg";
 import { overlay, modal, modal_inner } from "./elements";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc) => {
-  //selects and loads the contents inside of html sidebar
+  // Selects and loads the contents inside the HTML sidebar
   function loadSideBarContents() {
     const sidebar = document.querySelector('.sidebar');
     const textTitle = document.querySelector('.text-title');
@@ -12,18 +12,21 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     buttons.textContent = '';
     const paragraphTitle = document.createElement('h1');
     const oneTitleOnly = document.querySelector('.paraTitle');
+    
     if (!oneTitleOnly) {
-    paragraphTitle.classList.add('paraTitle');
-    paragraphTitle.textContent = 'Projects';
-    textTitle.appendChild(paragraphTitle);
-    } 
-    return {buttons,sidebar};
+      paragraphTitle.classList.add('paraTitle');
+      paragraphTitle.textContent = 'Projects';
+      textTitle.appendChild(paragraphTitle);
+    }
+    
+    return { buttons, sidebar };
   }
-  //contains the buttons div and sidebar div
-  const elements = loadSideBarContents()
+
+  // Button logics
+  const elements = loadSideBarContents();
   const projects = projectInstance.getProjectArr();
-  
-  //Creates Project, call Project Form Modal when clicked
+
+  // Creates project, call project form modal when clicked
   const createProjectHandler = () => {
     const createProjectButton = document.createElement("button");
     createProjectButton.classList.add("button");
@@ -33,11 +36,10 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     });
     elements.buttons.appendChild(createProjectButton);
   };
-  
-  //deletes Project, cog when clicked adds a delete Projects dropdown, within contains a dropdown with each Project title
-  //adds a listener for each project call the logic that deletes the project and reupdate
-  const removeProjectHandler = () => {
 
+  // Deletes project, cog when clicked adds a delete project dropdown
+  // Adds listener for each project, calls the logic that deletes the project and re-updates
+  const removeProjectHandler = () => {
     const buttonDropDown = document.createElement("div");
     buttonDropDown.classList.add('buttonDropdown');
 
@@ -50,9 +52,9 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     dropDownItems.classList.add('drpdwnitems');
 
     removeProjectDropdown.addEventListener('click', () => {
-      const dropDownToggle = document.querySelector('.drpdwnitems'); 
+      const dropDownToggle = document.querySelector('.drpdwnitems');
       dropDownToggle.classList.toggle('active');
-    })
+    });
 
     const deleteProjects = document.createElement('h1');
     deleteProjects.textContent = 'Delete Project';
@@ -61,7 +63,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     deleteProjects.addEventListener('click', () => {
       const dropDownToggle = document.querySelector('.secondDropdown');
       dropDownToggle.classList.toggle('active');
-    })
+    });
 
     const deleteProjectDropDown = document.createElement('div');
     deleteProjectDropDown.classList.add('secondDropdown');
@@ -71,7 +73,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       projectTitle.textContent = `${project.name} \u00D7`;
       projectTitle.classList.add("deleteableProjects");
       projectTitle.addEventListener("click", () => {
-        if (projects.length === 1 ) {
+        if (projects.length === 1) {
           alert('There is only One Project Left, keep it.');
           return;
         }
@@ -84,38 +86,31 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
         if (confirmation.toLowerCase() === 'yes') {
           projectInstance.deleteProject(projectIndex);
           DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
-          DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
+          DisplayToDoFunc(projectIndex - 1, toDoInstance, projectInstance, checkListInstance);
         } else {
           alert('Project deletion canceled.');
           return;
         }
       });
       deleteProjectDropDown.appendChild(projectTitle);
-    })
+    });
 
     deleteProjects.appendChild(deleteProjectDropDown);
 
     const dropDownItem = [];
     dropDownItem.push(deleteProjects);
-    
+
     dropDownItem.forEach(item => {
       dropDownItems.appendChild(item);
-    })
-       
+    });
+
     buttonDropDown.appendChild(removeProjectDropdown);
     buttonDropDown.appendChild(dropDownItems);
     elements.buttons.appendChild(buttonDropDown);
   };
-  
-  //these buttons are within the buttons div
-  createProjectHandler();
-  removeProjectHandler();
-  
-  //call
-  showProjects();
-  
-  //show the projects contained inside sidebar div
-  function showProjects() {
+
+  // Displays the projects inside sidebar div
+  const showProjects = () => {
     projects.forEach((project, projectIndex) => {
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${project.name}`;
@@ -126,18 +121,15 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       elements.sidebar.appendChild(projectTitle);
     });
   };
-  
-  
-  //creates a form that asks for the Project Name
-  function projectFormModal() {
+
+  // Creates a form that asks for the Project Name
+  const projectFormModal = () => {
     modal.classList.add("open");
     overlay.classList.add("open");
     const existingForm = document.querySelector(".projectForm");
     const formprojectsidebar = document.querySelector(".form");
     if (existingForm) {
-      console.log(
-        "There is currently a form pls fill it up before making another one",
-      );
+      console.log("There is currently a form, please fill it up before making another one.");
       return;
     }
 
@@ -154,91 +146,4 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       },
     ];
 
-    inputs.forEach((inputData) => {
-      const label = document.createElement("label");
-      label.textContent = inputData.label;
-      label.setAttribute("for", inputData.id);
-
-      const input = document.createElement("input");
-      input.setAttribute("type", inputData.type);
-      input.setAttribute("id", inputData.id);
-      input.setAttribute("name", inputData.name);
-
-      const span = document.createElement('span');
-      span.className = 'error';
-      span.ariaLive = 'polite';
-
-      input.addEventListener('input', () => {
-        if (input.validity.valid) {
-          span.textContent = "";
-          span.className = "error"; // Reset error state
-        } else {
-          showError(input);
-        }
-      })
-
-      input.required = true;
-      input.autofocus = false;
-      input.minLength = 3;
-      input.maxLength = 20;
-      input.setAttribute("autocomplete", "off");
-
-      form.appendChild(label);
-      form.appendChild(input);
-      form.appendChild(span);
-      form.appendChild(document.createElement("br"));
-    });
-    const buttonDiv = document.createElement('div');
-    buttonDiv.classList.add('buttonDivForm')
-
-    const submitButton = document.createElement("button");
-    submitButton.classList.add('submitButton')
-    submitButton.type = "submit";
-    submitButton.textContent = "Create Project";
-    buttonDiv.appendChild(submitButton);
-
-    const closeButton = document.createElement("button");
-    closeButton.classList.add('closeButton')
-    closeButton.type = "button";
-    closeButton.textContent = "Close";
-    buttonDiv.appendChild(closeButton);
-    closeButton.addEventListener("click", () => {
-      form.remove();
-      modal.classList.remove("open");
-      overlay.classList.remove("open");
-    });
-
-    form.appendChild(buttonDiv);
-
-    formprojectsidebar.appendChild(form);
-    modal_inner.appendChild(formprojectsidebar);
-
-    const name = document.querySelector("#projectName")
-    const nameError = document.querySelector('#projectName + span.error');
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-     
-      //validation checks
-      if (!name.validity.valid) {
-        showError(name);
-        alert('Invalid Name Submitted');
-        return;
-      }
-      const submittedName = name.value;
-      projectInstance.addProjectToProjectArr(submittedName);
-      form.remove();
-      modal.classList.remove('open');
-      overlay.classList.remove('open');
-      DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
-    });
-    
-    const showError = (name) => {
-      if (name.validity.valueMissing) {
-        nameError.textContent = 'No Title Inputted'
-      } else if (name.validity.tooShort) {
-        nameError.textContent = 'Title is Less than 3 Chars'
-      }
-    }
-  };
-};
+    inputs.forEach((inputD
