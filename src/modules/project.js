@@ -1,18 +1,24 @@
 export const ProjectFunc = () => {
   let projectArr = [];
+
+  const getProjectArr = () => projectArr;
+
+  const getFinishList = (projectPosition) => {
+    return projectArr[projectPosition].finishList;
+  }
   //this is an array we push on todo.js once we add a to do on a project
-  const createProject = (name = "Default Project", toDoList = []) => {
-    return { name, toDoList }; //object
+  const createProject = (name = "Default Project", toDoList = [], finishList = []) => {
+    return { name, toDoList, finishList }; //object
   };
 
-  const addProjectToProjectArr = (name = "Default Project", toDoList = []) => {
-    const addedProject = createProject(name, toDoList);
+  const addProjectToProjectArr = (name = "Default Project", toDoList = [], finishList = []) => {
+    const addedProject = createProject(name, toDoList, finishList);
     projectArr.push(addedProject);
     saveProjectLocally();
   };
 
-  const updateProject = (projectPosition, name, toDoList) => {
-    projectArr.splice(projectPosition, 1, { name, toDoList });
+  const updateProject = (projectPosition, name, toDoList, finishList) => {
+    projectArr.splice(projectPosition, 1, { name, toDoList, finishList });
     saveProjectLocally();
   };
 
@@ -33,8 +39,6 @@ export const ProjectFunc = () => {
     localStorage.clear();
   };
 
-  const getProjectArr = () => projectArr;
-
   const getToDoArr = (projectPosition) => {
     if (projectArr[projectPosition]) {
       saveProjectLocally();
@@ -53,6 +57,7 @@ export const ProjectFunc = () => {
 
   const sortToDoArr = (projectPosition) => {
     const priorityOrder = { low: 1, medium: 2, high: 3 };
+    
     let toDoLists = getToDoArr(projectPosition);
     if (toDoLists.length === 0 || toDoLists.length === 1) {
       alert('Cannot be Sorted there is only one or an empty to do array element');
@@ -70,6 +75,7 @@ export const ProjectFunc = () => {
   restoreProjectLocally();  
 
   return {
+    getFinishList,
     createProject,
     addProjectToProjectArr,
     getProjectArr,

@@ -8,9 +8,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   const content = document.querySelector('.content');
   content.classList.remove('content2')
 
+
+  const containerSeparator = document.querySelector('.containerSeparator');
+  console.log(containerSeparator);
+
   const toDoContainer = document.querySelector('.toDoContainer');
-  toDoContainer.textContent = '';
-  content.appendChild(toDoContainer);
+  console.log(toDoContainer);
+  toDoContainer.textContent = '';  
 
   paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
 
@@ -61,20 +65,32 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   };
 
   sortToDoHandler();
+  const container = document.querySelector('.finishedContainer');
+
+  if (container) {
+    container.remove();
+  }
+
+  const finishedContainer = document.createElement('div');
+  finishedContainer.classList.add('finishedContainer');
 
   const viewTodos = () => {
-
     toDoContainer.textContent = '';
     toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition) || [];
 
+    finishedContainer.textContent = ''
+    const finishedTodos = projectInstance.getFinishList(projectPosition)
+    console.log(finishedTodos);
+    
     if (todos.length === 0) {
       const p = document.createElement('p');
       p.className = 'emptyPara';
       p.textContent = 'Currently No To Dos Go Add a Few!';
       toDoContainer.appendChild(p);
-    }
+    } 
     loadToDos();
+    loadFinishedToDos();
     
     function loadToDos() {
       todos.forEach((todo, index) => {
@@ -106,7 +122,36 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   
         toDoContainer.appendChild(toDoItem);
       });
+      containerSeparator.appendChild(toDoContainer);
     }
+    function loadFinishedToDos() {
+      if(finishedTodos.length === 0) {
+        return;
+      }
+      
+      finishedTodos.forEach((finishedTodo) => {
+        const toDoItem = document.createElement('div');
+        toDoItem.classList.add('toDoItem');
+  
+        const toDoSquare = document.createElement('div');
+        toDoSquare.classList.add('square');
+        if (finishedTodo.priority === 'low') {
+          toDoSquare.classList.add('low');
+        } else if (finishedTodo.priority === 'medium') {
+          toDoSquare.classList.add('medium');
+        }
+
+        const toDoTitle = document.createElement('h2');
+        toDoTitle.textContent = finishedTodo.title
+
+        toDoSquare.appendChild(toDoTitle)
+        toDoItem.appendChild(toDoSquare);
+
+        finishedContainer.appendChild(toDoItem);
+      })
+      containerSeparator.appendChild(finishedContainer);
+    }
+
   };
 
   viewTodos();
@@ -412,7 +457,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     buttons.appendChild(finishToDo);
 
     finishToDo.addEventListener('click', () => {
-      const checkList = projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex].checkList
+      const checkList = todo.checkList
+      console.log(checkList);
       if (checkList.length === 0) {
         alert('Please Add Actions');
         return;
@@ -423,8 +469,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           return;
         }
       }
-      toDoInstance.removeToDo(projectPosition, toDoIndex);
-      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance)
+      toDoInstance.finishToDo(projectPosition, toDoIndex, todo.title, todo.description, todo.dueDate, todo.priority, todo.checkList);
+      DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance);
     });
 
     const editToDo = document.createElement('button');

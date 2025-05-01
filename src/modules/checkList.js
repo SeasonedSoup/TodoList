@@ -16,7 +16,7 @@ export const checkListFunc = (projectInstance) => {
         toDo.checkList.push(addedCheckBox);
         console.log(toDo);
         projectInstance.saveProjectLocally();
-    }
+    } 
 
     const deleteCheckBox = (toDoPosition, projectPosition, checkListPosition) => {
         const projects = projectInstance.getProjectArr();

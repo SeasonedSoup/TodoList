@@ -518,6 +518,7 @@ body.dark .createToDoButton:hover {
   margin: 20px;
   width: auto;
   justify-items: center;
+  flex-grow: 1;
 }
 
 .paragraphTitle {
@@ -716,4 +717,9 @@ h2 {
 
 #goBack:active {
   background-color: rgb(214, 83, 35);
+}
+
+.containerSeparator {
+  display: flex;
+  height: 74%;
 }
