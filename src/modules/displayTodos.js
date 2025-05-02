@@ -2,6 +2,8 @@ import { parseISO, startOfToday, format } from 'date-fns';
 import sortImg from '../logos/sort.svg';
 import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './elements';
 import { displayCheckListFunc } from './displayCheckList';
+import deleteImg from "../logos/trash-can.svg";
+
 //PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
 
@@ -128,8 +130,18 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       if(finishedTodos.length === 0) {
         return;
       }
+
+      const deleteAll = document.createElement('img') 
+      deleteAll.classList.add('logos')
+      deleteAll.src = deleteImg;
+
+      deleteAll.addEventListener('click', () => {
+        projectInstance.removeFinishList(projectPosition);
+        DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
+      })
+      finishedContainer.appendChild(deleteAll);
       
-      finishedTodos.forEach((finishedTodo) => {
+      finishedTodos.forEach((finishedTodo, finishedIndex) => {
         const toDoItem = document.createElement('div');
         toDoItem.classList.add('toDoItem');
   
@@ -140,6 +152,12 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         } else if (finishedTodo.priority === 'medium') {
           toDoSquare.classList.add('medium');
         }
+
+        toDoSquare.addEventListener('click', () => {
+          finishedTodo.checkList.map(checkbox => checkbox.done = false);
+          toDoInstance.reAddToDo(projectPosition, finishedIndex, finishedTodo.title, finishedTodo.description, finishedTodo.dueDate, finishedTodo.priority, finishedTodo.checkList);
+          DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
+        })
 
         const toDoTitle = document.createElement('h2');
         toDoTitle.textContent = finishedTodo.title

@@ -6,6 +6,10 @@ export const ProjectFunc = () => {
   const getFinishList = (projectPosition) => {
     return projectArr[projectPosition].finishList;
   }
+
+  const removeFinishList = (projectPosition) => {
+    projectArr[projectPosition].finishList.length = 0;
+  }
   //this is an array we push on todo.js once we add a to do on a project
   const createProject = (name = "Default Project", toDoList = [], finishList = []) => {
     return { name, toDoList, finishList }; //object
@@ -76,6 +80,7 @@ export const ProjectFunc = () => {
 
   return {
     getFinishList,
+    removeFinishList,
     createProject,
     addProjectToProjectArr,
     getProjectArr,

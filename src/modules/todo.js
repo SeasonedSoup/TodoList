@@ -62,8 +62,20 @@ export const ToDoFunc = (projectInstance) => {
     }
     const addedToDo = createToDo(title, description, dueDate, priority, checkList);
     projects[projectPosition].finishList.push(addedToDo);
-    console.log(projects[projectPosition].finishList);
     projectInstance.getProjectArr()[projectPosition].toDoList.splice(toDoIndex, 1);
+
+    projectInstance.saveProjectLocally();
+  }
+
+  const reAddToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, checkList) => {
+    const projects = projectInstance.getProjectArr();
+
+    if(!projects[projectPosition]) {
+      return;
+    }
+    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
+    projects[projectPosition].toDoList.push(addedToDo);
+    projectInstance.getProjectArr()[projectPosition].finishList.splice(toDoIndex, 1);
 
     projectInstance.saveProjectLocally();
   }
@@ -94,6 +106,7 @@ export const ToDoFunc = (projectInstance) => {
     insertToDoToProject,
     updateToDo,
     finishToDo,
+    reAddToDo,
     removeToDo,
     selectToDo,
   };
