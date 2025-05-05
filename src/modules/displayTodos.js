@@ -131,20 +131,35 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       if(finishedTodos.length === 0) {
         return;
       }
+      const completedText = document.createElement('h2') 
+      completedText.textContent = ' ✓ Completed (Click Todo to Re-add)';
+      completedText.classList.add('completedText');
 
+      const binDiv = document.createElement('div');
+      binDiv.classList.add('bin')
+
+
+      const deleteText = document.createElement('h1')
+      deleteText.textContent = 'Clear Finished ToDos'
+      deleteText.classList.add('deleteText')
       const deleteAll = document.createElement('img') 
       deleteAll.classList.add('logos')
       deleteAll.src = deleteImg;
+
+      binDiv.appendChild(deleteAll);
+      binDiv.appendChild(deleteText);
+  
+      finishedContainer.appendChild(completedText);
+      finishedContainer.appendChild(binDiv);
 
       deleteAll.addEventListener('click', () => {
         projectInstance.removeFinishList(projectPosition);
         DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
       })
-      finishedContainer.appendChild(deleteAll);
-      
+
       finishedTodos.forEach((finishedTodo, finishedIndex) => {
         const toDoItem = document.createElement('div');
-        toDoItem.classList.add('toDoItem');
+        toDoItem.classList.add('toDoItem', 'finished');
   
         const toDoSquare = document.createElement('div');
         toDoSquare.classList.add('square');
@@ -161,12 +176,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
         })
 
-        const toDoTitle = document.createElement('h2');
-        toDoTitle.textContent = finishedTodo.title
+        const finishTitle = document.createElement('h2');
+        finishTitle.className = 'finishTitle';
+        finishTitle.textContent = finishedTodo.title
 
-        toDoSquare.appendChild(toDoTitle)
+
         toDoItem.appendChild(toDoSquare);
-
+        toDoItem.appendChild(finishTitle);
         finishedContainer.appendChild(toDoItem);
       })
       containerSeparator.appendChild(finishedContainer);

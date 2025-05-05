@@ -77,3 +77,38 @@ it works now so i can create checklists and remove them albeit jsuit text and ju
 
 current problems, when i call checkListFunc it seems the checkListInstance gets depreceated when leaving the specific to do probably cause of losing the to do index
 but this will be noted which means i cannot create or delete the checkList array within the todo cause it returns undefined
+
+//prev code noted
+
+
+const removeProjectHandler = () => {
+    (function appendElements() {
+    buttonDropDown.textContent= '';
+    deleteProjects.appendChild(deleteProjectDropDown);
+    dropDownItems.appendChild(deleteProjects);
+    buttonDropDown.appendChild(removeProjectDropdown);
+    buttonDropDown.appendChild(dropDownItems);
+    buttons.appendChild(buttonDropDown);
+    })();
+  
+
+    removeProjectDropdown.addEventListener('click', () => {
+      const dropDownToggle = document.querySelector('.drpdwnitems'); 
+      dropDownToggle.classList.toggle('active');
+    })
+
+  
+    deleteProjects.addEventListener('click', () => {
+      const dropDownToggle = document.querySelector('.secondDropdown');
+      dropDownToggle.classList.toggle('active');
+    })
+    //display the project doms and logic as well
+    deleteProjectDropDown.textContent = ''
+    projects.forEach((project, projectIndex) => {
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${project.name} \u00D7`;
+      projectTitle.classList.add("deleteableProjects");
+      projectTitle.addEventListener("click", () => deleteProject(projectIndex))
+      deleteProjectDropDown.appendChild(projectTitle);
+    })
+  };

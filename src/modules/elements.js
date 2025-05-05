@@ -1,5 +1,5 @@
 import cogImg from "../logos/cog.svg";
-    
+
     // for display project.js //
     
     //static html elements layout =====
@@ -18,12 +18,11 @@ import cogImg from "../logos/cog.svg";
     const createProjectButton = document.createElement("button");
     createProjectButton.classList.add("button");
     createProjectButton.textContent = "Add Project";
-
-    //==
+    // =====
 
     const buttonDropDown = document.createElement("div");
     buttonDropDown.classList.add('buttonDropdown');
-    
+
     const removeProjectDropdown = document.createElement("img");
     removeProjectDropdown.src = cogImg;
     removeProjectDropdown.alt = 'Cog';
@@ -31,13 +30,16 @@ import cogImg from "../logos/cog.svg";
 
     const dropDownItems = document.createElement('div');
     dropDownItems.classList.add('drpdwnitems');
-
-
+    
+    
     const deleteProjects = document.createElement('h1');
     deleteProjects.textContent = 'Delete Project';
     deleteProjects.classList = 'deleteProjects';
 
-    export {sidebar, textTitle, buttons , paragraphTitle, createProjectButton, buttonDropDown, removeProjectDropdown, dropDownItems, deleteProjects}
+    const deleteProjectDropDown = document.createElement('div');
+    deleteProjectDropDown.classList.add('secondDropdown');
+
+    export {sidebar, textTitle, buttons , paragraphTitle, createProjectButton, buttonDropDown, removeProjectDropdown, dropDownItems, deleteProjects, deleteProjectDropDown}
     //======
     
     
