@@ -1,35 +1,44 @@
 import cogImg from "../logos/cog.svg";
-import { overlay, modal, modal_inner } from "./elements";
+import { sidebar, textTitle, buttons, paragraphTitle, createProjectButton, overlay, modal, modal_inner } from "./elements";
+import { DisplayToDoFunc } from "./displayTodos";
 
-export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc) => {
+export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance) => {
   const projects = projectInstance.getProjectArr();
   
-  const sidebar = document.querySelector('.sidebar');
-  sidebar.textContent = '';
+  (function resetElements() {
+    sidebar.textContent = '';
+    textTitle.textContent = '';
+    buttons.textContent = '';
+  })();
 
-  const textTitle = document.querySelector('.text-title');
-  textTitle.textContent = '';
-  const buttons = document.querySelector(".buttons");
-  buttons.textContent = '';
+  textTitle.appendChild(paragraphTitle);
+  buttons.appendChild(createProjectButton);
+  
+  //Button Logics 
+  createProjectButton.addEventListener("click", () => {
+    projectFormModal();
+  })
 
-  const paragraphTitle = document.createElement('h1');
-  const oneTitleOnly = document.querySelector('.paraTitle');
+  const deleteProject = (projectIndex) => {
+    if (projects.length === 1 ) {
+      alert('There is only One Project Left, keep it.');
+      return;
+    }
 
-  if (!oneTitleOnly) {
-    paragraphTitle.classList.add('paraTitle');
-    paragraphTitle.textContent = 'Projects';
-    textTitle.appendChild(paragraphTitle);
+    const confirmation = prompt('Type yes to delete this project.');
+    if (confirmation === null) {
+      return;
+    }
+
+    if (confirmation.toLowerCase() === 'yes') {
+      projectInstance.deleteProject(projectIndex);
+      DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
+      DisplayToDoFunc((projectIndex - 1 + projects.length) % projects.length, toDoInstance, projectInstance, checkListInstance);
+    } else {
+      alert('Project deletion canceled.');
+      return
+    }
   }
-  //Button Logics
-  const createProjectHandler = () => {
-    const createProjectButton = document.createElement("button");
-    createProjectButton.classList.add("button");
-    createProjectButton.textContent = "Add Project";
-    createProjectButton.addEventListener("click", () => {
-      projectFormModal();
-    });
-    buttons.appendChild(createProjectButton);
-  };
 
   const removeProjectHandler = () => {
 
@@ -65,26 +74,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${project.name} \u00D7`;
       projectTitle.classList.add("deleteableProjects");
-      projectTitle.addEventListener("click", () => {
-        if (projects.length === 1 ) {
-          alert('There is only One Project Left, keep it.');
-          return;
-        }
-
-        const confirmation = prompt('Type yes to delete this project.');
-        if (confirmation === null) {
-          return;
-        }
-
-        if (confirmation.toLowerCase() === 'yes') {
-          projectInstance.deleteProject(projectIndex);
-          DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
-          DisplayToDoFunc((projectIndex - 1 + projects.length) % projects.length, toDoInstance, projectInstance, checkListInstance);
-        } else {
-          alert('Project deletion canceled.');
-          return
-        }
-      });
+      projectTitle.addEventListener("click", () => deleteProject(projectIndex))
       deleteProjectDropDown.appendChild(projectTitle);
     })
 
@@ -102,9 +92,7 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     buttons.appendChild(buttonDropDown);
   };
 
-  createProjectHandler();
   removeProjectHandler();
-  //
   
   const showProjects = () => {
     projects.forEach((project, projectIndex) => {

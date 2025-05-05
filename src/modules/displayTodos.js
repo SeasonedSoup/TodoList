@@ -1,6 +1,6 @@
 import { parseISO, startOfToday, format } from 'date-fns';
 import sortImg from '../logos/sort.svg';
-import {paragraphTitle, overlay, modal, modal_inner, checkListDiv} from './elements';
+import {projectText, overlay, modal, modal_inner, checkListDiv} from './elements';
 import { displayCheckListFunc } from './displayCheckList';
 import deleteImg from "../logos/trash-can.svg";
 
@@ -10,7 +10,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   const content = document.querySelector('.content');
   content.classList.remove('content2')
 
-
   const containerSeparator = document.querySelector('.containerSeparator');
   console.log(containerSeparator);
 
@@ -18,10 +17,10 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   console.log(toDoContainer);
   toDoContainer.textContent = '';  
 
-  paragraphTitle.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
+  projectText.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
-  toDoContainerTitle.appendChild(paragraphTitle);
+  toDoContainerTitle.appendChild(projectText);
 
   const createToDoHandler = (projectPosition) => {
     const checkToDoButton = document.querySelector('.createToDoButton');
@@ -76,7 +75,9 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   const finishedContainer = document.createElement('div');
   finishedContainer.classList.add('finishedContainer');
 
-  const viewTodos = () => {
+  viewTodos();
+
+  function viewTodos() {
     toDoContainer.textContent = '';
     toDoContainer.classList.add('grid');
     const todos = projectInstance.getToDoArr(projectPosition) || [];
@@ -155,6 +156,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
         toDoSquare.addEventListener('click', () => {
           finishedTodo.checkList.map(checkbox => checkbox.done = false);
+          finishedTodo.dueDate = format(startOfToday(), 'yyyy-MM-dd');
           toDoInstance.reAddToDo(projectPosition, finishedIndex, finishedTodo.title, finishedTodo.description, finishedTodo.dueDate, finishedTodo.priority, finishedTodo.checkList);
           DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
         })
@@ -171,9 +173,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     }
 
   };
-
-  viewTodos();
-
   
   //form modal creates a modal with the queries  for form
   const formModal = (projectPosition, todo = null, toDoIndex = null) => {
@@ -414,8 +413,8 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainerTitle.textContent = '';
     toDoContainer.textContent = '';
 
-    paragraphTitle.textContent = todo.title;
-    toDoContainerTitle.appendChild(paragraphTitle);
+    projectText.textContent = todo.title;
+    toDoContainerTitle.appendChild(projectText);
     toDoContainer.classList.remove('grid');
 
     const toDoDetailsDiv = document.createElement('div');
