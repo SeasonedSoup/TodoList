@@ -93,8 +93,9 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
   };
 
   removeProjectHandler();
+  showProjects();
   
-  const showProjects = () => {
+  function showProjects() {
     projects.forEach((project, projectIndex) => {
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${project.name}`;
@@ -105,8 +106,6 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       sidebar.appendChild(projectTitle);
     });
   };
-
-  showProjects();
   
   const projectFormModal = () => {
     modal.classList.add("open");
