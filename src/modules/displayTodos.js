@@ -17,7 +17,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   console.log(toDoContainer);
   toDoContainer.textContent = '';  
 
-  projectText.textContent = `To-Dos: ${projectInstance.getProjectArr()[projectPosition].name}`;
+  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name}`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(projectText);

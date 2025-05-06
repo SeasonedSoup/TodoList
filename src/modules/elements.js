@@ -38,15 +38,6 @@ import cogImg from "../logos/cog.svg";
 
     const deleteProjectDropDown = document.createElement('div');
     deleteProjectDropDown.classList.add('secondDropdown');
-
-    (function appendElements() {
-      buttonDropDown.textContent= '';
-      deleteProjects.appendChild(deleteProjectDropDown);
-      dropDownItems.appendChild(deleteProjects);
-      buttonDropDown.appendChild(removeProjectDropdown);
-      buttonDropDown.appendChild(dropDownItems);
-      buttons.appendChild(buttonDropDown);
-      })();
     
 
     export {sidebar, textTitle, buttons , paragraphTitle, createProjectButton, buttonDropDown, removeProjectDropdown, dropDownItems, deleteProjects, deleteProjectDropDown}

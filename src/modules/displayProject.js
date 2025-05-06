@@ -4,7 +4,7 @@ import { DisplayToDoFunc } from "./displayTodos";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance) => {
   const projects = projectInstance.getProjectArr();
-  
+  //makes sure empty before calling again
   (function resetElements() {
     sidebar.textContent = '';
     textTitle.textContent = '';
@@ -18,27 +18,6 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
   createProjectButton.addEventListener("click", () => {
     projectFormModal();
   })
-
-  const deleteProject = (projectIndex) => {
-    if (projects.length === 1 ) {
-      alert('There is only One Project Left, keep it.');
-      return;
-    }
-
-    const confirmation = prompt('Type yes to delete this project.');
-    if (confirmation === null) {
-      return;
-    }
-
-    if (confirmation.toLowerCase() === 'yes') {
-      projectInstance.deleteProject(projectIndex);
-      DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance, DisplayToDoFunc);
-      DisplayToDoFunc((projectIndex - 1 + projects.length) % projects.length, toDoInstance, projectInstance, checkListInstance);
-    } else {
-      alert('Project deletion canceled.');
-      return
-    }
-  }
 
   const removeProjectHandler = () => {
 
@@ -59,17 +38,18 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     })
 
     const deleteProjects = document.createElement('h1');
-    deleteProjects.textContent = 'Delete Project';
+    deleteProjects.textContent = 'Delete Projects';
     deleteProjects.classList = 'deleteProjects';
-
-    deleteProjects.addEventListener('click', () => {
-      const dropDownToggle = document.querySelector('.secondDropdown');
-      dropDownToggle.classList.toggle('active');
-    })
 
     const deleteProjectDropDown = document.createElement('div');
     deleteProjectDropDown.classList.add('secondDropdown');
 
+    
+    deleteProjects.addEventListener('click', () => {
+      deleteProjectDropDown.classList.toggle('active');
+    })
+
+    
     projects.forEach((project, projectIndex) => {
       const projectTitle = document.createElement("h1");
       projectTitle.textContent = `${project.name} \u00D7`;
@@ -77,11 +57,31 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       projectTitle.addEventListener("click", () => deleteProject(projectIndex))
       deleteProjectDropDown.appendChild(projectTitle);
     })
+    deleteProjects.appendChild(deleteProjectDropDown)
 
-    deleteProjects.appendChild(deleteProjectDropDown);
+    const editProjects = document.createElement('h1');
+    editProjects.textContent = 'Edit Projects'
+    editProjects.classList.add('editProjects');
+
+    const editProjectDropDown = document.createElement('div');
+    editProjectDropDown.classList.add('editDropDown')
+
+    editProjects.addEventListener('click', () => {
+      editProjectDropDown.classList.toggle('active');
+    })
+
+    projects.forEach((project, projectIndex) => {
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${project.name} \u00D7`;
+      projectTitle.classList.add("deleteableProjects");
+      projectTitle.addEventListener("click", () => updateProject(projectIndex))
+      editProjectDropDown.appendChild(projectTitle);
+    })
+    editProjects.appendChild(editProjectDropDown);
 
     const dropDownItem = [];
     dropDownItem.push(deleteProjects);
+    dropDownItem.push(editProjects)
     
     dropDownItem.forEach(item => {
       dropDownItems.appendChild(item);
@@ -219,4 +219,39 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
       }
     }
   };
+
+   const deleteProject = (projectIndex) => {
+    if (projects.length === 1 ) {
+      alert('There is only One Project Left, keep it.');
+      return;
+    }
+
+    const confirmation = prompt('Type yes to delete this project.');
+    if (confirmation === null) {
+      return;
+    }
+
+    if (confirmation.toLowerCase() === 'yes') {
+      projectInstance.deleteProject(projectIndex);
+      DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance);
+      DisplayToDoFunc((projectIndex - 1 + projects.length) % projects.length, toDoInstance, projectInstance, checkListInstance);
+    } else {
+      alert('Project deletion canceled.');
+      return
+    }
+  }
+
+  const updateProject = (projectIndex) => {
+    const project = projectInstance.getProjectArr()[projectIndex];
+    const data = prompt('Type New Project Name. ');
+    if (data === null) {
+      return;
+    }
+
+    projectInstance.updateProject(projectIndex, data, project.toDoList, project.finishList)
+
+    DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance);
+    DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
+  }
+
 };

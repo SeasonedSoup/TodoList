@@ -185,6 +185,10 @@ body.dark .logos, body.dark .smallLogos {
   left: 50px;
   top: 5px;
   box-shadow: 0 8px 16px 0px rgba(0, 0, 0, .2);
+  display: flex;
+  gap: 10%;
+  padding: 10px;
+  max-height: 700px;
 }
 
 .dropDownItem {
@@ -196,6 +200,11 @@ body.dark .logos, body.dark .smallLogos {
 }
 .deleteProjects {
   cursor: pointer;
+  border-right: 2px solid black;
+}
+
+.editProjects {
+  cursor: pointer;
 }
 .secondDropdown {
   display: none;
@@ -206,6 +215,19 @@ body.dark .logos, body.dark .smallLogos {
 }
 
 .secondDropdown.active {
+  display: block;
+  transition: 0.2s;
+}
+
+.editDropDown {
+  display: none;
+  background-color: whitesmoke;
+  z-index: 10;
+  opacity: 1;
+  opacity: 0.7;
+}
+
+.editDropDown.active {
   display: block;
   transition: 0.2s;
 }
