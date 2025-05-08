@@ -87,7 +87,7 @@ export const ToDoFunc = (projectInstance) => {
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
     ) {
-      console.error("Invalid project or ToDo position.");
+      console.log("Invalid project or ToDo position.");
       return;
     }
     projectInstance

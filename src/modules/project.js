@@ -56,25 +56,30 @@ export const ProjectFunc = () => {
      return toDoList[toDoIndex].checkList
     }
   }
-
-  let sorted = false; // Default sorting state
-
+  let sorted = false; 
   const sortToDoArr = (projectPosition) => {
-    const priorityOrder = { low: 1, medium: 2, high: 3 };
+    const priorityOrder = { low: 1, medium: 2, high: 3,  false: 0, true: 4};
     
     let toDoLists = getToDoArr(projectPosition);
     if (toDoLists.length === 0 || toDoLists.length === 1) {
       alert('Cannot be Sorted there is only one or an empty to do array element');
       return;
     }
-    sorted = !sorted;
+    
+    sorted = !sorted
 
-    toDoLists = toDoLists.sort((toDo1, toDo2) => {
-      return sorted ? priorityOrder[toDo2.priority] - priorityOrder[toDo1.priority] : priorityOrder[toDo1.priority] - priorityOrder[toDo2.priority]; 
+    toDoLists = toDoLists.sort((a, b) => {
+      if (a.pinned !== b.pinned) {
+        return b.pinned - a.pinned;
+      }
+
+      return sorted
+      ? priorityOrder[b.priority]  - priorityOrder[a.priority]  
+      : priorityOrder[a.priority]  - priorityOrder[b.priority]   
     });
     saveProjectLocally();
     return toDoLists;
-    
+
   };
   restoreProjectLocally();  
 

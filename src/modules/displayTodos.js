@@ -4,6 +4,7 @@ import {projectText, overlay, modal, modal_inner, checkListDiv} from './elements
 import { displayCheckListFunc } from './displayCheckList';
 import deleteImg from "../logos/trash-can.svg";
 import pinLogo from "../logos/pin.svg";
+import pinnedImg from "../logos/icons8-pin-100.png"
 
 //PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
@@ -18,7 +19,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   console.log(toDoContainer);
   toDoContainer.textContent = '';  
 
-  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name}`;
+  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name} == ${projectInstance.getToDoArr(projectPosition).length}`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(projectText);
@@ -79,7 +80,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     
     const pinToDoButton = document.createElement('img');
     pinToDoButton.src = pinLogo;
-    pinToDoButton.classList.add('logos')
+    pinToDoButton.classList.add('logos', 'pinLogo')
     pinToDoButton.addEventListener('click', () => {
       const val = prompt('Select To Do Index to Pin / Unpin');
       const index = parseInt(val)
@@ -142,12 +143,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         }
 
         if(todo.pinned === true) {
-          const p = document.createElement('p');
-          p.textContent = 'THIS ONE IS PINNED';
-          toDoSquare.appendChild(p);
+          toDoSquare.classList.add('pinned');
+          const pinIndicator = document.createElement('img');
+          pinIndicator.classList.add('pinIndicator');
+          pinIndicator.src = pinnedImg;
+          toDoSquare.appendChild(pinIndicator);
         }
-        
-  
+      
         toDoSquare.addEventListener('click', () => {
           seeToDoDetails(todo, index, projectPosition);
         });

@@ -154,6 +154,7 @@ body.dark .logos, body.dark .smallLogos {
 .cog:hover {
   opacity: 0.8;
 }
+
 .sort {
   text-align: justify;
   font-size: 1.2rem;
@@ -166,11 +167,19 @@ body.dark .logos, body.dark .smallLogos {
   opacity: 0.6;
 }
 
+.pinDiv {
+  display: flex;
+  flex-direction: column;
+}
+
 .pin {
   text-align: justify;
     font-size: 1.2rem;
 }
 
+.pinLogo {
+  align-self: center;
+}
 
 .drpdwnitems {
   display: none;
@@ -572,10 +581,18 @@ body.dark .createToDoButton:hover {
   width: 100%;
 }
 
+.pinIndicator {
+  margin-left: 70%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .toDoItem-title {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+
 .square {
   background-color: rgb(253, 86, 86);
   height: 100px;
@@ -586,25 +603,17 @@ body.dark .createToDoButton:hover {
   transition: all 0.2s ease;
 }
 
-
 .square.low {
   background-color: rgb(94, 224, 77);
-  height: 100px;
-  width: 100px;
-  border-radius: 12px;
-  border: 2px solid black;
-  transition: all 0.2s ease;
 }
 
 .square.medium {
   background-color: rgb(228, 215, 43);
-  height: 100px;
-  width: 100px;
-  border-radius: 12px;
-  border: 2px solid black;
-  transition: all 0.2s ease;
 }
 
+.square.pinned {
+  border: 4px solid goldenrod;
+}
 .square:hover {
   height: 90px;
   width: 90px;
