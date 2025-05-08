@@ -39,9 +39,9 @@ function darkModeLogic() {
 
 
     function darkMode() {
-        document.body.classList.toggle('dark')
-        isItDark = document.body.classList.contains('dark')
-        localStorage.setItem('darkMode', JSON.stringify(isItDark))
+        document.body.classList.toggle('dark');
+        isItDark = document.body.classList.contains('dark');
+        localStorage.setItem('darkMode', JSON.stringify(isItDark));
     }
 
     const darkModeLogo = document.querySelector('.toggle');

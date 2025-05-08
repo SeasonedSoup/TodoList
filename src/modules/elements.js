@@ -39,10 +39,8 @@ import cogImg from "../logos/cog.svg";
     const deleteProjectDropDown = document.createElement('div');
     deleteProjectDropDown.classList.add('secondDropdown');
     
-
     export {sidebar, textTitle, buttons , paragraphTitle, createProjectButton, buttonDropDown, removeProjectDropdown, dropDownItems, deleteProjects, deleteProjectDropDown}
     //======
-    
     
     //for display todo.js
     const projectText = document.createElement("h1");

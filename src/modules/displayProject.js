@@ -4,23 +4,39 @@ import { DisplayToDoFunc } from "./displayTodos";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance) => {
   const projects = projectInstance.getProjectArr();
-  //makes sure empty before calling again
-  (function resetElements() {
+  console.log(projects);
+  //resets the dom whenever we update a project, a to do and mor
+  (function resetElementsAndReAppendChildren() {
     sidebar.textContent = '';
     textTitle.textContent = '';
     buttons.textContent = '';
+    textTitle.appendChild(paragraphTitle);
+    buttons.appendChild(createProjectButton);
   })();
 
-  textTitle.appendChild(paragraphTitle);
-  buttons.appendChild(createProjectButton);
-  
-  //Button Logics 
+  //calls Form Modal for the Add Project Button
   createProjectButton.addEventListener("click", () => {
     projectFormModal();
   })
 
-  const removeProjectHandler = () => {
+  removeProjectHandler();
+  showProjects();
+//until this what display project func does instantiate the buttons and the projects =========
 
+  //relevant functions===========================
+  function showProjects() {
+    projects.forEach((project, projectIndex) => {
+      const projectTitle = document.createElement("h1");
+      projectTitle.textContent = `${project.name}`;
+      projectTitle.classList.add("projectTitles");
+      projectTitle.addEventListener("click", () => {
+        DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
+      });
+      sidebar.appendChild(projectTitle);
+    });
+  };
+
+  function removeProjectHandler() {
     const buttonDropDown = document.createElement("div");
     buttonDropDown.classList.add('buttonDropdown');
 
@@ -92,21 +108,8 @@ export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInsta
     buttons.appendChild(buttonDropDown);
   };
 
-  removeProjectHandler();
-  showProjects();
-  
-  function showProjects() {
-    projects.forEach((project, projectIndex) => {
-      const projectTitle = document.createElement("h1");
-      projectTitle.textContent = `${project.name}`;
-      projectTitle.classList.add("projectTitles");
-      projectTitle.addEventListener("click", () => {
-        DisplayToDoFunc(projectIndex, toDoInstance, projectInstance, checkListInstance);
-      });
-      sidebar.appendChild(projectTitle);
-    });
-  };
-  
+
+    //creates The form inside the modal form containing the input reqs, submit buttons and close buttons and such
   const projectFormModal = () => {
     modal.classList.add("open");
     overlay.classList.add("open");

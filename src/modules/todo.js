@@ -1,7 +1,7 @@
 export const ToDoFunc = (projectInstance) => {
 
-  const createToDo = (title, description, dueDate, priority, checkList = []) => {
-    return { title, description, dueDate: dueDate || "No Due Date", priority, checkList};
+  const createToDo = (title, description, dueDate, priority, pinned = false,checkList = []) => {
+    return { title, description, dueDate: dueDate || "No Due Date", priority, pinned, checkList};
   };
 
   const insertToDoToProject = (
@@ -10,10 +10,10 @@ export const ToDoFunc = (projectInstance) => {
     description,
     dueDate,
     priority,
+    pinned = false,
     checkList = []
   ) => {
-    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
-
+    const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
     const projects = projectInstance.getProjectArr();
     if (!projects[projectPosition]) {
       console.log("Project does not exist in project position");
@@ -33,6 +33,7 @@ export const ToDoFunc = (projectInstance) => {
     description,
     dueDate,
     priority,
+    pinned,
     checkList
   ) => {
     dueDate = dueDate || "No Due Date";
@@ -49,31 +50,32 @@ export const ToDoFunc = (projectInstance) => {
       description,
       dueDate,
       priority,
+      pinned,
       checkList
     });
     projectInstance.saveProjectLocally();
   };
 
-  const finishToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, checkList) => {
+  const finishToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, pinned, checkList) => {
     const projects = projectInstance.getProjectArr();
     
     if(!projects[projectPosition]) {
       return;
     }
-    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
+    const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
     projects[projectPosition].finishList.push(addedToDo);
     projectInstance.getProjectArr()[projectPosition].toDoList.splice(toDoIndex, 1);
 
     projectInstance.saveProjectLocally();
   }
 
-  const reAddToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, checkList) => {
+  const reAddToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, pinned, checkList) => {
     const projects = projectInstance.getProjectArr();
 
     if(!projects[projectPosition]) {
       return;
     }
-    const addedToDo = createToDo(title, description, dueDate, priority, checkList);
+    const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
     projects[projectPosition].toDoList.push(addedToDo);
     projectInstance.getProjectArr()[projectPosition].finishList.splice(toDoIndex, 1);
 
@@ -93,15 +95,20 @@ export const ToDoFunc = (projectInstance) => {
     projectInstance.saveProjectLocally();
   };
   
-  const selectToDo = (projectPosition) => {
+  const selectToDo = (projectPosition, toDoIndex) => {
     try {
-      return projectInstance.getProjectArr()[projectPosition].toDoList;
+      return projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex];
     } catch (err) {
       console.log("It seems I am not able to select this to do 'trying again'");
     }
   };
-  
 
+  const togglePin = (projectPosition, toDoIndex) => {
+    const pin = selectToDo(projectPosition, toDoIndex)
+    pin.pinned = !pin.pinned;
+
+    projectInstance.saveProjectLocally();
+  }
   return {
     insertToDoToProject,
     updateToDo,
@@ -109,5 +116,6 @@ export const ToDoFunc = (projectInstance) => {
     reAddToDo,
     removeToDo,
     selectToDo,
+    togglePin
   };
 };

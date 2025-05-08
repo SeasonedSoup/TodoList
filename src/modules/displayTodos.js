@@ -3,6 +3,7 @@ import sortImg from '../logos/sort.svg';
 import {projectText, overlay, modal, modal_inner, checkListDiv} from './elements';
 import { displayCheckListFunc } from './displayCheckList';
 import deleteImg from "../logos/trash-can.svg";
+import pinLogo from "../logos/pin.svg";
 
 //PPPP format
 export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, checkListInstance) => {
@@ -65,7 +66,39 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainerTitle.appendChild(sortDiv);
   };
 
+  const pinToDoHandler = () => {
+    const checkPinToDoButton = document.querySelector('.pinDiv');
+    if (checkPinToDoButton) {
+      checkPinToDoButton.remove();
+    }
+    const pinDiv = document.createElement('div'); 
+    pinDiv.classList.add('pinDiv');
+    const pinPara = document.createElement('p');
+    pinPara.classList.add('pin');
+    pinPara.textContent = 'Pin/Unpin';
+    
+    const pinToDoButton = document.createElement('img');
+    pinToDoButton.src = pinLogo;
+    pinToDoButton.classList.add('logos')
+    pinToDoButton.addEventListener('click', () => {
+      const val = prompt('Select To Do Index to Pin / Unpin');
+      const index = parseInt(val)
+      console.log(projectInstance.getProjectArr()[projectPosition].toDoList.length)
+      if (isNaN(index) || typeof index !== 'number' || index >= projectInstance.getProjectArr()[projectPosition].toDoList.length || index < 0) {
+        alert('Not A Valid Pin');
+        return;
+      }
+      toDoInstance.togglePin(projectPosition, index)
+      DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance);
+    }) 
+    pinDiv.appendChild(pinPara);
+    pinDiv.appendChild(pinToDoButton)
+    toDoContainerTitle.appendChild(pinDiv);
+  }
+
   sortToDoHandler();
+  pinToDoHandler();
+
   const container = document.querySelector('.finishedContainer');
 
   if (container) {
@@ -107,6 +140,13 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         } else if (todo.priority === 'medium') {
           toDoSquare.classList.add('medium');
         }
+
+        if(todo.pinned === true) {
+          const p = document.createElement('p');
+          p.textContent = 'THIS ONE IS PINNED';
+          toDoSquare.appendChild(p);
+        }
+        
   
         toDoSquare.addEventListener('click', () => {
           seeToDoDetails(todo, index, projectPosition);
@@ -118,7 +158,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   
         const toDoDueDate = document.createElement('h2');
         toDoDueDate.textContent = `${todo.dueDate}`;
-  
         toDoItem.appendChild(toDoSquare);
         toDoItem.appendChild(toDoIndexAndTitle);
         toDoItem.appendChild(toDoDueDate);
@@ -372,7 +411,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
      
       if (todo) {
         const checkList = projectInstance.getCheckListArr(projectPosition, toDoIndex)
-
+        const pinned = toDoInstance.selectToDo(projectPosition, toDoIndex).pinned
         toDoInstance.updateToDo(
           projectPosition,
           toDoIndex,
@@ -380,6 +419,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           toDoDescription,
           toDoDueDate,
           toDoPriority,
+          pinned,
           checkList
         );
       console.log(projectInstance.getToDoArr(projectPosition));

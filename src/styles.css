@@ -166,6 +166,12 @@ body.dark .logos, body.dark .smallLogos {
   opacity: 0.6;
 }
 
+.pin {
+  text-align: justify;
+    font-size: 1.2rem;
+}
+
+
 .drpdwnitems {
   display: none;
   background-color: whitesmoke;
@@ -766,6 +772,7 @@ h2 {
   flex-direction: column;
   gap: 40px;
   min-width: 200px;
+  overflow: auto;
 }
 
 .bin {
