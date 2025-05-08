@@ -769,9 +769,11 @@ h2 {
   margin: 20px;
   overflow: auto;
 }
-
-.finishedContainer {
+body.dark .finishedContainer {
   background-color: gray;
+}
+.finishedContainer {
+  background-color: rgb(202, 195, 195);
   box-sizing: border-box;
   padding: 5px;
   padding: 20px;

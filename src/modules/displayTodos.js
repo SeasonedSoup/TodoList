@@ -19,7 +19,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   console.log(toDoContainer);
   toDoContainer.textContent = '';  
 
-  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name} == ${projectInstance.getToDoArr(projectPosition).length}`;
+  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name} (${projectInstance.getToDoArr(projectPosition).length})`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(projectText);
@@ -308,6 +308,10 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       if (input.id === 'toDoName' || input.id === 'toDoDescription') {
         input.maxLength = 25;
       }
+
+      if (input.id === 'toDoDueDate') {
+        input.min = (format(startOfToday(), 'yyyy-MM-dd'))
+      }
       toDoForm.appendChild(label);
       toDoForm.appendChild(input);
       toDoForm.appendChild(span);
@@ -511,7 +515,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     details.push(toDoDueDate);
 
     const toDoPriority = document.createElement('h2');
-    toDoPriority.textContent = `Priority: ${todo.priority}`;
+    toDoPriority.textContent = `Priority: ${todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)}`;
     details.push(toDoPriority)
 
     details.forEach((detail) => {
