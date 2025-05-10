@@ -593,6 +593,10 @@ body.dark .createToDoButton:hover {
   overflow-wrap: break-word;
 }
 
+.expired {
+  color: red;
+}
+
 .square {
   background-color: rgb(253, 86, 86);
   height: 100px;

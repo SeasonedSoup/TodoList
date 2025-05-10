@@ -56,31 +56,57 @@ export const ProjectFunc = () => {
      return toDoList[toDoIndex].checkList
     }
   }
-  let sorted = false; 
-  const sortToDoArr = (projectPosition) => {
-    const priorityOrder = { low: 1, medium: 2, high: 3,  false: 0, true: 4};
-    
-    let toDoLists = getToDoArr(projectPosition);
-    if (toDoLists.length === 0 || toDoLists.length === 1) {
+  //default sorted by ascending order 
+
+  let ascSorted = false;
+  const prioMap = {low : 1, medium: 2, high: 3}; 
+  
+  const defaultSort = (projectPosition) => {
+    let toDoList = getToDoArr(projectPosition) 
+    if(ascSorted) {
+      toDoList = toDoList.sort((a, b) => {
+        if (a.pinned !== b.pinned) {
+          return b.pinned - a.pinned
+        }
+  
+        return prioMap[a.priority] - prioMap[b.priority]
+      })
+    } else {
+      toDoList = toDoList.sort((a, b) => {
+        if (a.pinned !== b.pinned) {
+          return b.pinned - a.pinned
+        }
+  
+        return prioMap[b.priority] - prioMap[a.priority]
+      })
+    }
+  
+    saveProjectLocally();
+
+    return toDoList
+  } 
+
+  const sortToDoArr = (projectPosition) => { 
+    let toDoList = getToDoArr(projectPosition);
+    if (toDoList.length === 0 || toDoList.length === 1) {
       alert('Cannot be Sorted there is only one or an empty to do array element');
       return;
     }
     
-    sorted = !sorted
+    ascSorted = !ascSorted
 
-    toDoLists = toDoLists.sort((a, b) => {
+    toDoList = toDoList.sort((a, b) => {
       if (a.pinned !== b.pinned) {
         return b.pinned - a.pinned;
       }
 
-      return sorted
-      ? priorityOrder[b.priority]  - priorityOrder[a.priority]  
-      : priorityOrder[a.priority]  - priorityOrder[b.priority]   
+      return ascSorted
+      ? prioMap[a.priority]  - prioMap[b.priority]
+      : prioMap[b.priority]  - prioMap[a.priority]
     });
     saveProjectLocally();
-    return toDoLists;
-
   };
+  
   restoreProjectLocally();  
 
   return {
@@ -91,6 +117,7 @@ export const ProjectFunc = () => {
     getProjectArr,
     getToDoArr,
     getCheckListArr,
+    defaultSort,
     sortToDoArr,
     updateProject,
     deleteProject,

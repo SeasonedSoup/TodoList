@@ -8,14 +8,17 @@ import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 import toggleImg from "./logos/theme-light-dark.svg"
 
-//========Functionality
+//Tutor Driver Script 
+
+
+//========Functionality Load
 document.addEventListener('DOMContentLoaded', () => {
     const projectInstance = ProjectFunc();
 
     const toDoInstance = ToDoFunc(projectInstance);
 
     const checkListInstance = checkListFunc(projectInstance);
-    console.log(checkListInstance);
+
     DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance);
     DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
 });

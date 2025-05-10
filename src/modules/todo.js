@@ -16,12 +16,12 @@ export const ToDoFunc = (projectInstance) => {
     const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
     const projects = projectInstance.getProjectArr();
     if (!projects[projectPosition]) {
-      console.log("Project does not exist in project position");
+      console.error("Project does not exist in project position");
       return;
     }
 
     projects[projectPosition].toDoList.push(addedToDo);
-    console.log(projects[projectPosition]);
+    console.error(projects[projectPosition]);
     projectInstance.saveProjectLocally();
   };
   //array.splice(startIndex, deleteCount, ...itemsToAdd) syntax
@@ -87,7 +87,7 @@ export const ToDoFunc = (projectInstance) => {
       !projects[projectPosition] ||
       !projects[projectPosition].toDoList[toDoPosition]
     ) {
-      console.log("Invalid project or ToDo position.");
+      console.error("Invalid project or ToDo position.");
       return;
     }
     projectInstance
@@ -99,7 +99,7 @@ export const ToDoFunc = (projectInstance) => {
     try {
       return projectInstance.getProjectArr()[projectPosition].toDoList[toDoIndex];
     } catch (err) {
-      console.log("It seems I am not able to select this to do 'trying again'");
+      console.error("It seems I am not able to select this to do 'trying again'");
     }
   };
 

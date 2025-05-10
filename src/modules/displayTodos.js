@@ -1,4 +1,4 @@
-import { parseISO, startOfToday, format } from 'date-fns';
+import { parseISO, startOfToday, format, differenceInMilliseconds } from 'date-fns';
 import sortImg from '../logos/sort.svg';
 import {projectText, overlay, modal, modal_inner, checkListDiv} from './elements';
 import { displayCheckListFunc } from './displayCheckList';
@@ -24,7 +24,23 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(projectText);
 
-  const createToDoHandler = (projectPosition) => {
+  createToDoHandler();
+  sortToDoHandler();
+  pinToDoHandler();
+
+  const container = document.querySelector('.finishedContainer');
+
+  if (container) {
+    container.remove();
+  }
+
+  const finishedContainer = document.createElement('div');
+  finishedContainer.classList.add('finishedContainer');
+  projectInstance.defaultSort(projectPosition);
+  viewTodos();
+
+
+  function createToDoHandler() {
     const checkToDoButton = document.querySelector('.createToDoButton');
 
     if (checkToDoButton) {
@@ -42,8 +58,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainerTitle.appendChild(createToDoButton);
   };
 
-  createToDoHandler(projectPosition);
-  const sortToDoHandler = () => {
+  function sortToDoHandler() {
     const checkSortToDoButton = document.querySelector('.sortDiv');
     if (checkSortToDoButton) {
       checkSortToDoButton.remove();
@@ -67,7 +82,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainerTitle.appendChild(sortDiv);
   };
 
-  const pinToDoHandler = () => {
+  function pinToDoHandler() {
     const checkPinToDoButton = document.querySelector('.pinDiv');
     if (checkPinToDoButton) {
       checkPinToDoButton.remove();
@@ -84,7 +99,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     pinToDoButton.addEventListener('click', () => {
       const val = prompt('Select To Do Index to Pin / Unpin');
       const index = parseInt(val)
-      console.log(projectInstance.getProjectArr()[projectPosition].toDoList.length)
       if (isNaN(index) || typeof index !== 'number' || index >= projectInstance.getProjectArr()[projectPosition].toDoList.length || index < 0) {
         alert('Not A Valid Pin');
         return;
@@ -97,20 +111,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     toDoContainerTitle.appendChild(pinDiv);
   }
 
-  sortToDoHandler();
-  pinToDoHandler();
-
-  const container = document.querySelector('.finishedContainer');
-
-  if (container) {
-    container.remove();
-  }
-
-  const finishedContainer = document.createElement('div');
-  finishedContainer.classList.add('finishedContainer');
-
-  viewTodos();
-
   function viewTodos() {
     toDoContainer.textContent = '';
     toDoContainer.classList.add('grid');
@@ -118,7 +118,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     finishedContainer.textContent = ''
     const finishedTodos = projectInstance.getFinishList(projectPosition)
-    console.log(finishedTodos);
     
     if (todos.length === 0) {
       const p = document.createElement('p');
@@ -141,7 +140,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         } else if (todo.priority === 'medium') {
           toDoSquare.classList.add('medium');
         }
-
+        
         if(todo.pinned === true) {
           toDoSquare.classList.add('pinned');
           const pinIndicator = document.createElement('img');
@@ -153,13 +152,32 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         toDoSquare.addEventListener('click', () => {
           seeToDoDetails(todo, index, projectPosition);
         });
-  
+       
         const toDoIndexAndTitle = document.createElement('h2');
         toDoIndexAndTitle.className = 'toDoItem-title'
         toDoIndexAndTitle.textContent = `${todo.title}`;
-  
+        if (parseISO(todo.dueDate) < startOfToday()) {
+          toDoIndexAndTitle.classList.add('expired')
+          toDoIndexAndTitle.textContent = `${todo.title} !!!`
+        }
         const toDoDueDate = document.createElement('h2');
-        toDoDueDate.textContent = `${todo.dueDate}`;
+        const msDiff = differenceInMilliseconds(new Date(todo.dueDate), new Date());
+        let daysLeft = (msDiff / (1000 * 60 * 60 * 24))
+        daysLeft = Math.ceil(daysLeft);
+        if (daysLeft === 0) {
+          toDoDueDate.textContent = 'Due Today'
+        } else if (daysLeft === 1) {
+          toDoDueDate.textContent = 'Due: 1 day'
+        }
+        
+          else if (daysLeft > 0) {
+          toDoDueDate.textContent = `Due: ${daysLeft} days`
+        } else if (daysLeft < 0 ){
+          toDoDueDate.textContent = `Overdue: ${Math.abs(daysLeft)} days`
+        } else {
+          toDoDueDate.textContent = 'No Due Date'
+        }
+    
         toDoItem.appendChild(toDoSquare);
         toDoItem.appendChild(toDoIndexAndTitle);
         toDoItem.appendChild(toDoDueDate);
@@ -538,10 +556,6 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     finishToDo.addEventListener('click', () => {
       const checkList = todo.checkList
       console.log(checkList);
-      if (checkList.length === 0) {
-        alert('Please Add Actions');
-        return;
-      }
       for (let i in checkList) {
         if (checkList[i].done === false) {
           alert('Pls Complete Your Action List Before Finishing This To Do')

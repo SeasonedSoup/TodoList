@@ -4,7 +4,7 @@ import { DisplayToDoFunc } from "./displayTodos";
 
 export const DisplayProjectFunc = (projectInstance, toDoInstance, checkListInstance) => {
   const projects = projectInstance.getProjectArr();
-  console.log(projects);
+ 
   //resets the dom whenever we update a project, a to do and mor
   (function resetElementsAndReAppendChildren() {
     sidebar.textContent = '';
