@@ -19,7 +19,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
   console.log(toDoContainer);
   toDoContainer.textContent = '';  
 
-  projectText.textContent = `To-Dos of Project: ${projectInstance.getProjectArr()[projectPosition].name} (${projectInstance.getToDoArr(projectPosition).length})`;
+  projectText.textContent = `${projectInstance.getProjectArr()[projectPosition].name} - ${projectInstance.getToDoArr(projectPosition).length} To Do's`;
 
   const toDoContainerTitle = document.querySelector('.toDoTitle');
   toDoContainerTitle.appendChild(projectText);
@@ -163,17 +163,17 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         const toDoDueDate = document.createElement('h2');
         const msDiff = differenceInMilliseconds(new Date(todo.dueDate), new Date());
         let daysLeft = (msDiff / (1000 * 60 * 60 * 24))
+
         daysLeft = Math.ceil(daysLeft);
         if (daysLeft === 0) {
           toDoDueDate.textContent = 'Due Today'
         } else if (daysLeft === 1) {
-          toDoDueDate.textContent = 'Due: 1 day'
+          toDoDueDate.textContent = 'Due in 1 day'
         }
-        
-          else if (daysLeft > 0) {
-          toDoDueDate.textContent = `Due: ${daysLeft} days`
+         else if (daysLeft > 0) {
+          toDoDueDate.textContent = `Due in ${daysLeft} days`
         } else if (daysLeft < 0 ){
-          toDoDueDate.textContent = `Overdue: ${Math.abs(daysLeft)} days`
+          toDoDueDate.textContent = `Overdue by ${Math.abs(daysLeft)} days`
         } else {
           toDoDueDate.textContent = 'No Due Date'
         }

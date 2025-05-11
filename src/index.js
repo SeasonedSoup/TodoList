@@ -8,22 +8,38 @@ import { DisplayToDoFunc } from "./modules/displayTodos";
 import { quoteSwitching } from "./modules/quoteTransition";
 import toggleImg from "./logos/theme-light-dark.svg"
 
-//Tutor Driver Script 
-
-
-
 //========Functionality Load
-document.addEventListener('DOMContentLoaded', () => {
-    const projectInstance = ProjectFunc();
+const projectInstance = ProjectFunc();
 
-    const toDoInstance = ToDoFunc(projectInstance);
+const toDoInstance = ToDoFunc(projectInstance);
 
-    const checkListInstance = checkListFunc(projectInstance);
+const checkListInstance = checkListFunc(projectInstance);
+//======
+//=== Driver Script 
 
+const loadDriver = () => {
+    const defaultProject = JSON.parse(localStorage.getItem('loaded'))
+
+    if(!defaultProject) {
+        projectInstance.addDefaultProjectBeginning('Welcome to Just To Do It!');
+
+        toDoInstance.insertToDoToProject(0,'To Do Tutorial','Use it As Minimally As Possible and for Leisure','','low',);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'These Are Actions', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'Not Required But Will Help', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'Through Breaking it Down to Small Actionable Steps', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'Small Actionable Steps', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'That Is All I Hope This Helps.', false);
+
+        localStorage.setItem('loaded', JSON.stringify(true));
+    }
+}
+
+loadDriver();
+
+(function displayDom() {
     DisplayProjectFunc(projectInstance, toDoInstance, checkListInstance);
     DisplayToDoFunc(0, toDoInstance, projectInstance, checkListInstance);
-});
-//======
+})();
 
 //=====Extras 
 darkModeLogic();

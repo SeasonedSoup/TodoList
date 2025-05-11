@@ -1,6 +1,6 @@
 export const ProjectFunc = () => {
   let projectArr = [];
-
+ 
   const getProjectArr = () => projectArr;
 
   const getFinishList = (projectPosition) => {
@@ -15,6 +15,11 @@ export const ProjectFunc = () => {
     return { name, toDoList, finishList }; //object
   };
 
+  const addDefaultProjectBeginning = (name, toDoList = [], finishList = []) => {
+    const addedProject = createProject(name, toDoList, finishList);
+    projectArr.splice(0, 0, addedProject);
+    saveProjectLocally();
+  }
   const addProjectToProjectArr = (name = "Default Project", toDoList = [], finishList = []) => {
     const addedProject = createProject(name, toDoList, finishList);
     projectArr.push(addedProject);
@@ -113,6 +118,7 @@ export const ProjectFunc = () => {
     getFinishList,
     removeFinishList,
     createProject,
+    addDefaultProjectBeginning,
     addProjectToProjectArr,
     getProjectArr,
     getToDoArr,

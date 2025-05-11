@@ -103,7 +103,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         input.required = true;
         input.autofocus = false;
         input.minLength = 3;
-        input.maxLength = 30;
+        input.maxLength = 50;
 
         const span = document.createElement('span');
         span.className = 'error';
