@@ -118,7 +118,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
 
     finishedContainer.textContent = ''
     const finishedTodos = projectInstance.getFinishList(projectPosition)
-    
+    console.log(finishedTodos);
     if (todos.length === 0) {
       const p = document.createElement('p');
       p.className = 'emptyPara';
@@ -190,6 +190,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
       if(finishedTodos.length === 0) {
         return;
       }
+      
       const completedText = document.createElement('h2') 
       completedText.textContent = ' ✓ Completed (Click Todo to Re-add)';
       completedText.classList.add('completedText');
@@ -231,7 +232,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
         toDoSquare.addEventListener('click', () => {
           finishedTodo.checkList.map(checkbox => checkbox.done = false);
           finishedTodo.dueDate = format(startOfToday(), 'yyyy-MM-dd');
-          toDoInstance.reAddToDo(projectPosition, finishedIndex, finishedTodo.title, finishedTodo.description, finishedTodo.dueDate, finishedTodo.priority, finishedTodo.checkList);
+          toDoInstance.reAddToDo(projectPosition, finishedIndex, finishedTodo.title, finishedTodo.description, finishedTodo.dueDate, finishedTodo.priority, false, finishedTodo.checkList);
           DisplayToDoFunc(projectPosition, toDoInstance, projectInstance, checkListInstance)
         })
 
@@ -562,7 +563,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           return;
         }
       }
-      toDoInstance.finishToDo(projectPosition, toDoIndex, todo.title, todo.description, todo.dueDate, todo.priority, todo.checkList);
+      toDoInstance.finishToDo(projectPosition, toDoIndex, todo.title, todo.description, todo.dueDate, todo.priority, false, todo.checkList);
       DisplayToDoFunc(projectPosition,toDoInstance, projectInstance, checkListInstance);
     });
 

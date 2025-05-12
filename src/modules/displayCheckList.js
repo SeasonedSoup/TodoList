@@ -39,7 +39,6 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
             input.classList.add(checkListArr[i].done.toString());
 
             input.addEventListener('click', () => {
-                console.log('hey your clicking me!')
                 checkListInstance.toggleCheckBox(toDoIndex, projectPosition, i)
                 input.classList.toggle(checkListArr[i].done.toString());
                 displayCheckListFunc(projectInstance, checkListInstance, toDoIndex, projectPosition);
@@ -103,7 +102,7 @@ export const displayCheckListFunc = (projectInstance, checkListInstance, toDoInd
         input.required = true;
         input.autofocus = false;
         input.minLength = 3;
-        input.maxLength = 50;
+        input.maxLength = 30;
 
         const span = document.createElement('span');
         span.className = 'error';

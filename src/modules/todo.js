@@ -63,6 +63,7 @@ export const ToDoFunc = (projectInstance) => {
       return;
     }
     const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
+    console.log(addedToDo);
     projects[projectPosition].finishList.push(addedToDo);
     projectInstance.getProjectArr()[projectPosition].toDoList.splice(toDoIndex, 1);
 
@@ -71,11 +72,12 @@ export const ToDoFunc = (projectInstance) => {
 
   const reAddToDo = (projectPosition, toDoIndex, title, description, dueDate, priority, pinned, checkList) => {
     const projects = projectInstance.getProjectArr();
-
+  
     if(!projects[projectPosition]) {
       return;
     }
     const addedToDo = createToDo(title, description, dueDate, priority, pinned, checkList);
+    console.log(addedToDo);
     projects[projectPosition].toDoList.push(addedToDo);
     projectInstance.getProjectArr()[projectPosition].finishList.splice(toDoIndex, 1);
 

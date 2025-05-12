@@ -26,8 +26,8 @@ const loadDriver = () => {
         toDoInstance.insertToDoToProject(0,'To Do Tutorial','Use it As Minimally As Possible and for Leisure','','low',);
         checkListInstance.insertCheckBoxtoArr(0, 0, 'These Are Actions', false);
         checkListInstance.insertCheckBoxtoArr(0, 0, 'Not Required But Will Help', false);
-        checkListInstance.insertCheckBoxtoArr(0, 0, 'Through Breaking it Down to Small Actionable Steps', false);
-        checkListInstance.insertCheckBoxtoArr(0, 0, 'Small Actionable Steps', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'Through Breaking it Down', false);
+        checkListInstance.insertCheckBoxtoArr(0, 0, 'To Small Actionable Steps', false);
         checkListInstance.insertCheckBoxtoArr(0, 0, 'That Is All I Hope This Helps.', false);
 
         localStorage.setItem('loaded', JSON.stringify(true));
