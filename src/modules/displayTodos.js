@@ -1,4 +1,4 @@
-import { parseISO, startOfToday, format, differenceInMilliseconds } from 'date-fns';
+import { parseISO, startOfToday, format, differenceInCalendarDays } from 'date-fns';
 import sortImg from '../logos/sort.svg';
 import {projectText, overlay, modal, modal_inner, checkListDiv} from './elements';
 import { displayCheckListFunc } from './displayCheckList';
@@ -161,19 +161,17 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           toDoIndexAndTitle.textContent = `${todo.title} !!!`
         }
         const toDoDueDate = document.createElement('h2');
-        const msDiff = differenceInMilliseconds(new Date(todo.dueDate), new Date());
-        let daysLeft = (msDiff / (1000 * 60 * 60 * 24))
+        const calendarDaysDiff = differenceInCalendarDays(parseISO(todo.dueDate), startOfToday());
 
-        daysLeft = Math.ceil(daysLeft);
-        if (daysLeft === 0) {
+        if (calendarDaysDiff === 0) {
           toDoDueDate.textContent = 'Due Today'
-        } else if (daysLeft === 1) {
+        } else if (calendarDaysDiff === 1) {
           toDoDueDate.textContent = 'Due in 1 day'
         }
-         else if (daysLeft > 0) {
-          toDoDueDate.textContent = `Due in ${daysLeft} days`
-        } else if (daysLeft < 0 ){
-          toDoDueDate.textContent = `Overdue by ${Math.abs(daysLeft)} days`
+         else if (calendarDaysDiff > 0) {
+          toDoDueDate.textContent = `Due in ${calendarDaysDiff} days`
+        } else if (calendarDaysDiff < 0 ){
+          toDoDueDate.textContent = `Overdue by ${Math.abs(calendarDaysDiff)} days`
         } else {
           toDoDueDate.textContent = 'No Due Date'
         }
@@ -478,7 +476,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
           }
           break;
         case 'toDoDueDate':
-          if (new Date(input.value) < startOfToday()) {
+          if (parseISO(input.value) < startOfToday()) {
             span.textContent = ('Not A Valid Due Date it has already passed');
           } else {
             span.textContent = '';
@@ -526,7 +524,7 @@ export const DisplayToDoFunc = (projectPosition, toDoInstance, projectInstance, 
     const toDoDueDate = document.createElement('h2');
     if (todo.dueDate !== "No Due Date") {
       console.log(todo.dueDate)
-      toDoDueDate.textContent = `Due Date: ${format(new Date(todo.dueDate), 'PPPP')}`;
+      toDoDueDate.textContent = `Due Date: ${format(parseISO(todo.dueDate), 'PPPP')}`;
     } else {
       toDoDueDate.textContent = 'Due Date: Flexible';
     }
